@@ -1,0 +1,7 @@
+
+.backImg {
+    -fx-fit-to-height: true;
+}
+.number {
+    -fx-text-fill: #ABD8ED;
+}

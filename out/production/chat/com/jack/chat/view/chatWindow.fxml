@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="636.0" prefWidth="1064.0" stylesheets="@chatWindow.css" xmlns="http://javafx.com/javafx/10.0.2-internal" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jack.chat.controller.ChatWindowController">
+    <children>
+        <Pane fx:id="chatPane" layoutX="146.0" layoutY="81.0" prefHeight="537.0" prefWidth="869.0" visible="false" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0">
+            <children>
+
+                <TextArea fx:id="messageEditArea" layoutY="361.0" prefHeight="176.0" prefWidth="605.0" wrapText="true">
+                    <font>
+                        <Font name="YouYuan" size="16.0" />
+                    </font>
+                </TextArea>
+                <ImageView fx:id="img" fitHeight="509.0" fitWidth="266.0" layoutX="606.0" layoutY="-6.0" pickOnBounds="true" preserveRatio="true" />
+                <Button fx:id="messageSendButton" layoutX="516.0" layoutY="488.0" mnemonicParsing="false" onAction="#sendMessage" prefHeight="30.0" prefWidth="77.0" styleClass="sendButton" text="发送">
+                    <font>
+                        <Font name="Microsoft YaHei Bold" size="12.0" />
+                    </font>
+                </Button>
+            <ScrollPane fx:id="scrollPanel" layoutY="1.0" prefHeight="323.0" prefWidth="605.0" styleClass="messageShowArea">
+               <content>
+                  <VBox fx:id="messageShowArea" prefHeight="321.0" prefWidth="583.0" spacing="10" styleClass="messageCell" />
+               </content>
+            </ScrollPane>
+            </children>
+        </Pane>
+        <ScrollPane layoutY="87.0" prefHeight="550.0" prefWidth="196.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="87.0">
+         <content>
+            <VBox fx:id="friendsList" prefHeight="0.0" prefWidth="194.0" />
+         </content>
+        </ScrollPane>
+      <TextField fx:id="userNameField" layoutX="-1.0" layoutY="1.0" prefHeight="30.0" prefWidth="196.0" />
+        <Button fx:id="connectButton" layoutY="36.0" mnemonicParsing="false" onAction="#connectToServer" prefHeight="50.0" prefWidth="196.0" text="连接" />
+    </children>
+</AnchorPane>

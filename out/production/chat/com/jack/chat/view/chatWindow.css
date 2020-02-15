@@ -1,0 +1,16 @@
+.messageShowArea {
+    -fx-background-color: transparent;
+    /*-fx-padding: 0;*/
+    /*-fx-border-insets: 0;*/
+}
+.sendButton {
+
+}
+.scroll-bar {
+    -fx-background-color: ghostwhite;
+}
+
+
+.messageCell {
+    -fx-background-color: white;
+}
