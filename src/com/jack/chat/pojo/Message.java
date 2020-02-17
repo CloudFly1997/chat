@@ -1,4 +1,4 @@
-package com.jack.chat.common;
+package com.jack.chat.pojo;
 
 import java.io.Serializable;
 

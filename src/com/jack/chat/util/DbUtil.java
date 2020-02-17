@@ -1,8 +1,6 @@
 package com.jack.chat.util;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class DbUtil {
 	public static Connection getConnection() {
@@ -16,6 +14,22 @@ public class DbUtil {
 			e.printStackTrace();
 		}
 		return connection;
+	}
+
+	public static void close(Connection conn, ResultSet rs, PreparedStatement ps) {
+		try {
+			if(rs != null) {
+				rs.close();
+			}
+			if (ps != null) {
+				ps.close();
+			}
+			if(conn != null) {
+				conn.close();
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
 	}
 
 }

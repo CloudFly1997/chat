@@ -1,7 +1,6 @@
-package com.jack.chat.common;
+package com.jack.chat.util;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.jack.chat.pojo.Message;
 
 public class MessageHandle {
 	private static String splitCode = "@AA@";

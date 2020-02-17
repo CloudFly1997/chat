@@ -1,17 +1,18 @@
 package com.jack.chat.controller;
 
-import com.jack.chat.common.MessageHandle;
-import com.jack.chat.common.PlaySound;
-import com.jack.chat.service.ReceiveMessageService;
+import com.jack.chat.util.MessageHandle;
+import com.jack.chat.util.PlaySound;
 import com.jack.chat.util.MessageUtil;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.fxml.FXML;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Text;
 import javafx.scene.text.TextFlow;
 
 import java.io.DataInputStream;
@@ -40,6 +41,7 @@ public class ChatWindowController implements Initializable {
     public boolean connect_state;
     public StringBuilder getMessage;
     public Alert alert;
+    public ListView friendList1;
 
 
     public void sendMessage() throws IOException {
@@ -79,6 +81,10 @@ public class ChatWindowController implements Initializable {
                 scrollPanel.setVvalue(1);
             }
         });
+        ObservableList<Button> list = FXCollections.observableArrayList(new Button("1"),new Button("2"),new Button("3"),new Button("1"),new Button("2"),new Button("3")
+        ,new Button("1"),new Button("2"),new Button("3"),new Button("1"),new Button("2"),new Button("3"),new Button("1"),new Button("2"),new Button("3"),new Button("1"),new Button("2"),new Button("3")
+        ,new Button("1"),new Button("2"),new Button("3"));
+        friendList1.setItems(list);
         connect_state = false;
     }
 

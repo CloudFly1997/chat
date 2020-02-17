@@ -4,7 +4,7 @@ import javafx.scene.Node;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.VBox;
 
-public class SelfPanel {
+public class ChatContentPane {
     public static Node dialogBox() {
         ScrollPane scrollPane = new ScrollPane();
         scrollPane.setPrefWidth(605);

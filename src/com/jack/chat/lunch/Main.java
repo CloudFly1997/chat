@@ -15,13 +15,13 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent chatWindow = FXMLLoader.load(getClass().getResource("../view/chatWindow.fxml"));
+        //Parent chatWindow = FXMLLoader.load(getClass().getResource("../view/chatWindow.fxml"));
         Parent login = FXMLLoader.load(getClass().getResource("../view/login.fxml"));
         primaryStage.setTitle("chat");
         Scene loginScene = new Scene(login);
-        Scene scene = new Scene(chatWindow);
+        //Scene scene = new Scene(chatWindow);
         JMetro loginTheme = new JMetro(login, Style.LIGHT);
-        JMetro jMetro = new JMetro(chatWindow, Style.LIGHT);
+        //JMetro jMetro = new JMetro(chatWindow, Style.LIGHT);
         primaryStage.setScene(loginScene);
         primaryStage.setOnCloseRequest(event -> {
             event.consume();

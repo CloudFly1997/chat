@@ -1,16 +1,11 @@
 package com.jack.chat.util;
 
-import com.jack.chat.common.MessageHandle;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Border;
 import javafx.scene.layout.HBox;
-import javafx.scene.text.Font;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
 public class MessageUtil {
