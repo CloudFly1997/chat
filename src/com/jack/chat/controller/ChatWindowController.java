@@ -1,19 +1,33 @@
 package com.jack.chat.controller;
 
+import com.jack.chat.common.ChatPaneHolder;
+import com.jack.chat.common.Session;
+import com.jack.chat.common.SessionHolder;
+import com.jack.chat.component.ChatPane;
+import com.jack.chat.component.FriendPane;
+import com.jack.chat.pojo.User;
+import com.jack.chat.service.ReceiveMessageService;
+import com.jack.chat.service.UserService;
+import com.jack.chat.service.imp.UserServiceImp;
 import com.jack.chat.util.MessageHandle;
 import com.jack.chat.util.PlaySound;
 import com.jack.chat.util.MessageUtil;
+import com.jfoenix.controls.JFXTextField;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.fxml.FXMLLoader;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.control.*;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.TextFlow;
+import javafx.stage.Window;
+
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -21,7 +35,7 @@ import java.io.IOException;
 import java.net.*;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.Random;
+import java.util.List;
 import java.util.ResourceBundle;
 
 public class ChatWindowController implements Initializable {
@@ -29,11 +43,9 @@ public class ChatWindowController implements Initializable {
 
     public ScrollPane scrollPanel;
     public TextArea messageEditArea;
-    public VBox friendsList;
     public VBox messageShowArea;
     public Pane chatPane;
     public String toUser;
-    public Socket createSocket;
     public DataInputStream dis;
     public DataOutputStream dos;
     public TextField userNameField;
@@ -41,7 +53,10 @@ public class ChatWindowController implements Initializable {
     public boolean connect_state;
     public StringBuilder getMessage;
     public Alert alert;
-    public ListView friendList1;
+    public VBox friendListPane;
+    public AnchorPane whole;
+    private Double offsetX;
+    private Double offsetY;
 
 
     public void sendMessage() throws IOException {
@@ -58,9 +73,7 @@ public class ChatWindowController implements Initializable {
                 message = MessageHandle.afterHandleMessage(userName, toUser, date, messageEditArea.getText());
                 dos.writeUTF(message);
                 dos.flush();
-                //TextFlow textFlow = new TextFlow(new Button());
                 TextFlow textFlow = (TextFlow) MessageUtil.assembleMessage(message, true);
-                friendsList.getChildren().add(new Button());
                 messageShowArea.getChildren().add(textFlow);
                 messageEditArea.clear();
             }
@@ -74,57 +87,52 @@ public class ChatWindowController implements Initializable {
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
-        addFriends();
+        whole.setOnMousePressed(event -> {
+            Window window = whole.getScene().getWindow();
+            //             鼠标在屏幕中的坐标，    窗体在屏幕中的坐标
+            this.offsetX = event.getScreenX() - window.getX();
+            this.offsetY = event.getScreenY() - window.getY();
+        });
+        whole.setOnMouseDragged(event -> {
+            Window window = whole.getScene().getWindow();
+            //   新的鼠标位置-旧的鼠标位置+旧的窗体位置
+            // = 鼠标的偏移量+旧的窗体位置
+            window.setX(event.getScreenX() - this.offsetX);
+            window.setY(event.getScreenY() - this.offsetY);
+        });
         messageShowArea.heightProperty().addListener(new ChangeListener<Number>() {
             @Override
             public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
                 scrollPanel.setVvalue(1);
             }
         });
-        ObservableList<Button> list = FXCollections.observableArrayList(new Button("1"),new Button("2"),new Button("3"),new Button("1"),new Button("2"),new Button("3")
-        ,new Button("1"),new Button("2"),new Button("3"),new Button("1"),new Button("2"),new Button("3"),new Button("1"),new Button("2"),new Button("3"),new Button("1"),new Button("2"),new Button("3")
-        ,new Button("1"),new Button("2"),new Button("3"));
-        friendList1.setItems(list);
-        connect_state = false;
-    }
-
-    public void addFriends() {
-        Random random = new Random();
-        int r = random.nextInt(20);
-        for (int i = 0; i <= r; i++) {
-            String friendName = "好友" + i;
-            Button button = new Button(friendName);
-            button.setPrefHeight(78);
-            button.setPrefWidth(194);
-            button.setId(friendName);
-            button.setOnAction(event -> {
-                toUser = button.getId();
-                chatPane.setVisible(true);
-                chatPane.setManaged(true);
+        Session session = SessionHolder.getInstance().getSession();
+        dis = session.getDis();
+        dos = session.getDos();
+        ChatPaneHolder chatPaneHolder = ChatPaneHolder.getInstance();
+        UserService userService = new UserServiceImp();
+        List<User> friendsList = userService.getFriendsList(session.getUser().getAccount());
+        for (User user : friendsList) {
+            FriendPane friendPane = new FriendPane(user);
+            friendPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if(!chatPaneHolder.contain(friendPane.getUser())){
+                        ChatPane chatPane = new ChatPane(friendPane.getUser());
+                        chatPaneHolder.addChatPane(friendPane.getUser(), chatPane);
+                    }
+                    whole.getChildren().remove(chatPaneHolder.getCurrentChatPane());
+                    whole.getChildren().add(chatPaneHolder.getChatPane(friendPane.getUser()));
+                    chatPaneHolder.setCurrentChatPane(friendPane.getUser());
+                }
             });
-            friendsList.getChildren().add(button);
+            friendListPane.getChildren().add(friendPane);
         }
-    }
 
-    public void connectToServer() { //
-        try {
-            createSocket = new Socket("127.0.0.1", 8888);
-            dis = new DataInputStream(createSocket.getInputStream());
-            dos = new DataOutputStream(createSocket.getOutputStream());
-            userName = userNameField.getText();
-            dos.writeUTF(userName);
-            //new Thread(new ReceiveMessageThread()).start();
-            connect_state = true;
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setContentText("连接成功");
-            alert.showAndWait();
-            //ReceiveMessageService receiveMessageService = new ReceiveMessageService(messageShowArea, dis);
-            //receiveMessageService.start();
-        } catch (UnknownHostException e) {
-            alert.setContentText("无法连接服务器");
-        } catch (IOException e) {
-            alert.setContentText("程序出错");
-        }
+        connect_state = true;
+
+        ReceiveMessageService receiveMessageService = new ReceiveMessageService(messageShowArea, dis);
+        receiveMessageService.start();
     }
 
     public void receiveMessage() {

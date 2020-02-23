@@ -14,3 +14,11 @@
 .messageCell {
     -fx-background-color: white;
 }
+.main {
+    -fx-background-color: honeydew;
+    -fx-border-radius: 100;
+}
+
+.friendList .list-cell {
+    -fx-padding: 0px;
+}

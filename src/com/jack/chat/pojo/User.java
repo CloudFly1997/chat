@@ -4,21 +4,27 @@ public class User {
     private String account;
     private String password;
     private String nickName;
+    private String gender;
     private String birthday;
     private String address;
     private Integer phoneNumber;
     private String email;
     private String signature;
 
-    public User(String account, String password, String nickName, String birthday, String address, Integer phoneNumber, String email, String signature) {
+    public User(String account,  String nickName, String gender, String birthday, String address, Integer phoneNumber, String email, String signature) {
         this.account = account;
         this.password = password;
         this.nickName = nickName;
+        this.gender = gender;
         this.birthday = birthday;
         this.address = address;
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.signature = signature;
+    }
+
+    public User() {
+
     }
 
     public String getAccount() {
