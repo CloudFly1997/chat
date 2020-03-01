@@ -14,10 +14,11 @@ public class Main extends Application {
 
     @Override
     public void start(Stage primaryStage) throws Exception{
-        Parent login = FXMLLoader.load(getClass().getResource("../view/login.fxml"));
+        Parent login = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         primaryStage.setTitle("chat");
         primaryStage.initStyle(StageStyle.TRANSPARENT);
         Scene loginScene = new Scene(login);
+        loginScene.getStylesheets().add(Main.class.getResource("/fxml/bootstrapfx.css").toExternalForm());
         new JMetro(loginScene, Style.LIGHT);
         primaryStage.setScene(loginScene);
         primaryStage.setOnCloseRequest(event -> {

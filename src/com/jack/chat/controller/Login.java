@@ -5,28 +5,23 @@ import com.jack.chat.common.SessionHolder;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImp;
-import com.jfoenix.controls.JFXButton;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.*;
-import javafx.scene.image.Image;
+import javafx.scene.control.Alert;
+import javafx.scene.control.PasswordField;
+import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
-import jfxtras.styles.jmetro.FlatAlert;
-import jfxtras.styles.jmetro.JMetro;
-import jfxtras.styles.jmetro.JMetroStyleClass;
-import jfxtras.styles.jmetro.Style;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.Socket;
 import java.net.URL;
-import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
 public class Login implements Initializable {
@@ -37,7 +32,6 @@ public class Login implements Initializable {
     public PasswordField password;
 
     UserService userService = new UserServiceImp();
-    FlatAlert alert = new FlatAlert(Alert.AlertType.ERROR);
     Session session;
     private Double offsetX;
     private Double offsetY;
@@ -70,22 +64,20 @@ public class Login implements Initializable {
                 SessionHolder sessionHolder = SessionHolder.getInstance();
                 sessionHolder.setSession(session);
                 Stage chatStage = (Stage) loginPane.getScene().getWindow();
-                Parent chatWindow = FXMLLoader.load(getClass().getResource("../view/chatWindow.fxml"));
+                Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow.fxml"));
                 Scene scene = new Scene(chatWindow);
-                //new JMetro(scene, Style.LIGHT);
                 chatStage.setScene(scene);
                 chatStage.show();
             }
         } else {
-            alert.setContentText("账号密码有误！");
-            alert.showAndWait();
+            System.out.println(1);
         }
     }
 
     public boolean connectToServer() { //
         boolean success = false;
         try {
-            Socket createSocket = new Socket("127.0.0.1", 8888);
+            Socket createSocket = new Socket("101.37.76.215", 8888);
             DataInputStream dis = new DataInputStream(createSocket.getInputStream());
             DataOutputStream dos = new DataOutputStream(createSocket.getOutputStream());
             session.setDis(dis);
@@ -97,8 +89,7 @@ public class Login implements Initializable {
             alert.showAndWait();
             success = true;
         } catch (Exception e) {
-            alert.setContentText("无法连接服务器");
-            alert.showAndWait();
+            e.printStackTrace();
         }
         return success;
     }

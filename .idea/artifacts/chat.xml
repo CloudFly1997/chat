@@ -1,5 +1,5 @@
 <component name="ArtifactManager">
-  <artifact type="javafx" name="chat">
+  <artifact type="javafx" build-on-make="true" name="chat">
     <output-path>$PROJECT_DIR$/out/artifacts/chat</output-path>
     <properties id="javafx-properties">
       <options>
@@ -16,6 +16,11 @@
       <element id="archive" name="chat.jar">
         <element id="module-output" name="chat" />
       </element>
+      <element id="library" level="project" name="fontawesomefx-fontawesome-4.7.0-9.1.2" />
+      <element id="library" level="project" name="ikonli-fontawesome5-pack-2.4.0" />
+      <element id="library" level="project" name="jfoenix-8.0.8" />
+      <element id="library" level="project" name="jmetro-8.6.8" />
+      <element id="library" level="project" name="mysql-connector-java-5.1.45-bin" />
     </root>
   </artifact>
 </component>

@@ -1,21 +1,21 @@
 package com.jack.chat.service;
 
-import com.jack.chat.util.MessageUtil;
+import com.jack.chat.common.ChatPaneHolder;
+import com.jack.chat.common.FriendPaneHolder;
+import com.jack.chat.common.SessionHolder;
+import com.jack.chat.component.ChatPane;
+import com.jack.chat.component.MessageCarrier;
+import com.jack.chat.util.MessageHandle;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
-import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
-import java.io.DataInputStream;
 
 public class ReceiveMessageService extends ScheduledService<String> {
 
-    VBox vbox;
-    DataInputStream dataInputStream;
+    private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
 
-    public ReceiveMessageService(VBox vBox, DataInputStream dataInputStream) {
-        this.vbox = vBox;
-        this.dataInputStream = dataInputStream;
+    public ReceiveMessageService() {
         this.setPeriod(Duration.seconds(0));
     }
 
@@ -28,17 +28,27 @@ public class ReceiveMessageService extends ScheduledService<String> {
     @Override
     protected Task<String> createTask() {
         Task<String> task = new Task<String>() {
+            /**
+             * 接收到消息，更新chatPane
+             * @param value
+             */
             @Override
             protected void updateValue(String value) {
                 super.updateValue(value);
-                //playSound.playSoundWhenReceiveMessage();
                 System.out.println(value);
-                vbox.getChildren().add(MessageUtil.assembleMessage(value,false));
+                String from = MessageHandle.getFrom(value);
+                ChatPane chatPane = ChatPaneHolder.getInstance().getChatPane(from);
+                //如果当前聊天面板为空
+                if (chatPane == null) {
+                    friendPaneHolder.getFriendPane(from).messageOffer(MessageHandle.getContent(value));
+                } else {
+                    chatPane.getVBox().getChildren().add(new MessageCarrier(MessageHandle.getContent(value)));
+                }
             }
 
             @Override
             protected String call() throws Exception {
-                String getMessageFromServer = dataInputStream.readUTF();
+                String getMessageFromServer = SessionHolder.getInstance().getSession().getDis().readUTF();
                 return getMessageFromServer;
             }
         };

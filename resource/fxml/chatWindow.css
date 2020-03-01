@@ -9,7 +9,7 @@
 /*
 好友列表昵称
  */
-#nickName {
+.nickName {
     -fx-padding: 5 10;
     -fx-text-fill: #111111;
     -fx-font-family: 'Microsoft YaHei UI Light';
@@ -27,7 +27,7 @@
 /*
 个性签名
  */
-#signature {
+.signature {
     -fx-padding: 10 10;
     -fx-text-fill: #aaaaaa;
     -fx-font-family: 'Microsoft YaHei UI Light';

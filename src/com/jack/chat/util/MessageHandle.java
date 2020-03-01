@@ -10,8 +10,6 @@ public class MessageHandle {
 		String result = from + splitCode + to + splitCode + date + splitCode + content;
 		return result;
 	}
-
-
 	public static String messageShow(String message) {
 		String from = message.split(splitCode)[0];
 		String date = message.split(splitCode)[2];
@@ -32,4 +30,11 @@ public class MessageHandle {
 		return messageObj;
 	}
 
+	public static String getFrom(String originMessage) {
+		return originMessage.split(splitCode)[0];
+	}
+
+	public static String getContent(String originMessage) {
+		return originMessage.split(splitCode)[3];
+	}
 }
