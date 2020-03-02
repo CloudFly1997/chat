@@ -6,7 +6,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.stage.StageStyle;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.Style;
 
@@ -16,9 +15,9 @@ public class Main extends Application {
     public void start(Stage primaryStage) throws Exception{
         Parent login = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         primaryStage.setTitle("chat");
-        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        //primaryStage.initStyle(StageStyle.TRANSPARENT);
         Scene loginScene = new Scene(login);
-        loginScene.getStylesheets().add(Main.class.getResource("/fxml/bootstrapfx.css").toExternalForm());
+        loginScene.getStylesheets().add(Main.class.getResource("/fxml/chatWindow.css").toExternalForm());
         new JMetro(loginScene, Style.LIGHT);
         primaryStage.setScene(loginScene);
         primaryStage.setOnCloseRequest(event -> {

@@ -64,7 +64,7 @@ public class Login implements Initializable {
                 SessionHolder sessionHolder = SessionHolder.getInstance();
                 sessionHolder.setSession(session);
                 Stage chatStage = (Stage) loginPane.getScene().getWindow();
-                Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow.fxml"));
+                Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));
                 Scene scene = new Scene(chatWindow);
                 chatStage.setScene(scene);
                 chatStage.show();

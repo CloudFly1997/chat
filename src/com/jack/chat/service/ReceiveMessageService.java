@@ -38,6 +38,7 @@ public class ReceiveMessageService extends ScheduledService<String> {
                 System.out.println(value);
                 String from = MessageHandle.getFrom(value);
                 ChatPane chatPane = ChatPaneHolder.getInstance().getChatPane(from);
+                friendPaneHolder.getFriendPane(from).getChatRecordBox().getChildren().add(new MessageCarrier(MessageHandle.getContent(value)));
                 //如果当前聊天面板为空
                 if (chatPane == null) {
                     friendPaneHolder.getFriendPane(from).messageOffer(MessageHandle.getContent(value));

@@ -2,12 +2,10 @@ package com.jack.chat.component;
 
 
 import com.jack.chat.pojo.User;
-import javafx.event.EventHandler;
 import javafx.geometry.Insets;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -22,23 +20,17 @@ import java.util.Queue;
 public class FriendPane extends Pane {
     private Queue<String> messageQueen;
     private User user;
+    private VBox chatRecordBox;
     public FriendPane(User user) {
         this.user = user;
+        init();
+    }
+    private void init(){
         HBox hBox = new HBox(1);
         hBox.setPrefSize(310,100);
         hBox.setStyle("-fx-background-color:#ABD8ED");
-        hBox.setOnMouseEntered(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                hBox.setStyle("-fx-background-color: #039ED3");
-            }
-        });
-        hBox.setOnMouseExited(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                hBox.setStyle("-fx-background-color:#ABD8ED");
-            }
-        });
+        hBox.setOnMouseEntered(event -> hBox.setStyle("-fx-background-color: #039ED3"));
+        hBox.setOnMouseExited(event -> hBox.setStyle("-fx-background-color:#ABD8ED"));
         ImageView imageView = new ImageView();
         imageView.getStyleClass().add("friendAvatar");
         imageView.setFitHeight(hBox.getPrefHeight() - 20);
@@ -57,9 +49,13 @@ public class FriendPane extends Pane {
         this.getChildren().add(hBox);
         this.setId(user.getAccount());
         messageQueen = new LinkedList<>();
+        chatRecordBox = new VBox(5);
 
     }
 
+    public VBox getChatRecordBox() {
+        return chatRecordBox;
+    }
 
     public User getUser() {
         return user;

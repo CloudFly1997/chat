@@ -1,5 +1,6 @@
 package com.jack.chat.component;
 
+import javafx.fxml.Initializable;
 import javafx.scene.Cursor;
 import javafx.scene.Parent;
 import javafx.stage.Stage;
@@ -9,7 +10,7 @@ import javafx.stage.Stage;
  *
  * 所有窗口的父类
  */
-public abstract class window extends Stage {
+public abstract class BaseWindow extends Stage implements Initializable {
     Parent root;
     private double xOffset;
     private double yOffset;

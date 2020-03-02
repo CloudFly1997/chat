@@ -1,0 +1,103 @@
+.root{
+    -fx-background-color: white;
+    -fx-background-radius: 50px;
+    -fx-border-radius: 50px;
+}
+.close, .close:hover,.max, .max:hover, .min, .min:hover, .send-img, .send-img:hover, .send-file, .send-file:hover, .send-button {
+    -fx-cursor: hand;
+}
+.close {
+    -fx-background-image: url('../icon/close-white.png');
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+.close:hover {
+    -fx-background-image: url("../icon/close-gray.png");
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+.max {
+    -fx-background-image:  url("../icon/maximize-white.png");
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+.max:hover {
+    -fx-background-image:  url("../icon/maximize-gray.png");
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+.min {
+    -fx-background-image: url("../icon/minimize-white.png");
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+.min:hover {
+    -fx-background-image:  url("../icon/minimize-gray.png");
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+TextArea {
+    -fx-indent: 5s;
+}
+.chatPaneBar{
+    -fx-background-color: #F8F8FF;
+}
+
+.chatWith{
+    -fx-font-family: "Font Awesome 5 Brands";
+    -fx-font-weight: 100;
+    -fx-font-size: 30;
+}
+.send-file {
+    -fx-graphic: url("../icon/send-file-blue.png");
+}
+
+.send-file:hover {
+    -fx-graphic: url("../icon/send-file-gray.png");
+}
+
+.send-img{
+    -fx-graphic: url("../icon/send-image-blue.png");
+}
+.send-img:hover {
+    -fx-graphic: url("../icon/send-image-gray.png");
+}
+.search-field {
+    -fx-indent: 5;
+}
+.search-icon{
+    -fx-graphic: url("../icon/搜索.png");
+}
+.search-field{
+
+    -fx-background-radius: 15px;
+}
+.messageAreaScrollPane {
+    -fx-background-color: #1E90FF;
+}
+.messageAreaScrollPane .viewport {
+    -fx-background-color: #FFFFFF
+}
+
+.messageEditArea{
+    -fx-background-color: #1E90FF;
+    -fx-font-size: 25px;
+    -fx-font-family: "Font Awesome 5 Brands";
+}
+.messageEditArea .content {
+    -fx-background-color: #FFFFFF;
+}
+
+.send-button{
+    -fx-font-family: "Font Awesome 5 Brands";
+    -fx-font-weight: bolder;
+    -fx-text-fill: white;
+    -fx-background-color:#6495ED;
+}
+
