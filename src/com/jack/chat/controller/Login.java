@@ -77,7 +77,7 @@ public class Login implements Initializable {
     public boolean connectToServer() { //
         boolean success = false;
         try {
-            Socket createSocket = new Socket("101.37.76.215", 8888);
+            Socket createSocket = new Socket("127.0.0.1", 8888);
             DataInputStream dis = new DataInputStream(createSocket.getInputStream());
             DataOutputStream dos = new DataOutputStream(createSocket.getOutputStream());
             session.setDis(dis);

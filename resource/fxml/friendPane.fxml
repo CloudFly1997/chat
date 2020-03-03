@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root fx:id="root" styleClass="hBox" stylesheets="@../css/friendPaneCss.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <ImageView fx:id="friendAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="avatar">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" top="5.0" />
+         </HBox.margin>
+      </ImageView>
+      <VBox fx:id="nickNameAndSignature" prefHeight="112.0" prefWidth="196.0">
+         <children>
+            <Label fx:id="nickName" styleClass="nick-name" text="昵称">
+               <padding>
+                  <Insets left="20.0" top="20.0" />
+               </padding>
+            </Label>
+            <Label fx:id="signature" styleClass="signature" text="个性签名">
+               <padding>
+                  <Insets left="20.0" top="30.0" />
+               </padding>
+            </Label>
+         </children>
+      </VBox>
+      <Label fx:id="unReadMessageCountLabel" alignment="CENTER" prefHeight="113.0" prefWidth="111.0"
+             styleClass="unReadMessageCount" text="1" />
+   </children>
+</fx:root>

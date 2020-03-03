@@ -9,7 +9,26 @@
     </artifacts-to-build>
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="聊天组件完成了消息内容部分，完成了聊天组件的容器，空指针异常未修复" />
+    <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="聊天组件完成了消息内容部分，完成了聊天组件的容器，空指针异常未修复">
+      <change afterPath="$PROJECT_DIR$/resource/css/friendPaneCss.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/fxml/friendPane.fxml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/redPot.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/FriendPaneController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/css/mainWindowCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/resource/css/mainWindowCss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/fxml/chatWindow2.0.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/chatWindow2.0.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/FriendPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/MessageCarrier.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/MessageCarrier.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/ChatWindowController.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/ChatWindowController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/Login.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/service/ReceiveMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/service/ReceiveMessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/view/base.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/view/chatWindow.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/view/chatWindow.fxml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/view/login.css" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/view/login.fxml" beforeDir="false" />
+    </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -66,8 +85,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="Interface" />
-        <option value="FxmlFile" />
         <option value="CSS File" />
+        <option value="FxmlFile" />
         <option value="Class" />
       </list>
     </option>
@@ -358,7 +377,7 @@
       <workItem from="1582983011377" duration="2039000" />
       <workItem from="1582985481477" duration="4592000" />
       <workItem from="1583060955840" duration="15196000" />
-      <workItem from="1583147329286" duration="9532000" />
+      <workItem from="1583147329286" duration="27984000" />
     </task>
     <servers />
   </component>
@@ -427,10 +446,10 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="399" y="100" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog/0.0.1536.824@0.0.1536.824" timestamp="1581265036134" />
-    <state x="574" y="129" key="#com.intellij.ide.util.MemberChooser" timestamp="1583163811621">
+    <state x="574" y="129" key="#com.intellij.ide.util.MemberChooser" timestamp="1583217737350">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="129" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1583163811621" />
+    <state x="574" y="129" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1583217737350" />
     <state x="519" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1582729031769">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -459,22 +478,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1582985404127" />
-    <state width="1493" height="196" key="GridCell.Tab.0.bottom" timestamp="1583168179307">
+    <state width="1493" height="188" key="GridCell.Tab.0.bottom" timestamp="1583251547713">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="196" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583168179307" />
-    <state width="1493" height="196" key="GridCell.Tab.0.center" timestamp="1583168179307">
+    <state width="1493" height="188" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583251547713" />
+    <state width="1493" height="188" key="GridCell.Tab.0.center" timestamp="1583251547713">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="196" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583168179307" />
-    <state width="1493" height="196" key="GridCell.Tab.0.left" timestamp="1583168179307">
+    <state width="1493" height="188" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583251547713" />
+    <state width="1493" height="188" key="GridCell.Tab.0.left" timestamp="1583251547713">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="196" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583168179307" />
-    <state width="1493" height="196" key="GridCell.Tab.0.right" timestamp="1583168179307">
+    <state width="1493" height="188" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583251547713" />
+    <state width="1493" height="188" key="GridCell.Tab.0.right" timestamp="1583251547713">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="196" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583168179307" />
+    <state width="1493" height="188" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583251547713" />
     <state width="1493" height="151" key="GridCell.Tab.1.bottom" timestamp="1582912240105">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -511,9 +530,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="178" y="29" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1581869007347" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1582961244696">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1583249477260">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1582961244696" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1583249477260" />
   </component>
 </project>

@@ -1,10 +1,6 @@
 package com.jack.chat.component;
 
-import com.jfoenix.controls.JFXTextArea;
-import com.jfoenix.controls.JFXTextField;
-import javafx.css.PseudoClass;
 import javafx.scene.control.TextArea;
-import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
@@ -13,6 +9,9 @@ import javafx.scene.text.TextAlignment;
 import javafx.scene.text.TextFlow;
 
 
+/**
+ * @author jack
+ */
 public class MessageCarrier extends TextFlow {
     ImageView avatar = new ImageView();
     TextArea stringMessage = new TextArea();

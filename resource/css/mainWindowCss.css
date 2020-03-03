@@ -3,8 +3,14 @@
     -fx-background-radius: 50px;
     -fx-border-radius: 50px;
 }
-.close, .close:hover,.max, .max:hover, .min, .min:hover, .send-img, .send-img:hover, .send-file, .send-file:hover, .send-button {
+.close, .close:hover,.max, .max:hover, .min, .min:hover, .send-img, .send-img:hover, .send-file, .send-file:hover, .send-button ,user-name{
     -fx-cursor: hand;
+}
+.user-name {
+    -fx-text-fill: white;
+    -fx-font-family: "Font Awesome 5 Brands";
+    -fx-font-size: 20;
+
 }
 .close {
     -fx-background-image: url('../icon/close-white.png');
@@ -42,6 +48,7 @@
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
 }
+
 TextArea {
     -fx-indent: 5s;
 }
@@ -89,6 +96,9 @@ TextArea {
     -fx-background-color: #1E90FF;
     -fx-font-size: 25px;
     -fx-font-family: "Font Awesome 5 Brands";
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+    -fx-wrap-text: true;
 }
 .messageEditArea .content {
     -fx-background-color: #FFFFFF;

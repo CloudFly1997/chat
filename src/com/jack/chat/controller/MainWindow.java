@@ -4,17 +4,19 @@ import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.common.Session;
 import com.jack.chat.common.SessionHolder;
 import com.jack.chat.component.FriendPane;
+import com.jack.chat.component.MessageCarrier;
 import com.jack.chat.pojo.User;
+import com.jack.chat.service.ReceiveMessageService;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImp;
+import com.jack.chat.util.MessageHandle;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.SplitPane;
-import javafx.scene.control.TabPane;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
@@ -23,7 +25,10 @@ import javafx.stage.Stage;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.io.IOException;
 import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -85,6 +90,8 @@ public class MainWindow implements Initializable {
     public DataInputStream dis;
     public DataOutputStream dos;
     public User currentChatWith;
+    public Label userName;
+    public TextArea messageEditArea;
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
 
 
@@ -113,20 +120,51 @@ public class MainWindow implements Initializable {
         session = SessionHolder.getInstance().getSession();
         user = session.getUser();
         userAvatar.setImage(new Image("img/下载.jpg"));
+        userName.setText(user.getNickName());
         dis = session.getDis();
         dos = session.getDos();
         UserService userService = new UserServiceImp();
         List<User> friendsList = userService.getFriendsList(session.getUser().getAccount());
         for (User user : friendsList) {
-            FriendPane friendPane = new FriendPane(user);
-            friendPane.setOnMouseClicked(event -> {
-                if(currentChatWith != friendPane.getUser()){
-                    messageAreaScrollPane.setContent(friendPane.getChatRecordBox());
-                }
-            });
+            FriendPane friendPane = null;
+            try {
+                friendPane = new FriendPane(user);
+                friendPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                    @Override
+                    public void handle(MouseEvent event) {
+                        System.out.println(1);
+                        setChatWith(user);
+                    }
+                });
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             friendPaneHolder.addFriendPane(user.getAccount(), friendPane);
             friendList.getChildren().add(friendPane);
         }
+        ReceiveMessageService receiveMessageService = new ReceiveMessageService();
+        receiveMessageService.start();
     }
 
+    public void setChatWith(User user) {
+        if (user != currentChatWith) {
+            this.currentChatWith = user;
+            this.chatWith.setText(user.getNickName());
+            chatWith.setText(user.getNickName());
+            messageAreaScrollPane.setContent(friendPaneHolder.getFriendPane(user.getAccount()).getChatRecordBox());
+        }
+    }
+
+    public void sendMessage() throws IOException {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date now = new Date();
+        String date = dateFormat.format(now);
+        String originMessage = messageEditArea.getText();
+        String message = MessageHandle.afterHandleMessage(user.getAccount(), currentChatWith.getAccount(), date,
+                originMessage);
+        dos.writeUTF(message);
+        dos.flush();
+        messageEditArea.clear();
+        friendPaneHolder.getFriendPane(currentChatWith.getAccount()).getChatRecordBox().getChildren().add(new MessageCarrier(true,originMessage));
+    }
 }

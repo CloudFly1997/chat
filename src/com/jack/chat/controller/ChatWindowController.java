@@ -11,24 +11,20 @@ import com.jack.chat.service.ReceiveMessageService;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImp;
 import com.jack.chat.util.PlaySound;
-
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.scene.control.*;
+import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
-import java.net.*;
+import java.io.IOException;
+import java.net.URL;
 import java.util.List;
 import java.util.Queue;
 import java.util.ResourceBundle;
@@ -66,14 +62,12 @@ public class ChatWindowController implements Initializable {
             Stage stage = (Stage) whole.getScene().getWindow();
             stage.setIconified(true);
         });
-
         // 最大化
         maximize.setOnMouseClicked(event -> {
             Stage stage = (Stage) whole.getScene().getWindow();
             // 最大化，取消最大化
             stage.setMaximized(stage.maximizedProperty().not().get());
         });
-
         whole.setOnMousePressed(event -> {
             Window window = whole.getScene().getWindow();
             //             鼠标在屏幕中的坐标，    窗体在屏幕中的坐标
@@ -99,13 +93,12 @@ public class ChatWindowController implements Initializable {
         UserService userService = new UserServiceImp();
         List<User> friendsList = userService.getFriendsList(session.getUser().getAccount());
         for (User user : friendsList) {
-            FriendPane friendPane = new FriendPane(user);
-            friendPane.setOnMouseClicked(event -> {
-                Queue<String> messageQueue = friendPane.getMessageQueen();
-
-                setChatPane(messageQueue, friendPane.getUser());
-            });
-            friendPaneHolder.addFriendPane(user.getAccount(), friendPane);
+            FriendPane friendPane = null;
+            try {
+                friendPane = new FriendPane(user);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
             friendListPane.getChildren().add(friendPane);
         }
         connect_state = true;
@@ -119,12 +112,6 @@ public class ChatWindowController implements Initializable {
             chatPaneHolder.addChatPane(user.getAccount(), chatPane);
         }
         ChatPane chatPane = chatPaneHolder.getChatPane(user.getAccount());
-        /**
-         * 铭记这个低级错误！！！
-         */
-        /*for (int i = 0; i<messageQueue.size(); i++) {
-            messageQueue.poll();
-        }*/
         while (!messageQueue.isEmpty()) {
             chatPane.setMessage(messageQueue.poll());
         }
