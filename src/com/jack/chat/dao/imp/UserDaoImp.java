@@ -12,24 +12,29 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author jack
+ */
 public class UserDaoImp implements UserDao {
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
-    String loginSql = "SELECT * FROM user WHERE account = ? AND password =?";
-    String getFriendsSql = "SELECT * FROM user WHERE account IN(SELECT friend_account FROM friend WHERE account = ?)";
+    String loginSql = "SELECT * FROM user WHERE user_id = ? AND password =?";
+    String getFriendsSql = "SELECT user.*, f.friend_remark FROM chat.`user`,(SELECT friend_id,friend_remark FROM " +
+            "friend " +
+            "WHERE user_id = ?) f WHERE user_id = f.friend_id";
+
     @Override
     public User queryUserByAccountAndPassword(String account, String password) {
         User user = null;
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(loginSql);
-            ps.setString(1,account);
-            ps.setString(2,password);
+            ps.setString(1, account);
+            ps.setString(2, password);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String accountFromDb = rs.getString("account");
-                //String passwordFromDb = rs.getString("password");
+                String accountFromDb = rs.getString("user_id");
                 String nickNameFromDb = rs.getString("nick_name");
                 String genderFromDb = rs.getString("gender");
                 String birthdayFromDb = rs.getString("birthday");
@@ -37,27 +42,27 @@ public class UserDaoImp implements UserDao {
                 Integer phoneNumberFromDb = rs.getInt("phone_number");
                 String emailFromDb = rs.getString("email");
                 String signature = rs.getString("signature");
-                user = new User(accountFromDb,nickNameFromDb,genderFromDb,birthdayFromDb,addressFromDb,phoneNumberFromDb,emailFromDb,signature);
+                user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb, phoneNumberFromDb, emailFromDb, signature);
             }
             return user;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DbException();
         } finally {
-            DbUtil.close(conn,rs,ps);
+            DbUtil.close(conn, rs, ps);
         }
     }
 
+    @Override
     public List<User> getFriendsList(String account) {
         List<User> friendsList = new ArrayList<User>();
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(getFriendsSql);
-            ps.setString(1,account);
+            ps.setString(1, account);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String accountFromDb = rs.getString("account");
-                //String passwordFromDb = rs.getString("password");
+                String accountFromDb = rs.getString("user_id");
                 String nickNameFromDb = rs.getString("nick_name");
                 String genderFromDb = rs.getString("gender");
                 String birthdayFromDb = rs.getString("birthday");
@@ -65,15 +70,17 @@ public class UserDaoImp implements UserDao {
                 Integer phoneNumberFromDb = rs.getInt("phone_number");
                 String emailFromDb = rs.getString("email");
                 String signature = rs.getString("signature");
-                User user = new User(accountFromDb,nickNameFromDb,genderFromDb,birthdayFromDb,addressFromDb,phoneNumberFromDb,emailFromDb,signature);
+                String friendRemark = rs.getString("friend_remark");
+                User user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb, phoneNumberFromDb, emailFromDb, signature);
+                user.setFriend_remark(friendRemark);
                 friendsList.add(user);
             }
-            return  friendsList;
+            return friendsList;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DbException();
         } finally {
-            DbUtil.close(conn,rs,ps);
+            DbUtil.close(conn, rs, ps);
         }
     }
 }

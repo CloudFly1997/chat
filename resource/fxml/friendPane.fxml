@@ -6,7 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="root" styleClass="hBox" stylesheets="@../css/friendPaneCss.css" type="javafx.scene.layout.HBox" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="root" styleClass="hBox" stylesheets="@../css/friendPaneCss.css" type="javafx.scene.layout.HBox"
+         xmlns="http://javafx.com/javafx/8.0.51" xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="friendAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="avatar">
          <HBox.margin>
@@ -28,6 +29,6 @@
          </children>
       </VBox>
       <Label fx:id="unReadMessageCountLabel" alignment="CENTER" prefHeight="113.0" prefWidth="111.0"
-             styleClass="unReadMessageCount" text="1" />
+             styleClass="unReadMessageCount" text="0" visible="false" managed="false"/>
    </children>
 </fx:root>

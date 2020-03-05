@@ -20,89 +20,106 @@
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1162.0" style="-fx-background-radius: 30px;" stylesheets="@../css/mainWindowCss.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jack.chat.controller.MainWindow">
+<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+          prefHeight="825.0" prefWidth="1162.0" style="-fx-background-radius: 30px;"
+          stylesheets="@../css/mainWindowCss.css" xmlns="http://javafx.com/javafx/8.0.51"
+          xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jack.chat.controller.MainWindow">
     <columnConstraints>
-        <ColumnConstraints hgrow="ALWAYS" />
+        <ColumnConstraints hgrow="ALWAYS"/>
     </columnConstraints>
     <rowConstraints>
-        <RowConstraints fx:id="row1" vgrow="NEVER" />
-        <RowConstraints fx:id="row2" vgrow="ALWAYS" />
+        <RowConstraints fx:id="row1" vgrow="NEVER"/>
+        <RowConstraints fx:id="row2" vgrow="ALWAYS"/>
     </rowConstraints>
     <children>
-        <AnchorPane maxHeight="125.0" minHeight="90.0" prefHeight="90.0" prefWidth="1162.0" style="-fx-background-color: #00BFFF;" GridPane.hgrow="NEVER" GridPane.vgrow="NEVER">
+        <AnchorPane maxHeight="125.0" minHeight="90.0" prefHeight="90.0" prefWidth="1162.0"
+                    styleClass="bar" GridPane.hgrow="NEVER"
+                    GridPane.vgrow="NEVER">
             <children>
-                <HBox alignment="TOP_RIGHT" layoutX="773.0" layoutY="16.0" prefHeight="87.0" prefWidth="85.0" spacing="10.0" style="-fx-background-color: #00BFFF;" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <HBox alignment="TOP_RIGHT" layoutX="773.0" layoutY="16.0" prefHeight="87.0" prefWidth="85.0"
+                      spacing="10.0" style="-fx-background-color: #00BFFF;" AnchorPane.bottomAnchor="0.0"
+                      AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                     <padding>
-                        <Insets right="5.0" top="5.0" />
+                        <Insets right="5.0" top="5.0"/>
                     </padding>
                     <children>
-                        <Label fx:id="minimize" prefHeight="22.0" prefWidth="33.0" styleClass="min" />
-                        <Label fx:id="maximize" layoutX="58.0" layoutY="15.0" prefHeight="22.0" prefWidth="33.0" styleClass="max" />
-                        <Label fx:id="close" layoutX="16.0" layoutY="15.0" prefHeight="3.0" prefWidth="32.0" styleClass="close" />
+                        <Label fx:id="minimize" prefHeight="22.0" prefWidth="33.0" styleClass="min"/>
+                        <Label fx:id="maximize" layoutX="58.0" layoutY="15.0" prefHeight="22.0" prefWidth="33.0"
+                               styleClass="max"/>
+                        <Label fx:id="close" layoutX="16.0" layoutY="15.0" prefHeight="3.0" prefWidth="32.0"
+                               styleClass="close"/>
                     </children>
                 </HBox>
-                <ImageView fx:id="userAvatar" fitHeight="71.0" fitWidth="85.0" layoutX="14.0" layoutY="9.0" pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0">
+                <ImageView fx:id="userAvatar" fitHeight="71.0" fitWidth="85.0" layoutX="14.0" layoutY="9.0"
+                           pickOnBounds="true" preserveRatio="true" AnchorPane.leftAnchor="14.0">
                     <image>
-                        <Image url="@../img/avatar.jpg" />
+                        <Image url="@../img/avatar.jpg"/>
                     </image>
                 </ImageView>
-                <Separator layoutX="-3.0" layoutY="88.0" prefHeight="3.0" prefWidth="1162.0" />
+                <Separator layoutX="-3.0" layoutY="88.0" prefHeight="3.0" prefWidth="1162.0"/>
                 <Label fx:id="userName" layoutX="100.0" layoutY="14.0" prefHeight="20.0" prefWidth="92.0"
-                       styleClass="user-name" />
+                       styleClass="user-name"/>
             </children>
             <GridPane.margin>
-                <Insets />
+                <Insets/>
             </GridPane.margin>
         </AnchorPane>
-        <SplitPane fx:id="main" dividerPositions="0.4" minHeight="160.0" prefHeight="586.0" prefWidth="1162.0" GridPane.rowIndex="1">
+        <SplitPane fx:id="main" dividerPositions="0.4" minHeight="160.0" prefHeight="586.0" prefWidth="1162.0"
+                   GridPane.rowIndex="1">
             <items>
                 <AnchorPane fx:id="left" maxWidth="300.0">
                     <children>
-                        <VBox fx:id="friendPaneBackGround" alignment="CENTER" minHeight="550.0" minWidth="300.0" prefHeight="655.0" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <VBox fx:id="friendPaneBackGround" alignment="CENTER" minHeight="550.0" minWidth="300.0"
+                              prefHeight="655.0" prefWidth="300.0" spacing="20.0" AnchorPane.bottomAnchor="0.0"
+                              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <StackPane alignment="CENTER_RIGHT" prefHeight="52.0" prefWidth="300.0">
                                     <children>
                                         <TextField prefHeight="37.0" prefWidth="245.0" styleClass="search-field">
                                             <StackPane.margin>
-                                                <Insets bottom="5.0" left="5.0" />
+                                                <Insets bottom="5.0" left="5.0"/>
                                             </StackPane.margin>
                                         </TextField>
                                         <Label prefHeight="20.0" prefWidth="20.0" styleClass="search-icon">
                                             <StackPane.margin>
-                                                <Insets right="10.0" />
+                                                <Insets right="10.0"/>
                                             </StackPane.margin>
                                             <graphic>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true"
+                                                           preserveRatio="true">
                                                     <image>
-                                                        <Image url="@../icon/搜索.png" />
+                                                        <Image url="@../icon/搜索.png"/>
                                                     </image>
                                                 </ImageView>
                                             </graphic>
                                         </Label>
                                     </children>
                                     <VBox.margin>
-                                        <Insets top="25.0" />
+                                        <Insets top="25.0"/>
                                     </VBox.margin>
                                 </StackPane>
-                                <JFXTabPane fx:id="friendListPane" prefHeight="664.0" prefWidth="300.0" styleClass="tabPane" tabClosingPolicy="UNAVAILABLE">
+                                <JFXTabPane fx:id="friendListPane" prefHeight="664.0" prefWidth="300.0"
+                                            styleClass="tabPane" tabClosingPolicy="UNAVAILABLE">
                                     <tabs>
                                         <Tab text="好友">
                                             <content>
                                                 <ScrollPane fitToWidth="true" styleClass="friendListScrollPane">
                                                     <content>
-                                                        <VBox fx:id="friendList" spacing="3" VBox.vgrow="ALWAYS" />
+                                                        <VBox fx:id="friendList" spacing="3" VBox.vgrow="ALWAYS"/>
                                                     </content>
                                                 </ScrollPane>
                                             </content>
                                         </Tab>
                                         <Tab text="群">
                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0"/>
                                             </content>
                                         </Tab>
                                         <Tab text="历史">
                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0"
+                                                            prefWidth="200.0"/>
                                             </content>
                                         </Tab>
                                     </tabs>
@@ -113,26 +130,41 @@
                 </AnchorPane>
                 <AnchorPane fx:id="right">
                     <children>
-                        <AnchorPane layoutY="7.0" prefHeight="30.0" prefWidth="852.0" styleClass="chatPaneBar" stylesheets="@../css/mainWindowCss.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane layoutY="7.0" prefHeight="30.0" prefWidth="852.0" styleClass="chatPaneBar"
+                                    stylesheets="@../css/mainWindowCss.css" AnchorPane.leftAnchor="0.0"
+                                    AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
-                                <Label fx:id="chatWith" layoutX="14.0" layoutY="19.0" prefHeight="43.0" prefWidth="169.0" styleClass="chatWith" text="测试用例" textOverrun="CLIP" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="16.0" />
-                                <Label layoutX="648.0" layoutY="17.0" prefHeight="37.0" prefWidth="30.0" styleClass="send-file" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="17.0">
+                                <Label fx:id="chatWith" layoutX="14.0" layoutY="19.0" prefHeight="43.0"
+                                       prefWidth="169.0" styleClass="chatWith" text="测试用例" textOverrun="CLIP"
+                                       AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="20.0"
+                                       AnchorPane.topAnchor="16.0"/>
+                                <Label layoutX="648.0" layoutY="17.0" prefHeight="37.0" prefWidth="30.0"
+                                       styleClass="send-file" AnchorPane.rightAnchor="172.0"
+                                       AnchorPane.topAnchor="17.0">
                                     <graphic>
-                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true">
+                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                   preserveRatio="true">
                                         </ImageView>
                                     </graphic>
                                 </Label>
-                                <Label layoutX="695.0" layoutY="20.0" styleClass="send-img" AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="20.0">
+                                <Label layoutX="695.0" layoutY="20.0" styleClass="send-img"
+                                       AnchorPane.rightAnchor="125.0" AnchorPane.topAnchor="20.0">
                                     <graphic>
-                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true" preserveRatio="true" />
+                                        <ImageView fitHeight="32.0" fitWidth="32.0" pickOnBounds="true"
+                                                   preserveRatio="true"/>
                                     </graphic>
                                 </Label>
                             </children>
                         </AnchorPane>
-                        <Separator layoutY="73.0" prefHeight="0.0" prefWidth="852.0" />
-                        <ScrollPane fx:id="messageAreaScrollPane" fitToWidth="true" layoutY="76.0" prefHeight="432.0" prefWidth="852.0" styleClass="messageAreaScrollPane" AnchorPane.bottomAnchor="225.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="76.0" />
-                        <TextArea fx:id="messageEditArea" layoutY="533.0" prefHeight="200.0" prefWidth="200.0" styleClass="messageEditArea"
-                                   AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+                        <Separator layoutY="73.0" prefHeight="0.0" prefWidth="852.0"/>
+                        <ScrollPane fx:id="messageAreaScrollPane" fitToWidth="true" layoutY="76.0" prefHeight="432.0"
+                                    prefWidth="852.0" styleClass="messageAreaScrollPane" AnchorPane.bottomAnchor="225.0"
+                                    AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+                                    AnchorPane.topAnchor="76.0"/>
+                        <TextArea fx:id="messageEditArea" layoutY="533.0" prefHeight="200.0" prefWidth="200.0"
+                                  styleClass="messageEditArea"
+                                  AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
+                                  AnchorPane.rightAnchor="0.0"/>
                         <JFXButton fx:id="sendButton" buttonType="RAISED" layoutX="747.0" layoutY="673.0"
                                    prefHeight="30.0" prefWidth="92.0" ripplerFill="#722525" styleClass="send-button"
                                    text="发送" AnchorPane.bottomAnchor="30.0" AnchorPane.rightAnchor="13.0"

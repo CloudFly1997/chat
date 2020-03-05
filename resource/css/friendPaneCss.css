@@ -1,15 +1,30 @@
-.hBox{
-    -fx-background-color:#F0FFFF;
+.hBox {
+    -fx-background-color: #F0FFFF;
     -fx-spacing: 3;
 
 }
+
 .hBox:hover {
     -fx-background-color: #E0FFFF;
 }
-.unReadMessageCount{
+
+.unReadMessageCount {
     -fx-background-image: url("../icon/redPot.png");
     -fx-background-repeat: no-repeat;
     -fx-background-size: 25px;
     -fx-background-position: center;
     -fx-text-fill: whitesmoke;
+
+}
+
+.nick-name {
+    -fx-font-size: 25;
+    -fx-font-family: "Font Awesome 5 Brands";
+    -fx-text-fill: #4258c9;
+}
+
+.signature {
+    -fx-font-size: 15;
+    -fx-font-family: "Font Awesome 5 Brands";
+    -fx-text-fill: #1E90FF;
 }

@@ -1,5 +1,4 @@
-package com.jack.chat.dao;
-
+package com.jack.chat.service;
 
 import com.jack.chat.pojo.Message;
 import com.jack.chat.pojo.User;
@@ -9,9 +8,10 @@ import java.util.List;
 /**
  * @author Jinkang He
  * @version 1.0
- * @date 2020/3/1 21:19
+ * @date 2020/3/5 21:53
  */
-public interface MessageDao {
+
+public interface MessageService {
     /**
      * 查询未读消息
      * @param from 消息发送者
@@ -27,11 +27,4 @@ public interface MessageDao {
      * @return
      */
     public List<Message> QueryHistoryMessage(User from, User to);
-
-    /**
-     * 将未读消息变为以读
-     * @param from
-     * @param to
-     */
-    public void makeRead(User from, User to);
 }

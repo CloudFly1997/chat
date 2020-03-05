@@ -1,5 +1,6 @@
 package com.jack.chat.component;
 
+import com.jack.chat.util.CalculateTextArea;
 import javafx.scene.control.TextArea;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,7 +15,7 @@ import javafx.scene.text.TextFlow;
  */
 public class MessageCarrier extends TextFlow {
     ImageView avatar = new ImageView();
-    TextArea stringMessage = new TextArea();
+    TextArea stringMessage;
     HBox hBox = new HBox(5);
     public MessageCarrier(String message) {
         this(false,message);
@@ -25,15 +26,12 @@ public class MessageCarrier extends TextFlow {
         hBox.setPrefWidth(600);
         avatar.setFitHeight(60);
         avatar.setFitWidth(60);
-
         avatar.setImage(new Image("img/avatar.jpg"));
-        stringMessage.setPrefHeight(60);
-        stringMessage.setMaxWidth(100);
-        stringMessage.getStyleClass().add("stringMessage");
+        stringMessage = CalculateTextArea.getTextArea(message);
+        stringMessage.getStyleClass().add("string-message");
         stringMessage.setEditable(false);
-        //stringMessage.setWrapText(true);
+        stringMessage.setWrapText(true);
         stringMessage.setText(message);
-
         if(isSend) {
             this.setTextAlignment(TextAlignment.RIGHT);
             this.getChildren().addAll(stringMessage,avatar);

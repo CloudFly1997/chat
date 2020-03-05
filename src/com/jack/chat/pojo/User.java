@@ -10,10 +10,10 @@ public class User {
     private Integer phoneNumber;
     private String email;
     private String signature;
+    private String friend_remark;
 
     public User(String account,  String nickName, String gender, String birthday, String address, Integer phoneNumber, String email, String signature) {
         this.account = account;
-        this.password = password;
         this.nickName = nickName;
         this.gender = gender;
         this.birthday = birthday;
@@ -21,6 +21,7 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.signature = signature;
+
     }
 
     public User() {
@@ -91,4 +92,19 @@ public class User {
         this.signature = signature;
     }
 
+    public String getFriend_remark() {
+        return friend_remark;
+    }
+
+    public void setFriend_remark(String friend_remark) {
+        this.friend_remark = friend_remark;
+    }
+
+    public String getGender() {
+        return gender;
+    }
+
+    public void setGender(String gender) {
+        this.gender = gender;
+    }
 }

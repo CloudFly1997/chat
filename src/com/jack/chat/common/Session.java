@@ -5,12 +5,21 @@ import com.jack.chat.pojo.User;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 
+/**
+ * @author jack
+ */
 public class Session {
     private User user;
     private boolean state;
     private DataInputStream dis;
     private DataOutputStream dos;
+    private static Session session = new Session();
+    private Session() {
 
+    }
+    public static Session getInstance(){
+        return session;
+    }
     public boolean getState() {
         return state;
     }

@@ -1,7 +1,7 @@
 package com.jack.chat.service;
 
 import com.jack.chat.common.FriendPaneHolder;
-import com.jack.chat.common.SessionHolder;
+import com.jack.chat.common.Session;
 import com.jack.chat.component.MessageCarrier;
 import com.jack.chat.util.MessageHandle;
 import javafx.concurrent.ScheduledService;
@@ -37,14 +37,14 @@ public class ReceiveMessageService extends ScheduledService<String> {
             @Override
             protected void updateValue(String value) {
                 super.updateValue(value);
-                System.out.println(value);
                 String from = MessageHandle.getFrom(value);
+                System.out.println(value);
                 friendPaneHolder.getFriendPane(from).receiveMessage(new MessageCarrier(MessageHandle.getContent(value)));
             }
 
             @Override
             protected String call() throws Exception {
-                String getMessageFromServer = SessionHolder.getInstance().getSession().getDis().readUTF();
+                String getMessageFromServer = Session.getInstance().getDis().readUTF();
                 return getMessageFromServer;
             }
         };

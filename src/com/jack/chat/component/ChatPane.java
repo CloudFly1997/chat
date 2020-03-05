@@ -2,7 +2,6 @@ package com.jack.chat.component;
 
 import com.jack.chat.common.SessionHolder;
 import com.jack.chat.pojo.User;
-import com.jack.chat.util.MessageHandle;
 import com.jfoenix.animation.alert.JFXAlertAnimation;
 import com.jfoenix.controls.JFXAlert;
 import com.jfoenix.controls.JFXButton;
@@ -118,7 +117,7 @@ public class ChatPane extends Pane {
                 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
                 Date now = new Date();
                 String date = dateFormat.format(now);
-                message = MessageHandle.afterHandleMessage(userName, account, date, messageEditArea.getText());
+               //message = MessageHandle.afterHandleMessage(userName, account, date, messageEditArea.getText());
                 dos.writeUTF(message);
                 dos.flush();
             }

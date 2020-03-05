@@ -1,7 +1,6 @@
 package com.jack.chat.controller;
 
 import com.jack.chat.common.Session;
-import com.jack.chat.common.SessionHolder;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImp;
@@ -9,7 +8,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -24,6 +22,9 @@ import java.net.Socket;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+/**
+ * @author jack
+ */
 public class Login implements Initializable {
 
     public ImageView backGroundImg;
@@ -32,7 +33,7 @@ public class Login implements Initializable {
     public PasswordField password;
 
     UserService userService = new UserServiceImp();
-    Session session;
+    Session session = Session.getInstance();
     private Double offsetX;
     private Double offsetY;
 
@@ -58,11 +59,8 @@ public class Login implements Initializable {
         String passwordText = password.getText();
         User user = userService.loginByAccountAndPassword(accountText, passwordText);
         if (user != null) {
-            session = new Session();
             session.setUser(user);
             if(connectToServer()) {
-                SessionHolder sessionHolder = SessionHolder.getInstance();
-                sessionHolder.setSession(session);
                 Stage chatStage = (Stage) loginPane.getScene().getWindow();
                 Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));
                 Scene scene = new Scene(chatWindow);
@@ -83,10 +81,6 @@ public class Login implements Initializable {
             session.setDis(dis);
             session.setDos(dos);
             dos.writeUTF(session.getUser().getAccount());
-            Alert alert = new Alert(Alert.AlertType.WARNING);
-            alert.setAlertType(Alert.AlertType.CONFIRMATION);
-            alert.setContentText("连接成功");
-            alert.showAndWait();
             success = true;
         } catch (Exception e) {
             e.printStackTrace();
