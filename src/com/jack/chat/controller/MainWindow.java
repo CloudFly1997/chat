@@ -2,18 +2,20 @@ package com.jack.chat.controller;
 
 import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.common.Session;
+import com.jack.chat.component.FriendMenu;
 import com.jack.chat.component.FriendPane;
 import com.jack.chat.component.MessageCarrier;
 import com.jack.chat.pojo.User;
-import com.jack.chat.service.ReceiveMessageService;
-import com.jack.chat.service.UserService;
-import com.jack.chat.service.imp.UserServiceImp;
+import com.jack.chat.service.FriendService;
+import com.jack.chat.thread.ReceiveMessageService;
+import com.jack.chat.service.imp.FriendServiceImpl;
 import com.jack.chat.util.MessageHandle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
+import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,6 +26,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
+import javafx.stage.Window;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -95,6 +98,8 @@ public class MainWindow implements Initializable {
     public Label userName;
     public TextArea messageEditArea;
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
+    private Double offsetX;
+    private Double offsetY;
 
 
     @Override
@@ -115,6 +120,20 @@ public class MainWindow implements Initializable {
             // 最大化，取消最大化
             stage.setMaximized(stage.maximizedProperty().not().get());
         });
+        root.setOnMousePressed(event -> {
+            Window window = root.getScene().getWindow();
+            //             鼠标在屏幕中的坐标，    窗体在屏幕中的坐标
+            this.offsetX = event.getScreenX() - window.getX();
+            this.offsetY = event.getScreenY() - window.getY();
+        });
+        root.setOnMouseDragged(event -> {
+            Window window = root.getScene().getWindow();
+            //   新的鼠标位置-旧的鼠标位置+旧的窗体位置
+            // = 鼠标的偏移量+旧的窗体位置
+            window.setX(event.getScreenX() - this.offsetX);
+            window.setY(event.getScreenY() - this.offsetY);
+        });
+
         friendListPane.prefHeightProperty().bind(main.heightProperty());
         messageAreaScrollPane.prefHeightProperty().bind(main.heightProperty().multiply(0.6));
         messageAreaScrollPane.prefWidthProperty().bind(right.widthProperty());
@@ -125,12 +144,14 @@ public class MainWindow implements Initializable {
         userName.setText(user.getNickName());
         dis = session.getDis();
         dos = session.getDos();
-        UserService userService = new UserServiceImp();
-        List<User> friendsList = userService.getFriendsList(session.getUser().getAccount());
+        FriendService friendService = FriendServiceImpl.getInstance();
+        List<User> friendsList = friendService.getFriendsList(session.getUser().getAccount());
         for (User user : friendsList) {
             FriendPane friendPane = null;
             try {
                 friendPane = new FriendPane(user);
+                FriendPane finalFriendPane = friendPane;
+                FriendPane finalFriendPane1 = friendPane;
                 friendPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
                     @Override
                     public void handle(MouseEvent event) {
@@ -140,7 +161,8 @@ public class MainWindow implements Initializable {
                         if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
                             setChatWith(user);
                         } else if (event.getButton().name().equals(MouseButton.SECONDARY.name())) {
-                            System.out.println("viewProfile");
+                            System.out.println(user.getAccount());
+                            new FriendMenu(user).show(finalFriendPane1, Side.RIGHT,0,0);
                         }
                         ;
                     }

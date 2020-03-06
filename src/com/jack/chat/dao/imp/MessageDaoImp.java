@@ -35,6 +35,11 @@ public class MessageDaoImp implements MessageDao {
         return queryMessageByToAndFrom(getHistoryMessageSql, from, to);
     }
 
+    @Override
+    public void makeRead(User from, User to) {
+
+    }
+
     private List<Message> queryMessageByToAndFrom(String sql, User from, User to) {
         PreparedStatement psForMessage = null;
         ResultSet rsForMessage = null;

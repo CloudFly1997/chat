@@ -14,7 +14,7 @@ import java.util.List;
  * @date 2020/3/5 21:54
  */
 
-public class MessageServiceImp implements MessageService {
+public class MessageServiceImpl implements MessageService {
     MessageDao messageDao = new MessageDaoImp();
 
     @Override

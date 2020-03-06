@@ -2,8 +2,6 @@ package com.jack.chat.dao;
 
 import com.jack.chat.pojo.User;
 
-import java.util.List;
-
 
 /**
  * @author Jinkang He
@@ -21,9 +19,9 @@ public interface UserDao {
     User queryUserByAccountAndPassword(String account, String password) ;
 
     /**
-     * 根据账号查询好友列表
+     * 查询用户
      * @param account
      * @return
      */
-    List<User> getFriendsList(String account);
+    User queryUserByAccount(String account);
 }

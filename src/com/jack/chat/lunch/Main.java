@@ -9,6 +9,9 @@ import javafx.stage.Stage;
 import jfxtras.styles.jmetro.JMetro;
 import jfxtras.styles.jmetro.Style;
 
+/**
+ * @author jack
+ */
 public class Main extends Application {
 
     @Override
@@ -17,7 +20,7 @@ public class Main extends Application {
         primaryStage.setTitle("chat");
         //primaryStage.initStyle(StageStyle.TRANSPARENT);
         Scene loginScene = new Scene(login);
-        loginScene.getStylesheets().add(Main.class.getResource("/fxml/chatWindow.css").toExternalForm());
+        loginScene.getStylesheets().add(Main.class.getResource("/fxml/login.css").toExternalForm());
         new JMetro(loginScene, Style.LIGHT);
         primaryStage.setScene(loginScene);
         primaryStage.setOnCloseRequest(event -> {

@@ -1,7 +1,8 @@
 package com.jack.chat.dao.imp;
 
-import com.jack.chat.exception.DbException;
 import com.jack.chat.dao.UserDao;
+import com.jack.chat.dao.packaging.ResultSetToObject;
+import com.jack.chat.exception.DbException;
 import com.jack.chat.pojo.User;
 import com.jack.chat.util.DbUtil;
 
@@ -9,20 +10,29 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * @author jack
  */
 public class UserDaoImp implements UserDao {
+
+    private static UserDao userDao = null;
+
+    private UserDaoImp(){
+
+    }
+    public static UserDao getInstance(){
+        if (userDao == null) {
+            userDao = new UserDaoImp();
+        }
+        return userDao;
+    }
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
     String loginSql = "SELECT * FROM user WHERE user_id = ? AND password =?";
-    String getFriendsSql = "SELECT user.*, f.friend_remark FROM chat.`user`,(SELECT friend_id,friend_remark FROM " +
-            "friend " +
-            "WHERE user_id = ?) f WHERE user_id = f.friend_id";
+
+    String querySql = "SELECT * FROM user WHERE user_id = ?";
 
     @Override
     public User queryUserByAccountAndPassword(String account, String password) {
@@ -34,15 +44,7 @@ public class UserDaoImp implements UserDao {
             ps.setString(2, password);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String accountFromDb = rs.getString("user_id");
-                String nickNameFromDb = rs.getString("nick_name");
-                String genderFromDb = rs.getString("gender");
-                String birthdayFromDb = rs.getString("birthday");
-                String addressFromDb = rs.getString("address");
-                Integer phoneNumberFromDb = rs.getInt("phone_number");
-                String emailFromDb = rs.getString("email");
-                String signature = rs.getString("signature");
-                user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb, phoneNumberFromDb, emailFromDb, signature);
+                user = ResultSetToObject.rsToUserObject(rs);
             }
             return user;
         } catch (SQLException e) {
@@ -54,28 +56,17 @@ public class UserDaoImp implements UserDao {
     }
 
     @Override
-    public List<User> getFriendsList(String account) {
-        List<User> friendsList = new ArrayList<User>();
+    public User queryUserByAccount(String account) {
+        User user = null;
         try {
             conn = DbUtil.getConnection();
-            ps = conn.prepareStatement(getFriendsSql);
+            ps = conn.prepareStatement(querySql);
             ps.setString(1, account);
             rs = ps.executeQuery();
             while (rs.next()) {
-                String accountFromDb = rs.getString("user_id");
-                String nickNameFromDb = rs.getString("nick_name");
-                String genderFromDb = rs.getString("gender");
-                String birthdayFromDb = rs.getString("birthday");
-                String addressFromDb = rs.getString("address");
-                Integer phoneNumberFromDb = rs.getInt("phone_number");
-                String emailFromDb = rs.getString("email");
-                String signature = rs.getString("signature");
-                String friendRemark = rs.getString("friend_remark");
-                User user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb, phoneNumberFromDb, emailFromDb, signature);
-                user.setFriend_remark(friendRemark);
-                friendsList.add(user);
+                user = ResultSetToObject.rsToUserObject(rs);
             }
-            return friendsList;
+            return user;
         } catch (SQLException e) {
             e.printStackTrace();
             throw new DbException();
@@ -83,4 +74,6 @@ public class UserDaoImp implements UserDao {
             DbUtil.close(conn, rs, ps);
         }
     }
+
+
 }

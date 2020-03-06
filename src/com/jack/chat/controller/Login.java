@@ -3,7 +3,7 @@ package com.jack.chat.controller;
 import com.jack.chat.common.Session;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
-import com.jack.chat.service.imp.UserServiceImp;
+import com.jack.chat.service.imp.UserServiceImpl;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -32,7 +32,7 @@ public class Login implements Initializable {
     public TextField account;
     public PasswordField password;
 
-    UserService userService = new UserServiceImp();
+    UserService userService = UserServiceImpl.getInstance();
     Session session = Session.getInstance();
     private Double offsetX;
     private Double offsetY;

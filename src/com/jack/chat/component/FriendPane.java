@@ -6,7 +6,7 @@ import com.jack.chat.common.Session;
 import com.jack.chat.pojo.Message;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.MessageService;
-import com.jack.chat.service.imp.MessageServiceImp;
+import com.jack.chat.service.imp.MessageServiceImpl;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -31,7 +31,7 @@ public class FriendPane extends HBox implements Runnable{
     private VBox chatRecordBox;
     public Label nickName, signature, unReadMessageCountLabel;
     private int unReadMessageCount;
-    MessageService messageService = new MessageServiceImp();
+    MessageService messageService = new MessageServiceImpl();
 
 
     public FriendPane(User user) throws IOException {
