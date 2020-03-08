@@ -1,0 +1,76 @@
+
+.main {
+
+    -fx-background-color: linear-gradient(to right,#F8F8FF,#FFFFFF);
+    -fx-background-radius: 15;
+    -fx-border-color: #708090;
+    -fx-border-radius: 15;
+}
+.logo {
+    -fx-pref-height: 128;
+    -fx-background-image: url("../img/logo.png");
+    -fx-background-size: 128;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+.login-button {
+    -fx-background-color: #00BFFF;
+    -fx-pref-width: 250;
+    -fx-pref-height: 40;
+    -fx-background-radius: 50;
+    -fx-text-fill: white;
+    -fx-font-weight: bolder;
+    -fx-font-family: "Font Awesome 5 Brands";
+    -fx-cursor: hand;
+}
+
+.login-button:pressed{
+    -fx-background-color: #1E90FF;
+}
+
+TextField,PasswordField {
+    -fx-pref-width: 250;
+    -fx-pref-height: 45;
+    -fx-background-radius: 50;
+    -fx-padding: 0 0 0 40px;
+}
+
+.account-field {
+    -fx-background-image: url("../icon/content_account.png");
+    -fx-background-size: 25;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 5%;
+}
+.password-field {
+    -fx-background-image: url("../icon/password.png");
+    -fx-background-size: 25;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: 5%;
+}
+.close {
+    -fx-background-image: url('../icon/close-skyblue.png');
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.close:hover {
+    -fx-background-image: url("../icon/close-deepblue.png");
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.min {
+    -fx-background-image: url("../icon/min-skyblue.png");
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.min:hover {
+    -fx-background-image: url("../icon/min-deepblue.png");
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}

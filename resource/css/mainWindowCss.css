@@ -1,7 +1,6 @@
 .root {
     -fx-background-color: white;
-    -fx-background-radius: 50px;
-    -fx-border-radius: 50px;
+    -fx-border-color: #708090;
 }
 
 .close, .close:hover, .max, .max:hover, .min, .min:hover, .send-img, .send-img:hover, .send-file, .send-file:hover, .send-button, user-name {
@@ -9,7 +8,7 @@
 }
 
 .bar {
-    -fx-background-color: #00BFFF;
+    -fx-background-color: #4169E1;
 }
 
 .user-name {
@@ -17,6 +16,19 @@
     -fx-font-family: "Font Awesome 5 Brands";
     -fx-font-size: 20;
 
+}
+
+.user-avatar {
+    -fx-pref-height: 75;
+    -fx-pref-width: 75;
+    -fx-background-color: #E0FFFF;
+    -fx-background-image: url("../img/avatar.jpg");
+    -fx-background-insets: 5px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 74;
+    //-fx-border-color: #41a9c9;
+    -fx-background-radius: 37.5;
 }
 
 .close {

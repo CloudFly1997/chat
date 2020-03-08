@@ -1,13 +1,12 @@
 package com.jack.chat.lunch;
 
 import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
-import jfxtras.styles.jmetro.JMetro;
-import jfxtras.styles.jmetro.Style;
+import javafx.stage.StageStyle;
 
 /**
  * @author jack
@@ -15,19 +14,14 @@ import jfxtras.styles.jmetro.Style;
 public class Main extends Application {
 
     @Override
-    public void start(Stage primaryStage) throws Exception{
+    public void start(Stage primaryStage) throws Exception {
         Parent login = FXMLLoader.load(getClass().getResource("/fxml/login.fxml"));
         primaryStage.setTitle("chat");
-        //primaryStage.initStyle(StageStyle.TRANSPARENT);
-        Scene loginScene = new Scene(login);
-        loginScene.getStylesheets().add(Main.class.getResource("/fxml/login.css").toExternalForm());
-        new JMetro(loginScene, Style.LIGHT);
-        primaryStage.setScene(loginScene);
-        primaryStage.setOnCloseRequest(event -> {
-            event.consume();
-            Platform.exit();
-            System.exit(0);
-        });
+        primaryStage.initStyle(StageStyle.TRANSPARENT);
+        Scene scene = new Scene(login);
+        scene.setFill(null);
+        primaryStage.setScene(scene);
+        primaryStage.getIcons().add(new Image("img/logo.png"));
         primaryStage.show();
     }
 

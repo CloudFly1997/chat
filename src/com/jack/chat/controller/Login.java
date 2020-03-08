@@ -4,10 +4,12 @@ import com.jack.chat.common.Session;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImpl;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
@@ -31,6 +33,8 @@ public class Login implements Initializable {
     public Pane loginPane;
     public TextField account;
     public PasswordField password;
+    public Label minimize;
+    public Label close;
 
     UserService userService = UserServiceImpl.getInstance();
     Session session = Session.getInstance();
@@ -52,6 +56,17 @@ public class Login implements Initializable {
             window.setX(event.getScreenX() - this.offsetX);
             window.setY(event.getScreenY() - this.offsetY);
         });
+
+        //关闭
+        close.setOnMouseClicked(event -> {
+            Platform.exit();
+        });
+        // 最小化
+        minimize.setOnMouseClicked(event -> {
+            Stage stage = (Stage) loginPane.getScene().getWindow();
+            stage.setIconified(true);
+        });
+
     }
 
     public void login() throws IOException {
@@ -64,6 +79,7 @@ public class Login implements Initializable {
                 Stage chatStage = (Stage) loginPane.getScene().getWindow();
                 Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));
                 Scene scene = new Scene(chatWindow);
+                scene.setFill(null);
                 chatStage.setScene(scene);
                 chatStage.show();
             }

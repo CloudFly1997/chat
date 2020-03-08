@@ -7,8 +7,8 @@ import com.jack.chat.component.FriendPane;
 import com.jack.chat.component.MessageCarrier;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
-import com.jack.chat.thread.ReceiveMessageService;
 import com.jack.chat.service.imp.FriendServiceImpl;
+import com.jack.chat.thread.ReceiveMessageService;
 import com.jack.chat.util.MessageHandle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -175,6 +175,7 @@ public class MainWindow implements Initializable {
         }
         ReceiveMessageService receiveMessageService = new ReceiveMessageService();
         receiveMessageService.start();
+
     }
 
     public void setChatWith(User user) {
