@@ -8,6 +8,9 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import java.io.IOException;
+import java.sql.SQLException;
+
 /**
  * @author jack
  */
@@ -25,7 +28,14 @@ public class Main extends Application {
         primaryStage.show();
     }
 
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException, SQLException {
         launch(args);
+       /* FileInputStream fileInputStream = new FileInputStream(new File(System.getProperty("user.home") + "\\chat" +
+                "\\avatar\\10010.png"));
+        Connection connection = DbUtil.getConnection();
+        PreparedStatement preparedStatement = connection.prepareStatement("update user set avatar = ? where user_id " +
+                "= 10010");
+        preparedStatement.setBinaryStream(1,fileInputStream,fileInputStream.available());
+        preparedStatement.execute();*/
     }
 }

@@ -9,6 +9,7 @@ import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
 import com.jack.chat.service.imp.FriendServiceImpl;
 import com.jack.chat.thread.ReceiveMessageService;
+import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.MessageHandle;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -17,7 +18,6 @@ import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.geometry.Side;
 import javafx.scene.control.*;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
@@ -113,7 +113,6 @@ public class MainWindow implements Initializable {
             Stage stage = (Stage) root.getScene().getWindow();
             stage.setIconified(true);
         });
-
         // 最大化
         maximize.setOnMouseClicked(event -> {
             Stage stage = (Stage) root.getScene().getWindow();
@@ -139,43 +138,46 @@ public class MainWindow implements Initializable {
         messageAreaScrollPane.prefWidthProperty().bind(right.widthProperty());
 
         session = Session.getInstance();
+
         user = session.getUser();
-        userAvatar.setImage(new Image("img/下载.jpg"));
+        try {
+            AvatarLoad.load(userAvatar,user.getAccount());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         userName.setText(user.getNickName());
         dis = session.getDis();
         dos = session.getDos();
         FriendService friendService = FriendServiceImpl.getInstance();
         List<User> friendsList = friendService.getFriendsList(session.getUser().getAccount());
+        initFriendPane(friendsList);
+        ReceiveMessageService receiveMessageService = new ReceiveMessageService();
+        receiveMessageService.start();
+    }
+
+    public void initFriendPane(List<User> friendsList) {
         for (User user : friendsList) {
             FriendPane friendPane = null;
-            try {
-                friendPane = new FriendPane(user);
-                FriendPane finalFriendPane = friendPane;
-                FriendPane finalFriendPane1 = friendPane;
-                friendPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                    @Override
-                    public void handle(MouseEvent event) {
-                        if (event.getClickCount() == 2 && event.getButton().name().equals(MouseButton.PRIMARY.name())) {
-                            //双击事件
-                        }
-                        if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
-                            setChatWith(user);
-                        } else if (event.getButton().name().equals(MouseButton.SECONDARY.name())) {
-                            System.out.println(user.getAccount());
-                            new FriendMenu(user).show(finalFriendPane1, Side.RIGHT,0,0);
-                        }
-                        ;
+            friendPane = new FriendPane(user);
+            FriendPane finalFriendPane = friendPane;
+            FriendPane finalFriendPane1 = friendPane;
+            friendPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+                @Override
+                public void handle(MouseEvent event) {
+                    if (event.getClickCount() == 2 && event.getButton().name().equals(MouseButton.PRIMARY.name())) {
+                        //双击事件
                     }
-                });
-            } catch (IOException e) {
-                e.printStackTrace();
-            }
+                    if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
+                        setChatWith(user);
+                    } else if (event.getButton().name().equals(MouseButton.SECONDARY.name())) {
+                        System.out.println(user.getAccount());
+                        new FriendMenu(user).show(finalFriendPane1, Side.RIGHT, 0, 0);
+                    }
+                }
+            });
             friendPaneHolder.addFriendPane(user.getAccount(), friendPane);
             friendList.getChildren().add(friendPane);
         }
-        ReceiveMessageService receiveMessageService = new ReceiveMessageService();
-        receiveMessageService.start();
-
     }
 
     public void setChatWith(User user) {

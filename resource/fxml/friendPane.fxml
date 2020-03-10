@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 
 <fx:root fx:id="root" styleClass="hBox" stylesheets="@../css/friendPaneCss.css" type="javafx.scene.layout.HBox"
-         xmlns="http://javafx.com/javafx/8.0.51" xmlns:fx="http://javafx.com/fxml/1">
+          xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="friendAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="avatar">
          <HBox.margin>

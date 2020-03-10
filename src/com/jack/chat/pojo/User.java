@@ -7,12 +7,13 @@ public class User {
     private String gender;
     private String birthday;
     private String address;
-    private Integer phoneNumber;
+    private String phoneNumber;
     private String email;
     private String signature;
     private String friend_remark;
 
-    public User(String account,  String nickName, String gender, String birthday, String address, Integer phoneNumber, String email, String signature) {
+    public User(String account,  String nickName, String gender, String birthday, String address, String phoneNumber,
+                String email, String signature) {
         this.account = account;
         this.nickName = nickName;
         this.gender = gender;
@@ -48,7 +49,7 @@ public class User {
         return address;
     }
 
-    public Integer getPhoneNumber() {
+    public String getPhoneNumber() {
         return phoneNumber;
     }
 
@@ -80,7 +81,7 @@ public class User {
         this.address = address;
     }
 
-    public void setPhoneNumber(Integer phoneNumber) {
+    public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
 

@@ -5,6 +5,7 @@ import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImpl;
 import javafx.application.Platform;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -13,6 +14,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import javafx.stage.Window;
@@ -66,25 +69,36 @@ public class Login implements Initializable {
             Stage stage = (Stage) loginPane.getScene().getWindow();
             stage.setIconified(true);
         });
-
+        loginPane.setOnKeyPressed(new EventHandler<KeyEvent>() {
+            @Override
+            public void handle(KeyEvent event) {
+                if (event.getCode() == KeyCode.ENTER) {
+                    login();
+                }
+            }
+        });
     }
 
-    public void login() throws IOException {
-        String accountText = account.getText();
-        String passwordText = password.getText();
-        User user = userService.loginByAccountAndPassword(accountText, passwordText);
-        if (user != null) {
-            session.setUser(user);
-            if(connectToServer()) {
-                Stage chatStage = (Stage) loginPane.getScene().getWindow();
-                Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));
-                Scene scene = new Scene(chatWindow);
-                scene.setFill(null);
-                chatStage.setScene(scene);
-                chatStage.show();
+    public void login() {
+        try {
+            String accountText = account.getText();
+            String passwordText = password.getText();
+            User user = userService.loginByAccountAndPassword(accountText, passwordText);
+            if (user != null) {
+                session.setUser(user);
+                if(connectToServer()) {
+                    Stage chatStage = (Stage) loginPane.getScene().getWindow();
+                    Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));
+                    Scene scene = new Scene(chatWindow);
+                    scene.setFill(null);
+                    chatStage.setScene(scene);
+                    chatStage.show();
+                }
+            } else {
+                System.out.println(1);
             }
-        } else {
-            System.out.println(1);
+        } catch (IOException e) {
+            e.printStackTrace();
         }
     }
 

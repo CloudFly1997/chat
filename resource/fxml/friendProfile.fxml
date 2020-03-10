@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+<fx:root prefHeight="560.0" prefWidth="345.0" styleClass="root" stylesheets="@../css/friendProfile.css" type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+   <children>
+      <VBox layoutX="45.0" layoutY="236.0" prefHeight="261.0" prefWidth="255.0" spacing="10.0" styleClass="vBox">
+         <children>
+            <HBox alignment="CENTER_RIGHT" prefHeight="30.0" prefWidth="269.0" spacing="5.0">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="58.0" text="账号：" />
+                  <TextField fx:id="id" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="190.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="58.0" text="昵称:" />
+                  <TextField fx:id="nickName" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="193.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT">
+               <children>
+                  <Label prefWidth="58.0" text="备注：" />
+                  <TextField fx:id="remark" alignment="CENTER" prefHeight="30.0" prefWidth="174.0" text="123" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="67.0" text="性别：" />
+                  <TextField fx:id="gender" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="186.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="68.0" text="生日：" />
+                  <TextField fx:id="birthday" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="186.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="75.0" text="邮箱：" />
+                  <TextField fx:id="email" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="177.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" prefHeight="0.0" prefWidth="27.0">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="76.0" text="手机：" />
+                  <TextField fx:id="phone" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="174.0" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_RIGHT" layoutX="10.0" layoutY="202.0" prefHeight="0.0" prefWidth="27.0">
+               <children>
+                  <Label prefHeight="23.0" prefWidth="88.0" text="所在地：" />
+                  <TextField fx:id="address" alignment="CENTER" editable="false" prefHeight="30.0" prefWidth="175.0" />
+               </children>
+            </HBox>
+         </children>
+      </VBox>
+      <Label fx:id="avatar" prefHeight="236.0" prefWidth="345.0" styleClass="avatar" />
+   </children>
+</fx:root>

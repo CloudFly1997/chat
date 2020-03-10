@@ -11,45 +11,48 @@
 <?import javafx.scene.layout.VBox?>
 
 <Pane fx:id="loginPane" prefHeight="439.0" prefWidth="342.0" styleClass="main" stylesheets="@../css/login.css"
-      xmlns="http://javafx.com/javafx/8.0.51" xmlns:fx="http://javafx.com/fxml/1"
+      xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.jack.chat.controller.Login">
     <children>
         <VBox fillWidth="false" layoutX="46.0" layoutY="61.0" spacing="10.0">
             <children>
-            <Label prefWidth="250.0" styleClass="logo" />
-                <HBox />
-                  <TextField id="number" fx:id="account" prefHeight="0.0" prefWidth="200.0" styleClass="account-field" stylesheets="@../css/login.css">
-                        </TextField>
+                <Label prefWidth="250.0" styleClass="logo"/>
+                <HBox/>
+                <TextField id="number" fx:id="account" prefHeight="0.0" prefWidth="200.0" styleClass="account-field"
+                           stylesheets="@../css/login.css">
+                </TextField>
                 <HBox>
                     <children>
-                        <PasswordField id="password" fx:id="password" prefHeight="0.0" prefWidth="257.0" />
+                        <PasswordField id="password" fx:id="password" prefHeight="0.0" prefWidth="257.0"/>
                     </children>
                 </HBox>
-                <Button id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="201.0" styleClass="login-button" text="登         录" />
+                <Button id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="201.0"
+                        styleClass="login-button" text="登         录"/>
                 <HBox prefHeight="48.0" prefWidth="250.0">
                     <children>
                         <Hyperlink text="注册">
                             <HBox.margin>
-                                <Insets left="5.0" top="5.0" />
+                                <Insets left="5.0" top="5.0"/>
                             </HBox.margin>
                         </Hyperlink>
                         <Hyperlink prefHeight="28.0" prefWidth="93.0" text="忘记密码？">
                             <HBox.margin>
-                                <Insets left="100.0" top="5.0" />
+                                <Insets left="100.0" top="5.0"/>
                             </HBox.margin>
                         </Hyperlink>
                     </children>
                 </HBox>
             </children>
         </VBox>
-      <HBox alignment="CENTER_RIGHT" layoutX="242.0" prefHeight="45.0" prefWidth="100.0">
-         <children>
-            <Label fx:id="minimize" prefHeight="22.0" prefWidth="33.0" styleClass="min" />
-            <Label fx:id="close" layoutX="16.0" layoutY="15.0" prefHeight="3.0" prefWidth="32.0" styleClass="close" />
-         </children>
-      </HBox>
+        <HBox alignment="CENTER_RIGHT" layoutX="242.0" prefHeight="45.0" prefWidth="100.0">
+            <children>
+                <Label fx:id="minimize" prefHeight="22.0" prefWidth="33.0" styleClass="min"/>
+                <Label fx:id="close" layoutX="16.0" layoutY="15.0" prefHeight="3.0" prefWidth="32.0"
+                       styleClass="close"/>
+            </children>
+        </HBox>
     </children>
     <padding>
-        <Insets left="40.0" />
+        <Insets left="40.0"/>
     </padding>
 </Pane>

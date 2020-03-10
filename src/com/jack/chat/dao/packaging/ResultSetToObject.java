@@ -17,7 +17,7 @@ public class ResultSetToObject {
         String genderFromDb = resultSet.getString("gender");
         String birthdayFromDb = resultSet.getString("birthday");
         String addressFromDb = resultSet.getString("address");
-        Integer phoneNumberFromDb = resultSet.getInt("phone_number");
+        String phoneNumberFromDb = resultSet.getString("phone_number");
         String emailFromDb = resultSet.getString("email");
         String signature = resultSet.getString("signature");
         User user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb, phoneNumberFromDb, emailFromDb, signature);

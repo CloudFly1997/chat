@@ -10,22 +10,32 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="聊天组件完成了消息内容部分，完成了聊天组件的容器，空指针异常未修复">
-      <change afterPath="$PROJECT_DIR$/resource/css/login.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/close-deepblue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/close-skyblue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/content_account.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/min-deepblue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/min-skyblue.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/password.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/img/logo.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/css/friendProfile.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/css/test.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/friend.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/group.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/history.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/ht.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendProfilePane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/component/ProfilePane.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/util/AvatarLoad.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/css/friendPaneCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/resource/css/friendPaneCss.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resource/css/mainWindowCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/resource/css/mainWindowCss.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/fxml/BaseWindow.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/test.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/fxml/chatWindow.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resource/fxml/chatWindow2.0.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/chatWindow2.0.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/fxml/friendPane.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/friendPane.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/fxml/login.css" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/resource/fxml/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/icon/close.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/resource/fxml/option.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/friendProfile.fxml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/FriendMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/FriendPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/dao/packaging/ResultSetToObject.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/dao/packaging/ResultSetToObject.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/lunch/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/lunch/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/pojo/User.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/pojo/User.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,9 +92,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
-        <option value="FxmlFile" />
         <option value="Interface" />
+        <option value="FxmlFile" />
+        <option value="CSS File" />
         <option value="Class" />
       </list>
     </option>
@@ -377,7 +387,7 @@
       <workItem from="1582985481477" duration="4592000" />
       <workItem from="1583060955840" duration="15196000" />
       <workItem from="1583147329286" duration="29376000" />
-      <workItem from="1583328007125" duration="68794000" />
+      <workItem from="1583328007125" duration="89709000" />
     </task>
     <servers />
   </component>
@@ -478,26 +488,26 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1581773976535" />
-    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1582985404127">
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1583848172732">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1582985404127" />
-    <state width="1493" height="63" key="GridCell.Tab.0.bottom" timestamp="1583682826502">
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1583848172732" />
+    <state width="1493" height="240" key="GridCell.Tab.0.bottom" timestamp="1583854731711">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="63" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583682826502" />
-    <state width="1493" height="63" key="GridCell.Tab.0.center" timestamp="1583682826502">
+    <state width="1493" height="240" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1583854731711" />
+    <state width="1493" height="240" key="GridCell.Tab.0.center" timestamp="1583854731711">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="63" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583682826502" />
-    <state width="1493" height="63" key="GridCell.Tab.0.left" timestamp="1583682826502">
+    <state width="1493" height="240" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1583854731711" />
+    <state width="1493" height="240" key="GridCell.Tab.0.left" timestamp="1583854731711">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="63" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583682826502" />
-    <state width="1493" height="63" key="GridCell.Tab.0.right" timestamp="1583682826502">
+    <state width="1493" height="240" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1583854731711" />
+    <state width="1493" height="240" key="GridCell.Tab.0.right" timestamp="1583854731711">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="63" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583682826502" />
+    <state width="1493" height="240" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1583854731711" />
     <state width="1493" height="151" key="GridCell.Tab.1.bottom" timestamp="1582912240105">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -530,17 +540,17 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="390" y="1" width="755" height="822" key="find.popup/0.0.1536.824@0.0.1536.824" timestamp="1582554770949" />
-    <state x="178" y="29" key="new project wizard" timestamp="1581869007347">
+    <state x="178" y="29" key="new project wizard" timestamp="1583848174627">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="178" y="29" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1581869007347" />
+    <state x="178" y="29" key="new project wizard/0.0.1536.824@0.0.1536.824" timestamp="1583848174627" />
     <state x="511" y="36" key="refactoring.ChangeSignatureDialog" timestamp="1583415925658">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="511" y="36" key="refactoring.ChangeSignatureDialog/0.0.1536.824@0.0.1536.824" timestamp="1583415925658" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1583550730798">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1583854211576">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1583550730798" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1583854211576" />
   </component>
 </project>

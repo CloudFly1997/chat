@@ -34,11 +34,15 @@ public class FriendPane extends HBox implements Runnable{
     MessageService messageService = new MessageServiceImpl();
 
 
-    public FriendPane(User user) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/friendPane.fxml"));
-        fxmlLoader.setRoot(this);
-        fxmlLoader.setController(this);
-        fxmlLoader.load();
+    public FriendPane(User user)  {
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/friendPane.fxml"));
+            fxmlLoader.setRoot(this);
+            fxmlLoader.setController(this);
+            fxmlLoader.load();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         friendAvatar.setImage(new Image("img/下载.jpg"));
         this.user = user;
         if (user.getFriend_remark() == null) {

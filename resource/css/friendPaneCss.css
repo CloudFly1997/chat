@@ -1,11 +1,13 @@
 .hBox {
-    -fx-background-color: #F0FFFF;
+    -fx-background-color: #F8F8FF;
     -fx-spacing: 3;
-
+    -fx-border-color: #ABD8ED;
+    -fx-border-width: 3px;
+    -fx-border-style: solid;
 }
 
 .hBox:hover {
-    -fx-background-color: #E0FFFF;
+    -fx-background-color: #F5F5F5;
 }
 
 .unReadMessageCount {
@@ -14,7 +16,6 @@
     -fx-background-size: 25px;
     -fx-background-position: center;
     -fx-text-fill: whitesmoke;
-
 }
 
 .nick-name {

@@ -6,8 +6,10 @@ import com.jack.chat.service.FriendService;
 import com.jack.chat.service.imp.FriendServiceImpl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
+import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+import javafx.stage.Stage;
 
 /**
  * @author Jinkang He
@@ -26,7 +28,11 @@ public class FriendMenu extends ContextMenu {
         viewProfile.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-
+                Stage stage = new Stage();
+                FriendProfilePane friendProfilePane = new FriendProfilePane(user);
+                Scene scene = new Scene(friendProfilePane);
+                stage.setScene(scene);
+                stage.show();
                 System.out.println(friendService.viewProfile(user.getAccount()));
             }
         });
