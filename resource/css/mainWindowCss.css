@@ -109,7 +109,7 @@ TextArea {
 }
 
 .search-icon {
-    -fx-graphic: url("../icon/搜索.png");
+    -fx-graphic: url("../icon/search.png");
 }
 
 .search-field {

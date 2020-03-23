@@ -1,0 +1,38 @@
+.search-field {
+    -fx-background-radius: 30;
+    -fx-border-radius: 30;
+    -fx-border-color: #1E90FF;
+    -fx-font-size: 20;
+}
+
+.search-icon {
+    -fx-background-image: url("../icon/search.png");
+    -fx-background-size: 40;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.root {
+    -fx-background-color: #FFFFFF;
+}
+
+TextField {
+    -fx-border-style: none;
+    -fx-background-color: #FFFFFF;
+    -fx-text-alignment: left;
+    -fx-wrap-text: false;
+}
+
+.add-button {
+    -fx-background-color: #1E90FF;
+    -fx-text-fill: #FFFFFF;
+    -fx-font-family: "Font Awesome 5 Brands";
+     visibility: hidden;
+}
+
+.part-one {
+
+}
+.part-two {
+    -fx-border-color: #1E90FF;
+}

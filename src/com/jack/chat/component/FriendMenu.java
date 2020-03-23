@@ -1,15 +1,14 @@
 package com.jack.chat.component;
 
+import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
 import com.jack.chat.service.imp.FriendServiceImpl;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
-import javafx.scene.Scene;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
-import javafx.stage.Stage;
 
 /**
  * @author Jinkang He
@@ -20,35 +19,29 @@ import javafx.stage.Stage;
 public class FriendMenu extends ContextMenu {
 
     User user;
+    FriendPane friendPane;
     FriendService friendService = FriendServiceImpl.getInstance();
 
-    public FriendMenu(User user) {
-        this.user = user;
+    public FriendMenu(FriendPane friendPane) {
+        this.friendPane = friendPane;
+        this.user = friendPane.getUser();
         MenuItem viewProfile = new MenuItem("查看好友资料");
         viewProfile.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                Stage stage = new Stage();
-                FriendProfilePane friendProfilePane = new FriendProfilePane(user);
-                Scene scene = new Scene(friendProfilePane);
-                stage.setScene(scene);
-                stage.show();
-                System.out.println(friendService.viewProfile(user.getAccount()));
+                new FriendProfilePane(user);
             }
         });
         MenuItem settingRemark = new MenuItem("设置备注");
-        settingRemark.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
+        settingRemark.setOnAction(event -> {
 
-            }
         });
+
         MenuItem deleteFriend = new MenuItem("删除好友");
-        deleteFriend.setOnAction(new EventHandler<ActionEvent>() {
-            @Override
-            public void handle(ActionEvent event) {
-                friendService.deleteFriend(Session.getInstance().getUser().getAccount(),user.getAccount());
-            }
+
+        deleteFriend.setOnAction(event -> {
+            friendService.deleteFriend(Session.getInstance().getUser().getAccount(),user.getAccount());
+            MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(friendPane);
         });
 
         MenuItem reportFriend = new MenuItem("举报好友");

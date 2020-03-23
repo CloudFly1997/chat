@@ -13,6 +13,22 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
+
+.login-fail-tip {
+    -fx-font-size: 15;
+    -fx-wrap-text: true;
+    -fx-padding: 15px 15px 15px 20px;
+    -fx-pref-width: 200;
+    -fx-background-radius: 10px;
+    -fx-border-radius: 10px;
+    -fx-border-width: 1px;
+    -fx-border-color: #ebeef5;
+    -fx-background-color: #fef0f0;
+    -fx-text-fill: #f56c6c;
+    -fx-font-weight: 400;
+    visibility: hidden;
+}
+
 .login-button {
     -fx-background-color: #00BFFF;
     -fx-pref-width: 250;

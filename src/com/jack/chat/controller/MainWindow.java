@@ -1,30 +1,27 @@
 package com.jack.chat.controller;
 
 import com.jack.chat.common.FriendPaneHolder;
+import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
-import com.jack.chat.component.FriendMenu;
 import com.jack.chat.component.FriendPane;
 import com.jack.chat.component.MessageCarrier;
+import com.jack.chat.component.SearchPane;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
+import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.FriendServiceImpl;
+import com.jack.chat.service.imp.UserServiceImpl;
 import com.jack.chat.thread.ReceiveMessageService;
 import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.MessageHandle;
+import com.jack.chat.util.TimeUtil;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
-import javafx.geometry.Side;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
@@ -32,8 +29,6 @@ import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.net.URL;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 import java.util.ResourceBundle;
 
@@ -88,7 +83,7 @@ public class MainWindow implements Initializable {
      * 关闭
      */
     public Label close;
-    public VBox friendList;
+    public  VBox friendList;
     public ImageView userAvatar;
     public Session session;
     public User user;
@@ -97,10 +92,13 @@ public class MainWindow implements Initializable {
     public User currentChatWith;
     public Label userName;
     public TextArea messageEditArea;
+    public StackPane searchArea;
+    public Label search;
+    public TextField searchField;
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
     private Double offsetX;
     private Double offsetY;
-
+    UserService userService = UserServiceImpl.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -133,82 +131,52 @@ public class MainWindow implements Initializable {
             window.setY(event.getScreenY() - this.offsetY);
         });
 
+        search.setOnMouseClicked(new EventHandler<MouseEvent>() {
+            @Override
+            public void handle(MouseEvent event) {
+                new SearchPane();
+                System.out.println("1231232131");
+            }
+        });
         friendListPane.prefHeightProperty().bind(main.heightProperty());
         messageAreaScrollPane.prefHeightProperty().bind(main.heightProperty().multiply(0.6));
         messageAreaScrollPane.prefWidthProperty().bind(right.widthProperty());
-
         session = Session.getInstance();
-
         user = session.getUser();
-        try {
-            AvatarLoad.load(userAvatar,user.getAccount());
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+        AvatarLoad.loadUserAvatar(userAvatar, user.getAccount());
         userName.setText(user.getNickName());
         dis = session.getDis();
         dos = session.getDos();
         FriendService friendService = FriendServiceImpl.getInstance();
+        MainWindowHolder.getInstance().setMainWindow(this);
+
         List<User> friendsList = friendService.getFriendsList(session.getUser().getAccount());
         initFriendPane(friendsList);
         ReceiveMessageService receiveMessageService = new ReceiveMessageService();
         receiveMessageService.start();
+
     }
 
     public void initFriendPane(List<User> friendsList) {
         for (User user : friendsList) {
-            FriendPane friendPane = null;
-            friendPane = new FriendPane(user);
-            FriendPane finalFriendPane = friendPane;
-            FriendPane finalFriendPane1 = friendPane;
-            friendPane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (event.getClickCount() == 2 && event.getButton().name().equals(MouseButton.PRIMARY.name())) {
-                        //双击事件
-                    }
-                    if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
-                        setChatWith(user);
-                    } else if (event.getButton().name().equals(MouseButton.SECONDARY.name())) {
-                        System.out.println(user.getAccount());
-                        new FriendMenu(user).show(finalFriendPane1, Side.RIGHT, 0, 0);
-                    }
-                }
-            });
+            FriendPane friendPane = new FriendPane(user);
             friendPaneHolder.addFriendPane(user.getAccount(), friendPane);
             friendList.getChildren().add(friendPane);
         }
     }
 
-    public void setChatWith(User user) {
-        FriendPane friendPane = friendPaneHolder.getFriendPane(user.getAccount());
-        if (user != currentChatWith) {
-            this.currentChatWith = user;
-            this.chatWith.setText(user.getNickName());
-            friendPaneHolder.setCurrentChatUser(user);
-            chatWith.setText(user.getNickName());
-            friendPane.getChatRecordBox().heightProperty().addListener(new ChangeListener<Number>() {
-                @Override
-                public void changed(ObservableValue<? extends Number> observable, Number oldValue, Number newValue) {
-                    messageAreaScrollPane.setVvalue(1);
-                }
-            });
-            messageAreaScrollPane.setContent(friendPane.getChatRecordBox());
-        }
-        friendPane.setUnReadMessageCountLabel(0);
-    }
-
     public void sendMessage() throws IOException {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        Date now = new Date();
-        String date = dateFormat.format(now);
         String originMessage = messageEditArea.getText();
-        String type = "[txt]";
-        String message = MessageHandle.afterHandleMessage(type, user.getAccount(), currentChatWith.getAccount(), date,
+        String type = "[TXT]";
+        String message = MessageHandle.afterHandleMessage(type, user.getAccount(),
+                currentChatWith.getAccount(),
+                TimeUtil.getNowTime(),
                 originMessage);
         dos.writeUTF(message);
         dos.flush();
         messageEditArea.clear();
         friendPaneHolder.getFriendPane(currentChatWith.getAccount()).getChatRecordBox().getChildren().add(new MessageCarrier(true, originMessage));
     }
+
+
 }

@@ -2,21 +2,23 @@ package com.jack.chat.component;
 
 
 import com.jack.chat.common.FriendPaneHolder;
+import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
+import com.jack.chat.controller.MainWindow;
 import com.jack.chat.pojo.Message;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.MessageService;
 import com.jack.chat.service.imp.MessageServiceImpl;
+import com.jack.chat.util.AvatarLoad;
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
+import javafx.scene.Node;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.TextFlow;
 
 import java.io.IOException;
 import java.util.List;
@@ -32,7 +34,7 @@ public class FriendPane extends HBox implements Runnable{
     public Label nickName, signature, unReadMessageCountLabel;
     private int unReadMessageCount;
     MessageService messageService = new MessageServiceImpl();
-
+    MainWindow mainWindow = MainWindowHolder.getInstance().getMainWindow();
 
     public FriendPane(User user)  {
         try {
@@ -43,7 +45,7 @@ public class FriendPane extends HBox implements Runnable{
         } catch (IOException e) {
             e.printStackTrace();
         }
-        friendAvatar.setImage(new Image("img/下载.jpg"));
+        AvatarLoad.loadFriendAvatar(friendAvatar,user.getAccount());
         this.user = user;
         if (user.getFriend_remark() == null) {
             this.nickName.setText(user.getNickName());
@@ -52,16 +54,23 @@ public class FriendPane extends HBox implements Runnable{
         }
         this.signature.setText(user.getSignature());
         chatRecordBox = new VBox(5);
-        unReadMessageCountLabel.textProperty().addListener(new ChangeListener<String>() {
-            @Override
-            public void changed(ObservableValue<? extends String> observable, String oldValue, String newValue) {
-                if (Integer.valueOf(newValue) == 0) {
-                    unReadMessageCountLabel.setManaged(false);
-                    unReadMessageCountLabel.setVisible(false);
-                } else {
-                    unReadMessageCountLabel.setManaged(true);
-                    unReadMessageCountLabel.setVisible(true);
-                }
+        this.setOnMouseClicked(event -> {
+            if (event.getClickCount() == 2 && event.getButton().name().equals(MouseButton.PRIMARY.name())) {
+                //双击事件
+            }
+            if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
+                setChatWith(user);
+            } else if (event.getButton().name().equals(MouseButton.SECONDARY.name())) {
+                new FriendMenu(this).show(this, Side.RIGHT, 0, 0);
+            }
+        });
+        unReadMessageCountLabel.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (Integer.valueOf(newValue) == 0) {
+                unReadMessageCountLabel.setManaged(false);
+                unReadMessageCountLabel.setVisible(false);
+            } else {
+                unReadMessageCountLabel.setManaged(true);
+                unReadMessageCountLabel.setVisible(true);
             }
         });
         Platform.runLater(this);
@@ -73,11 +82,11 @@ public class FriendPane extends HBox implements Runnable{
         return chatRecordBox;
     }
 
-    public void receiveMessage(TextFlow messageCarrier) {
+    public void receiveMessage(Node node) {
         if (FriendPaneHolder.getInstance().getCurrentChatUser() != user) {
             unReadMessageCountAdd();
         }
-        chatRecordBox.getChildren().add(messageCarrier);
+        chatRecordBox.getChildren().add(node);
     }
 
     public User getUser() {
@@ -120,5 +129,17 @@ public class FriendPane extends HBox implements Runnable{
     public void run() {
         pullHistoryMessage();
         pullUnReadMessage();
+    }
+
+    public void setChatWith(User user) {
+        if (user != MainWindowHolder.getInstance().getMainWindow().currentChatWith) {
+            mainWindow.currentChatWith = user;
+            mainWindow.chatWith.setText(user.getNickName());
+            FriendPaneHolder.getInstance().setCurrentChatUser(user);
+            mainWindow.chatWith.setText(user.getNickName());
+            this.getChatRecordBox().heightProperty().addListener((observable, oldValue, newValue) -> mainWindow.messageAreaScrollPane.setVvalue(1));
+            mainWindow.messageAreaScrollPane.setContent(this.getChatRecordBox());
+        }
+        this.setUnReadMessageCountLabel(0);
     }
 }

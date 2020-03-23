@@ -3,7 +3,6 @@ package com.jack.chat.util;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.io.OutputStream;
@@ -19,9 +18,28 @@ import java.sql.ResultSet;
  */
 
 public class AvatarLoad {
-    public static void load(ImageView imageView, String name) throws Exception {
+    public static void loadFriendAvatar(ImageView imageView, String name) {
+        load(imageView, name, 100.0, 100.0);
+    }
+
+    public static void loadUserAvatar(ImageView imageView, String name) {
+        load(imageView, name, 65.0, 65.0);
+    }
+
+    public static void loadProfileAvatar(ImageView imageView, String name) {
+        load(imageView, name, 350.0, 230.0);
+    }
+
+    public static void loadAddFriendAvatar(ImageView imageView, String name) {
+        load(imageView, name, 260.0, 260.0);
+    }
+
+    private static void load(ImageView imageView, String name, Double requestedWidth, Double requestedHeight) {
+        Image image = null;
         String imgPath = System.getProperty("user.home") + "\\chat\\avatar\\" + name + ".png";
-        if (!new File(imgPath).exists()) {
+        String defaultPath = System.getProperty("user.home") + "\\chat\\avatar\\default.png";
+        try {
+
             InputStream in = null;
             Connection connection = DbUtil.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT avatar FROM user WHERE user_id " +
@@ -39,8 +57,11 @@ public class AvatarLoad {
             }
             in.close();
             fileOutputStream.close();
+            image = new Image("file:" + imgPath, requestedWidth, requestedHeight, false, false);
+
+        } catch (Exception e) {
+            image = new Image("file:" + defaultPath, requestedWidth, requestedHeight, false, false);
         }
-        Image image = new Image("file:"+imgPath);
         imageView.setImage(image);
     }
 }

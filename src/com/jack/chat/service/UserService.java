@@ -14,4 +14,10 @@ public interface UserService {
      */
     User loginByAccountAndPassword(String account, String password);
 
+    /**
+     * 查询用户
+     * @param account
+     * @return
+     */
+    User queryUserByAccount(String account);
 }

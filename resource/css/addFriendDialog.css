@@ -1,0 +1,27 @@
+.root {
+    -fx-background-color: #ececec;
+}
+
+Button {
+    -fx-background-color: #1E90FF;
+    -fx-text-fill: white;
+    -fx-cursor: hand;
+    -fx-font-family: "Font Awesome 5 Brands";
+    -fx-font-weight: bolder;
+}
+
+Button:hover {
+    -fx-background-color: #4258c9;
+
+}
+
+TextArea {
+    -fx-wrap-text: true;
+    -fx-fit-to-height: true;
+    -fx-fit-to-width: true;
+
+}
+
+TextArea .content {
+    -fx-background-color: #ececec;
+}

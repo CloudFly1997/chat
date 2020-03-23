@@ -13,11 +13,13 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
 import java.io.DataInputStream;
@@ -87,14 +89,20 @@ public class Login implements Initializable {
             if (user != null) {
                 session.setUser(user);
                 if(connectToServer()) {
-                    Stage chatStage = (Stage) loginPane.getScene().getWindow();
+                    Stage loginStage = (Stage) loginPane.getScene().getWindow();
+                    Stage chatStage = new Stage();
                     Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));
                     Scene scene = new Scene(chatWindow);
                     scene.setFill(null);
                     chatStage.setScene(scene);
+                    chatStage.initStyle(StageStyle.TRANSPARENT);
+                    chatStage.getIcons().add(new Image("img/logo.png"));
                     chatStage.show();
+
+                    loginStage.close();
                 }
             } else {
+
                 System.out.println(1);
             }
         } catch (IOException e) {

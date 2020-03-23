@@ -42,6 +42,7 @@ public class FriendDaoImpl implements FriendDao {
 
     String changeRemarkSql = "UPDATE friend SET friend_remark = ? WHERE user_id = ? AND friend_id = ?";
 
+    String addFriendSql = "INSERT INTO friend (user_id,friend_id) VALUES (?,?),(?,?)";
 
     @Override
     public List<User> getFriendsList(String account) {
@@ -100,8 +101,18 @@ public class FriendDaoImpl implements FriendDao {
     }
 
     @Override
-    public void addFriend(String account) {
-
+    public void addFriend(String account1,String account2) {
+        try {
+            conn = DbUtil.getConnection();
+            ps = conn.prepareStatement(addFriendSql);
+            ps.setString(1,account1);
+            ps.setString(2,account2);
+            ps.setString(3,account2);
+            ps.setString(4,account1);
+            ps.execute();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
 

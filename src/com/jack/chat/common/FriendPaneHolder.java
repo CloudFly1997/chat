@@ -38,4 +38,8 @@ public class FriendPaneHolder {
     public User getCurrentChatUser() {
         return currentChatUser;
     }
+
+    public boolean contains(String account) {
+        return friendPaneMap.containsKey(account);
+    }
 }

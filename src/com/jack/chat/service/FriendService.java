@@ -42,9 +42,10 @@ public interface FriendService {
 
     /**
      * 加好友
-     * @param account
+     * @param account1
+     * @param account2
      */
-    void addFriend(String account);
+    void addFriend(String account1,String account2);
 
 
 }

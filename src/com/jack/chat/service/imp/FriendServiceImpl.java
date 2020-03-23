@@ -53,7 +53,7 @@ public class FriendServiceImpl implements FriendService {
     }
 
     @Override
-    public void addFriend(String account) {
-
+    public void addFriend(String account1,String account2) {
+        friendDao.addFriend(account1,account2);
     }
 }
