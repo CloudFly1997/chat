@@ -4,7 +4,10 @@
     -fx-border-color: #708090;
 }
 
-.close, .close:hover, .max, .max:hover, .min, .min:hover, .send-img, .send-img:hover, .send-file, .send-file:hover, .send-button, user-name {
+.close, .close:hover, .max, .max:hover, .min, .min:hover,
+.send-img, .send-img:hover, .send-file,
+.send-file:hover, .send-button, user-name ,.add-friend
+,.add-group{
     -fx-cursor: hand;
 }
 
@@ -74,6 +77,28 @@
     -fx-background-repeat: no-repeat;
 }
 
+.add-friend{
+    -fx-background-image: url("../icon/addFriend.png");
+    -fx-background-size: 48px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.add-friend:hover {
+    -fx-background-image: url("../icon/addFriend-gray.png");
+}
+
+.add-group{
+    -fx-background-image: url("../icon/addGroup.png");
+    -fx-background-size: 48px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.add-group:hover {
+    -fx-background-image: url("../icon/addGroup-gray.png");
+}
+
 TextArea {
     -fx-indent: 5s;
 }
@@ -104,18 +129,8 @@ TextArea {
     -fx-graphic: url("../icon/send-image-gray.png");
 }
 
-.search-field {
-    -fx-indent: 5;
-}
 
-.search-icon {
-    -fx-graphic: url("../icon/search.png");
-}
 
-.search-field {
-
-    -fx-background-radius: 15px;
-}
 
 .messageAreaScrollPane {
     -fx-background-color: #1E90FF;

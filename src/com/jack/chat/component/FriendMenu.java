@@ -1,14 +1,18 @@
 package com.jack.chat.component;
 
+import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
 import com.jack.chat.service.imp.FriendServiceImpl;
+import com.jack.chat.util.CommandHandle;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
 import javafx.scene.control.MenuItem;
+
+import java.io.IOException;
 
 /**
  * @author Jinkang He
@@ -41,7 +45,14 @@ public class FriendMenu extends ContextMenu {
 
         deleteFriend.setOnAction(event -> {
             friendService.deleteFriend(Session.getInstance().getUser().getAccount(),user.getAccount());
+            friendService.deleteFriend(user.getAccount(),Session.getInstance().getUser().getAccount());
             MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(friendPane);
+            FriendPaneHolder.getInstance().remove(user.getAccount());
+            try {
+                Session.getInstance().getDos().writeUTF(CommandHandle.deleteFriend(Session.getInstance().getUser().getAccount(),user.getAccount()));
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
 
         MenuItem reportFriend = new MenuItem("举报好友");
@@ -50,5 +61,6 @@ public class FriendMenu extends ContextMenu {
         getItems().add(settingRemark);
         getItems().add(deleteFriend);
         getItems().add(reportFriend);
+        this.setAutoHide(true);
     }
 }

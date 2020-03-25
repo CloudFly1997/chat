@@ -25,7 +25,7 @@ public class AddFriendDialog extends AnchorPane {
     String account;
 
     public AddFriendDialog(String account) {
-        this.account = account;
+         this.account = account;
         try {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addFriendDialog.fxml"));
             fxmlLoader.setRoot(this);
@@ -43,7 +43,7 @@ public class AddFriendDialog extends AnchorPane {
         FriendService friendService = FriendServiceImpl.getInstance();
         friendService.addFriend(user, account);
         FriendPane newFriendPane = new FriendPane(UserServiceImpl.getInstance().queryUserByAccount(account));
-        MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().add(0, newFriendPane);
+        MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().add(1, newFriendPane);
         Session.getInstance().getDos().writeUTF(CommandHandle.agreeAddFriend(user, account));
         agreeButton.setText("已同意");
         agreeButton.setDisable(true);

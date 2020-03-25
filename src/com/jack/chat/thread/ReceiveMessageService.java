@@ -6,6 +6,7 @@ import com.jack.chat.common.Session;
 import com.jack.chat.component.AddFriendDialog;
 import com.jack.chat.component.FriendPane;
 import com.jack.chat.component.MessageCarrier;
+import com.jack.chat.service.imp.FriendServiceImpl;
 import com.jack.chat.service.imp.UserServiceImpl;
 import com.jack.chat.util.CommandHandle;
 import com.jack.chat.util.MessageHandle;
@@ -23,6 +24,7 @@ public class ReceiveMessageService extends ScheduledService<String> {
 
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
     private FriendPane SystemNotifier = friendPaneHolder.getFriendPane("1");
+
     public ReceiveMessageService() {
         //设置轮询间隔
         this.setPeriod(Duration.seconds(0));
@@ -61,7 +63,9 @@ public class ReceiveMessageService extends ScheduledService<String> {
                         MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().add(1, newFriendPane);
                         break;
                     case "[DELETE_FRIEND]":
-
+                        MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(
+                                FriendPaneHolder.getInstance().getFriendPane(CommandHandle.getWhoDeleteMe(value)));
+                        FriendPaneHolder.getInstance().remove(CommandHandle.getWhoDeleteMe(value));
                         break;
                     case "[]":
                         break;

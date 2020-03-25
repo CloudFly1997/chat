@@ -42,4 +42,8 @@ public class FriendPaneHolder {
     public boolean contains(String account) {
         return friendPaneMap.containsKey(account);
     }
+
+    public void remove(String account) {
+        friendPaneMap.remove(account);
+    }
 }

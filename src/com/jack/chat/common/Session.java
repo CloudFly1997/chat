@@ -4,6 +4,7 @@ import com.jack.chat.pojo.User;
 
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
+import java.net.Socket;
 
 /**
  * @author jack
@@ -14,6 +15,7 @@ public class Session {
     private DataInputStream dis;
     private DataOutputStream dos;
     private static Session session = new Session();
+    private Socket socket;
     private Session() {
 
     }
@@ -50,5 +52,13 @@ public class Session {
 
     public void setDos(DataOutputStream dos) {
         this.dos = dos;
+    }
+
+    public Socket getSocket() {
+        return socket;
+    }
+
+    public void setSocket(Socket socket) {
+        this.socket = socket;
     }
 }

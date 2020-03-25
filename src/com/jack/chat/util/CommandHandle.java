@@ -10,6 +10,7 @@ public class CommandHandle {
     public static final String SPLIT_CODE = "@AA@";
     public static final String ADD_FRIEND = "[ADD_FRIEND]";
     public static final String AGREE_ADD_FRIEND = "[AGREE_ADD_FRIEND]";
+    public static final String DELETE_FRIEND = "[DELETE_FRIEND]";
     public static String addFriend(String from, String to) {
         String command =  ADD_FRIEND + SPLIT_CODE + from + SPLIT_CODE + to;
         return command;
@@ -21,5 +22,14 @@ public class CommandHandle {
     public static String agreeAddFriend(String from,String to) {
         String command =  AGREE_ADD_FRIEND + SPLIT_CODE + from + SPLIT_CODE + to;
         return command;
+    }
+
+    public static String deleteFriend(String from, String to) {
+        String command =  DELETE_FRIEND + SPLIT_CODE + from + SPLIT_CODE + to;
+        return command;
+    }
+
+    public static String getWhoDeleteMe(String originMessage) {
+       return getWhoAddMe(originMessage);
     }
 }

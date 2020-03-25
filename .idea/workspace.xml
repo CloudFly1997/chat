@@ -10,40 +10,23 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="聊天组件完成了消息内容部分，完成了聊天组件的容器，空指针异常未修复">
-      <change afterPath="$PROJECT_DIR$/resource/css/addFriendDialog.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/css/searchPane.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/fxml/addFriendDialog.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/fxml/searchPane.fxml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/common/MainWindowHolder.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/component/AddFriendDialog.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/component/SearchPane.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/pojo/Group.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/pojo/Notification.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/util/CommandHandle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/util/TimeUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/commons-io-2.6.jar" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/addFriend-gray.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/addFriend.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/addGroup-gray.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/icon/addGroup.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/css/login.css" beforeDir="false" afterPath="$PROJECT_DIR$/resource/css/login.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/chat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chat.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resource/css/mainWindowCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/resource/css/mainWindowCss.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/resource/fxml/chatWindow2.0.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/chatWindow2.0.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/fxml/friendProfile.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/friendProfile.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/fxml/login.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/login.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/icon/搜索.png" beforeDir="false" afterPath="$PROJECT_DIR$/resource/icon/search.png" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/common/FriendPaneHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/common/FriendPaneHolder.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/BaseWindow.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/common/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/common/Session.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/AddFriendDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/AddFriendDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/FriendMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendMenu.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/FriendPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendPane.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/FriendProfilePane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendProfilePane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/MainWindow.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/dao/FriendDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/dao/FriendDao.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/dao/imp/FriendDaoImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/dao/imp/FriendDaoImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/service/FriendService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/service/FriendService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/service/UserService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/service/UserService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/service/imp/FriendServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/service/imp/FriendServiceImpl.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/service/imp/UserServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/service/imp/UserServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/thread/ReceiveMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/thread/ReceiveMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/util/AvatarLoad.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/util/AvatarLoad.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/util/MessageHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/util/MessageHandle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/util/CommandHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/util/CommandHandle.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -155,7 +138,7 @@
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dynamic.classpath" value="false" />
     <property name="extract.method.default.visibility" value="private" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/resource/icon" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/lib" />
     <property name="list.type.of.created.stylesheet" value="CSS" />
     <property name="project.structure.last.edited" value="Libraries" />
     <property name="project.structure.proportion" value="0.15" />
@@ -169,23 +152,23 @@
     <key name="OPEN_URL_DIALOG">
       <recent name="https://github.com/macrozheng/mall.git" />
     </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\Users\jack\Desktop\chat\lib" />
+      <recent name="C:\Users\jack\Desktop\chat\resource\icon" />
+      <recent name="C:\Users\jack\Desktop\chat\resource\img" />
+      <recent name="C:\Users\jack\Desktop\chat\resource\css" />
+      <recent name="C:\Users\jack\Desktop\chat\resource\fxml" />
+    </key>
+    <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jack.chat.component" />
+      <recent name="sample" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="C:\Users\jack\Desktop\chat\resource\css" />
       <recent name="C:\Users\jack\Desktop\chat\resource\fxml" />
       <recent name="C:\Users\jack\Desktop\OES\chat\resource\sound" />
       <recent name="C:\Users\jack\Desktop\OES\chat\resource" />
       <recent name="C:\Users\jack\Desktop\OES\chat\lib" />
-    </key>
-    <key name="CopyClassDialog.RECENTS_KEY">
-      <recent name="com.jack.chat.component" />
-      <recent name="sample" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\Users\jack\Desktop\chat\resource\icon" />
-      <recent name="C:\Users\jack\Desktop\chat\resource\img" />
-      <recent name="C:\Users\jack\Desktop\chat\resource\css" />
-      <recent name="C:\Users\jack\Desktop\chat\resource\fxml" />
-      <recent name="C:\Users\jack\Desktop\chat\lib" />
     </key>
   </component>
   <component name="RunManager" selected="Application.Main">
@@ -402,7 +385,7 @@
       <workItem from="1584072337375" duration="17582000" />
       <workItem from="1584440998052" duration="20444000" />
       <workItem from="1584761214111" duration="2001000" />
-      <workItem from="1584764425423" duration="15921000" />
+      <workItem from="1584764425423" duration="32175000" />
     </task>
     <servers />
   </component>
@@ -507,22 +490,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1584763489551" />
-    <state width="1493" height="140" key="GridCell.Tab.0.bottom" timestamp="1584972218717">
+    <state width="1493" height="142" key="GridCell.Tab.0.bottom" timestamp="1585147179279">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="140" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1584972218717" />
-    <state width="1493" height="140" key="GridCell.Tab.0.center" timestamp="1584972218717">
+    <state width="1493" height="142" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585147179279" />
+    <state width="1493" height="142" key="GridCell.Tab.0.center" timestamp="1585147179278">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="140" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1584972218717" />
-    <state width="1493" height="140" key="GridCell.Tab.0.left" timestamp="1584972218717">
+    <state width="1493" height="142" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585147179278" />
+    <state width="1493" height="142" key="GridCell.Tab.0.left" timestamp="1585147179277">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="140" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1584972218717" />
-    <state width="1493" height="140" key="GridCell.Tab.0.right" timestamp="1584972218717">
+    <state width="1493" height="142" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585147179277" />
+    <state width="1493" height="142" key="GridCell.Tab.0.right" timestamp="1585147179279">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="140" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1584972218717" />
+    <state width="1493" height="142" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585147179279" />
     <state width="1493" height="151" key="GridCell.Tab.1.bottom" timestamp="1582912240105">
       <screen x="0" y="0" width="1536" height="824" />
     </state>

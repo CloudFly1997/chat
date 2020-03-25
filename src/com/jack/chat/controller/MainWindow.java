@@ -8,26 +8,25 @@ import com.jack.chat.component.MessageCarrier;
 import com.jack.chat.component.SearchPane;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
-import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.FriendServiceImpl;
-import com.jack.chat.service.imp.UserServiceImpl;
 import com.jack.chat.thread.ReceiveMessageService;
 import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.MessageHandle;
 import com.jack.chat.util.TimeUtil;
 import javafx.application.Platform;
-import javafx.event.EventHandler;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
-import javafx.scene.layout.*;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
+import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
-import java.io.IOException;
+import java.io.*;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -92,13 +91,13 @@ public class MainWindow implements Initializable {
     public User currentChatWith;
     public Label userName;
     public TextArea messageEditArea;
-    public StackPane searchArea;
-    public Label search;
-    public TextField searchField;
+    public Label addFriend;
+    public Label addGroup;
+    public Label sendFile;
+    public Label sendImg;
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
     private Double offsetX;
     private Double offsetY;
-    UserService userService = UserServiceImpl.getInstance();
 
     @Override
     public void initialize(URL location, ResourceBundle resources) {
@@ -131,13 +130,13 @@ public class MainWindow implements Initializable {
             window.setY(event.getScreenY() - this.offsetY);
         });
 
-        search.setOnMouseClicked(new EventHandler<MouseEvent>() {
-            @Override
-            public void handle(MouseEvent event) {
-                new SearchPane();
-                System.out.println("1231232131");
-            }
+        addFriend.setOnMouseClicked(event -> {
+            new SearchPane();
         });
+        addGroup.setOnMouseClicked(event -> {
+            new SearchPane();
+        });
+
         friendListPane.prefHeightProperty().bind(main.heightProperty());
         messageAreaScrollPane.prefHeightProperty().bind(main.heightProperty().multiply(0.6));
         messageAreaScrollPane.prefWidthProperty().bind(right.widthProperty());
@@ -152,6 +151,7 @@ public class MainWindow implements Initializable {
 
         List<User> friendsList = friendService.getFriendsList(session.getUser().getAccount());
         initFriendPane(friendsList);
+
         ReceiveMessageService receiveMessageService = new ReceiveMessageService();
         receiveMessageService.start();
 
@@ -179,4 +179,20 @@ public class MainWindow implements Initializable {
     }
 
 
+    public void sendFile(MouseEvent mouseEvent) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择图片");
+        File file = fileChooser.showOpenDialog(root.getScene().getWindow());
+/*        if (file != null) {
+            System.out.println(file.getAbsolutePath());
+            Session session = Session.getInstance();
+            dos.writeUTF("[FILE]");
+            ObjectOutputStream objectOutputStream = new ObjectOutputStream(session.getSocket().getOutputStream());
+            objectOutputStream.writeObject(file);
+        }*/
+    }
+
+    public void sendImg(MouseEvent mouseEvent) {
+        new FileChooser().showOpenDialog(root.getParent().getScene().getWindow());
+    }
 }

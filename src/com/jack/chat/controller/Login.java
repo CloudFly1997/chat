@@ -98,7 +98,6 @@ public class Login implements Initializable {
                     chatStage.initStyle(StageStyle.TRANSPARENT);
                     chatStage.getIcons().add(new Image("img/logo.png"));
                     chatStage.show();
-
                     loginStage.close();
                 }
             } else {
@@ -118,6 +117,7 @@ public class Login implements Initializable {
             DataOutputStream dos = new DataOutputStream(createSocket.getOutputStream());
             session.setDis(dis);
             session.setDos(dos);
+            session.setSocket(createSocket);
             dos.writeUTF(session.getUser().getAccount());
             success = true;
         } catch (Exception e) {
