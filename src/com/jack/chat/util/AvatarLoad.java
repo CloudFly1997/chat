@@ -1,5 +1,6 @@
 package com.jack.chat.util;
 
+import com.jack.chat.common.MainWindowHolder;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
@@ -34,12 +35,17 @@ public class AvatarLoad {
         load(imageView, name, 260.0, 260.0);
     }
 
+
+    public static void loadSelfProfileAvatar(ImageView imageView, String name) {
+        load(imageView, name, 240.0, 240.0);
+        loadUserAvatar(MainWindowHolder.getInstance().getMainWindow().userAvatar,name);
+    }
+
     private static void load(ImageView imageView, String name, Double requestedWidth, Double requestedHeight) {
         Image image = null;
         String imgPath = System.getProperty("user.home") + "\\chat\\avatar\\" + name + ".png";
         String defaultPath = System.getProperty("user.home") + "\\chat\\avatar\\default.png";
         try {
-
             InputStream in = null;
             Connection connection = DbUtil.getConnection();
             PreparedStatement preparedStatement = connection.prepareStatement("SELECT avatar FROM user WHERE user_id " +
@@ -65,3 +71,4 @@ public class AvatarLoad {
         imageView.setImage(image);
     }
 }
+

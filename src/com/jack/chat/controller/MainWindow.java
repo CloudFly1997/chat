@@ -5,6 +5,7 @@ import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
 import com.jack.chat.component.FriendPane;
 import com.jack.chat.component.MessageCarrier;
+import com.jack.chat.component.ProfilePane;
 import com.jack.chat.component.SearchPane;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
@@ -144,6 +145,9 @@ public class MainWindow implements Initializable {
         session = Session.getInstance();
         user = session.getUser();
         AvatarLoad.loadUserAvatar(userAvatar, user.getAccount());
+        userAvatar.setOnMouseClicked(e -> {
+            new ProfilePane(user).show();
+        });
         userName.setText(user.getNickName());
         ois = session.getOis();
         oos = session.getOos();
@@ -197,6 +201,6 @@ public class MainWindow implements Initializable {
     }
 
     public void sendImg(MouseEvent mouseEvent) {
-        new FileChooser().showOpenDialog(root.getParent().getScene().getWindow());
+        new FileChooser().showOpenDialog(root.getScene().getWindow());
     }
 }

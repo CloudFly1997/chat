@@ -34,7 +34,7 @@ public class FriendMenu extends ContextMenu {
         viewProfile.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent event) {
-                new FriendProfilePane(user);
+                new FriendProfilePane(user).show();
             }
         });
         MenuItem settingRemark = new MenuItem("设置备注");
@@ -45,8 +45,8 @@ public class FriendMenu extends ContextMenu {
         MenuItem deleteFriend = new MenuItem("删除好友");
 
         deleteFriend.setOnAction(event -> {
-            friendService.deleteFriend(Session.getInstance().getUser().getAccount(),user.getAccount());
-            friendService.deleteFriend(user.getAccount(),Session.getInstance().getUser().getAccount());
+            friendService.deleteFriend(Session.getInstance().getUser().getAccount(), user.getAccount());
+            friendService.deleteFriend(user.getAccount(), Session.getInstance().getUser().getAccount());
             MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(friendPane);
             FriendPaneHolder.getInstance().remove(user.getAccount());
             try {

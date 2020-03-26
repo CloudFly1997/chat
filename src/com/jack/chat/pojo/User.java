@@ -22,7 +22,6 @@ public class User {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.signature = signature;
-
     }
 
     public User() {
