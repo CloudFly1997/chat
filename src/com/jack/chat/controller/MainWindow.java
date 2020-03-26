@@ -11,8 +11,9 @@ import com.jack.chat.service.FriendService;
 import com.jack.chat.service.imp.FriendServiceImpl;
 import com.jack.chat.thread.ReceiveMessageService;
 import com.jack.chat.util.AvatarLoad;
-import com.jack.chat.util.MessageHandle;
-import com.jack.chat.util.TimeUtil;
+import com.jack.chat.util.Command;
+import com.jack.transfer.FileMessage;
+import com.jack.transfer.Message;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
@@ -82,12 +83,12 @@ public class MainWindow implements Initializable {
      * 关闭
      */
     public Label close;
-    public  VBox friendList;
+    public VBox friendList;
     public ImageView userAvatar;
     public Session session;
     public User user;
-    public DataInputStream dis;
-    public DataOutputStream dos;
+    public ObjectInputStream ois;
+    public ObjectOutputStream oos;
     public User currentChatWith;
     public Label userName;
     public TextArea messageEditArea;
@@ -144,8 +145,8 @@ public class MainWindow implements Initializable {
         user = session.getUser();
         AvatarLoad.loadUserAvatar(userAvatar, user.getAccount());
         userName.setText(user.getNickName());
-        dis = session.getDis();
-        dos = session.getDos();
+        ois = session.getOis();
+        oos = session.getOos();
         FriendService friendService = FriendServiceImpl.getInstance();
         MainWindowHolder.getInstance().setMainWindow(this);
 
@@ -167,13 +168,9 @@ public class MainWindow implements Initializable {
 
     public void sendMessage() throws IOException {
         String originMessage = messageEditArea.getText();
-        String type = "[TXT]";
-        String message = MessageHandle.afterHandleMessage(type, user.getAccount(),
-                currentChatWith.getAccount(),
-                TimeUtil.getNowTime(),
-                originMessage);
-        dos.writeUTF(message);
-        dos.flush();
+        Message message = new Message(user.getAccount(),
+                currentChatWith.getAccount(), originMessage, Command.TXT);
+        oos.writeObject(message);
         messageEditArea.clear();
         friendPaneHolder.getFriendPane(currentChatWith.getAccount()).getChatRecordBox().getChildren().add(new MessageCarrier(true, originMessage));
     }
@@ -183,13 +180,20 @@ public class MainWindow implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择图片");
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
-/*        if (file != null) {
-            System.out.println(file.getAbsolutePath());
-            Session session = Session.getInstance();
-            dos.writeUTF("[FILE]");
-            ObjectOutputStream objectOutputStream = new ObjectOutputStream(session.getSocket().getOutputStream());
-            objectOutputStream.writeObject(file);
-        }*/
+        System.out.println(file.getName());
+        FileMessage fileMessage = new FileMessage(file, user.getAccount(),
+                currentChatWith.getAccount(), Command.IMAGE,file.getName());
+        oos.writeObject(fileMessage);
+        DataInputStream dis = new DataInputStream(new FileInputStream(file));
+        DataOutputStream dos = new DataOutputStream(session.getSocket().getOutputStream());
+        byte[] bytes = new byte[dis.available()];
+        while (dis.read(bytes) != -1) {
+            dos.write(bytes,0,dis.available());
+        }
+        dos.flush();
+        dis.close();
+        dos.close();
+
     }
 
     public void sendImg(MouseEvent mouseEvent) {

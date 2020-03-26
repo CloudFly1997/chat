@@ -2,11 +2,11 @@ package com.jack.chat.component;
 
 import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.common.Session;
-import com.jack.chat.pojo.Group;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.imp.UserServiceImpl;
 import com.jack.chat.util.AvatarLoad;
-import com.jack.chat.util.CommandHandle;
+import com.jack.chat.util.Command;
+import com.jack.transfer.Message;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -48,13 +48,6 @@ public class SearchPane extends GridPane {
         }
     }
 
-    public SearchPane(User user) {
-
-    }
-
-    public SearchPane(Group group) {
-
-    }
 
     public void search() {
         String chat = "发起会话";
@@ -76,9 +69,9 @@ public class SearchPane extends GridPane {
                     System.out.println("发起会话");
                 } else if (add.equals(addFriend.getText())) {
                     try {
-                        String command = CommandHandle.addFriend(Session.getInstance().getUser().getAccount(),
-                                user.getAccount());
-                        Session.getInstance().getDos().writeUTF(command);
+                        Message message = new Message(Session.getInstance().getUser().getAccount(),
+                                user.getAccount(), Command.ADD_FRIEND);
+                        Session.getInstance().getOos().writeObject(message);
                     } catch (IOException e) {
                         e.printStackTrace();
                     }

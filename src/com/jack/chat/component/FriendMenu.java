@@ -6,7 +6,8 @@ import com.jack.chat.common.Session;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
 import com.jack.chat.service.imp.FriendServiceImpl;
-import com.jack.chat.util.CommandHandle;
+import com.jack.chat.util.Command;
+import com.jack.transfer.Message;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.scene.control.ContextMenu;
@@ -49,7 +50,8 @@ public class FriendMenu extends ContextMenu {
             MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(friendPane);
             FriendPaneHolder.getInstance().remove(user.getAccount());
             try {
-                Session.getInstance().getDos().writeUTF(CommandHandle.deleteFriend(Session.getInstance().getUser().getAccount(),user.getAccount()));
+                Session.getInstance().getOos().writeObject(new Message(Session.getInstance().getUser().getAccount(),
+                        user.getAccount(), Command.DELETE_FRIEND));
             } catch (IOException e) {
                 e.printStackTrace();
             }

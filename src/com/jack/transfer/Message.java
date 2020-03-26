@@ -1,4 +1,6 @@
-package com.jack.chat.pojo;
+package com.jack.transfer;
+
+import com.jack.chat.util.TimeUtil;
 
 import java.io.Serializable;
 
@@ -6,19 +8,38 @@ import java.io.Serializable;
  * @author jack
  */
 public class Message implements Serializable{
+	
 	private static final long serialVersionUID = 1L;
+
 	private String fromUser;
 	private String toUser;
 	private String messageContent;
 	private String dateTime;
 	private String type;
 	
-	public Message(String fromUser, String toUser, String messageContent, String dateTime,String type) {
+	public Message(String fromUser, String toUser, String messageContent,  String type) {
+		super();
+		this.fromUser = fromUser;
+		this.toUser = toUser;
+		this.messageContent = messageContent;
+		this.dateTime = TimeUtil.getNowTime();
+		this.type = type;
+	}
+
+	public Message(String fromUser, String toUser, String messageContent, String dateTime, String type) {
 		super();
 		this.fromUser = fromUser;
 		this.toUser = toUser;
 		this.messageContent = messageContent;
 		this.dateTime = dateTime;
+		this.type = type;
+	}
+
+	public Message(String fromUser, String toUser, String type) {
+		super();
+		this.fromUser = fromUser;
+		this.toUser = toUser;
+		this.dateTime = TimeUtil.getNowTime();
 		this.type = type;
 	}
 
@@ -59,7 +80,12 @@ public class Message implements Serializable{
 
 	@Override
 	public String toString() {
-		return "Message [fromUser=" + fromUser + ", toUser=" + toUser + ", messageContent=" + messageContent
-				+ ", dateTime=" + dateTime + "]";
+		return "Message{" +
+				"fromUser='" + fromUser + '\'' +
+				", toUser='" + toUser + '\'' +
+				", messageContent='" + messageContent + '\'' +
+				", dateTime='" + dateTime + '\'' +
+				", type='" + type + '\'' +
+				'}';
 	}
 }

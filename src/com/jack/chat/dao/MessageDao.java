@@ -1,8 +1,8 @@
 package com.jack.chat.dao;
 
 
-import com.jack.chat.pojo.Message;
 import com.jack.chat.pojo.User;
+import com.jack.transfer.Message;
 
 import java.util.List;
 

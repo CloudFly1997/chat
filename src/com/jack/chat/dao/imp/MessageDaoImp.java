@@ -1,9 +1,9 @@
 package com.jack.chat.dao.imp;
 
 import com.jack.chat.dao.MessageDao;
-import com.jack.chat.pojo.Message;
 import com.jack.chat.pojo.User;
 import com.jack.chat.util.DbUtil;
+import com.jack.transfer.Message;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;

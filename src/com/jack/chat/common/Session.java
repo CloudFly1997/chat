@@ -1,27 +1,32 @@
 package com.jack.chat.common;
 
+import com.jack.chat.controller.MainWindow;
 import com.jack.chat.pojo.User;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 
 /**
- * @author jack
+ * @author jackIn
  */
 public class Session {
     private User user;
     private boolean state;
-    private DataInputStream dis;
-    private DataOutputStream dos;
+    private ObjectInputStream ois;
+    private ObjectOutputStream oos;
+    private MainWindow mainWindow;
     private static Session session = new Session();
     private Socket socket;
+
     private Session() {
 
     }
-    public static Session getInstance(){
+
+    public static Session getInstance() {
         return session;
     }
+
     public boolean getState() {
         return state;
     }
@@ -38,27 +43,35 @@ public class Session {
         this.user = user;
     }
 
-    public DataInputStream getDis() {
-        return dis;
-    }
-
-    public DataOutputStream getDos() {
-        return dos;
-    }
-
-    public void setDis(DataInputStream dis) {
-        this.dis = dis;
-    }
-
-    public void setDos(DataOutputStream dos) {
-        this.dos = dos;
-    }
-
     public Socket getSocket() {
         return socket;
     }
 
     public void setSocket(Socket socket) {
         this.socket = socket;
+    }
+
+    public ObjectInputStream getOis() {
+        return ois;
+    }
+
+    public ObjectOutputStream getOos() {
+        return oos;
+    }
+
+    public void setOis(ObjectInputStream ois) {
+        this.ois = ois;
+    }
+
+    public void setOos(ObjectOutputStream oos) {
+        this.oos = oos;
+    }
+
+    public MainWindow getMainWindow() {
+        return mainWindow;
+    }
+
+    public void setMainWindow(MainWindow mainWindow) {
+        this.mainWindow = mainWindow;
     }
 }

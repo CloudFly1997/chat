@@ -6,13 +6,13 @@ import com.jack.chat.common.Session;
 import com.jack.chat.component.AddFriendDialog;
 import com.jack.chat.component.FriendPane;
 import com.jack.chat.component.MessageCarrier;
-import com.jack.chat.service.imp.FriendServiceImpl;
 import com.jack.chat.service.imp.UserServiceImpl;
-import com.jack.chat.util.CommandHandle;
-import com.jack.chat.util.MessageHandle;
+import com.jack.transfer.Message;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
+
+import java.io.File;
 
 
 /**
@@ -20,7 +20,7 @@ import javafx.util.Duration;
  *
  * @author jack
  */
-public class ReceiveMessageService extends ScheduledService<String> {
+public class ReceiveMessageService extends ScheduledService<Object> {
 
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
     private FriendPane SystemNotifier = friendPaneHolder.getFriendPane("1");
@@ -31,54 +31,59 @@ public class ReceiveMessageService extends ScheduledService<String> {
     }
 
     @Override
-    protected void executeTask(Task<String> task) {
+    protected void executeTask(Task<Object> task) {
         super.executeTask(task);
     }
 
     @Override
-    protected Task<String> createTask() {
-        Task<String> task = new Task<String>() {
+    protected Task<Object> createTask() {
+        Task<Object> task = new Task<Object>() {
             /**
              * 接收到消息
-             * @param value
+             * @param obj
              */
             @Override
-            protected void updateValue(String value) {
-                super.updateValue(value);
-                System.out.println(value);
-                String type = MessageHandle.getMessageType(value);
-                switch (type) {
-                    case "[TXT]":
-                        String from = MessageHandle.getFrom(value);
-                        friendPaneHolder.getFriendPane(from).receiveMessage(new MessageCarrier(MessageHandle.getContent(value)));
-                        break;
-                    case "[ADD_FRIEND]":
-                        SystemNotifier.receiveMessage(new AddFriendDialog(CommandHandle.getWhoAddMe(value)));
-                        break;
-                    case "[AGREE_ADD_FRIEND]":
-                        String account = CommandHandle.getWhoAddMe(value);
-                        FriendPane newFriendPane =
-                                new FriendPane(UserServiceImpl.getInstance().queryUserByAccount(account));
-                        friendPaneHolder.addFriendPane(account, newFriendPane);
-                        MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().add(1, newFriendPane);
-                        break;
-                    case "[DELETE_FRIEND]":
-                        MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(
-                                FriendPaneHolder.getInstance().getFriendPane(CommandHandle.getWhoDeleteMe(value)));
-                        FriendPaneHolder.getInstance().remove(CommandHandle.getWhoDeleteMe(value));
-                        break;
-                    case "[]":
-                        break;
-                    default:
+            protected void updateValue(Object obj) {
+                super.updateValue(obj);
+                System.out.println(obj);
+                if (obj instanceof Message) {
+                    Message message = (Message) obj;
+                    switch (message.getType()) {
+                        case "[TXT]":
+                            String from = message.getFromUser();
+                            friendPaneHolder.getFriendPane(from).receiveMessage(new MessageCarrier(message.getMessageContent()));
+                            break;
+                        case "[ADD_FRIEND]":
+                            SystemNotifier.receiveMessage(new AddFriendDialog(message.getFromUser()));
+                            break;
+                        case "[AGREE_ADD_FRIEND]":
+                            String account = message.getFromUser();
+                            FriendPane newFriendPane =
+                                    new FriendPane(UserServiceImpl.getInstance().queryUserByAccount(account));
+                            friendPaneHolder.addFriendPane(account, newFriendPane);
+                            MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().add(1, newFriendPane);
+                            break;
+                        case "[DELETE_FRIEND]":
+                            MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(
+                                    FriendPaneHolder.getInstance().getFriendPane(message.getFromUser()));
+                            FriendPaneHolder.getInstance().remove(message.getFromUser());
+                            break;
+                        case "[]":
+                            break;
+                        default:
+                    }
+                } else if (obj instanceof File) {
+                    File file = (File)obj;
+                    String name = file.getName();
+                    System.out.println(name);
                 }
 
             }
 
-
             @Override
-            protected String call() throws Exception {
-                String getMessageFromServer = Session.getInstance().getDis().readUTF();
-                return getMessageFromServer;
+            protected Object call() throws Exception {
+                Object receiveObject = Session.getInstance().getOis().readObject();
+                return receiveObject;
             }
         };
         return task;

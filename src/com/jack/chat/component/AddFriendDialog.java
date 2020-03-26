@@ -1,11 +1,13 @@
 package com.jack.chat.component;
 
+import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
 import com.jack.chat.service.FriendService;
 import com.jack.chat.service.imp.FriendServiceImpl;
 import com.jack.chat.service.imp.UserServiceImpl;
-import com.jack.chat.util.CommandHandle;
+import com.jack.chat.util.Command;
+import com.jack.transfer.Message;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -43,8 +45,9 @@ public class AddFriendDialog extends AnchorPane {
         FriendService friendService = FriendServiceImpl.getInstance();
         friendService.addFriend(user, account);
         FriendPane newFriendPane = new FriendPane(UserServiceImpl.getInstance().queryUserByAccount(account));
+        FriendPaneHolder.getInstance().addFriendPane(account,newFriendPane);
         MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().add(1, newFriendPane);
-        Session.getInstance().getDos().writeUTF(CommandHandle.agreeAddFriend(user, account));
+        Session.getInstance().getOos().writeObject(new Message(user, account, Command.AGREE_ADD_FRIEND));
         agreeButton.setText("已同意");
         agreeButton.setDisable(true);
         refuseButton.setDisable(true);

@@ -10,23 +10,31 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="cdb932d9-7e58-4d94-93a9-e7b232ef17da" name="Default" comment="聊天组件完成了消息内容部分，完成了聊天组件的容器，空指针异常未修复">
-      <change afterPath="$PROJECT_DIR$/lib/commons-io-2.6.jar" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/addFriend-gray.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/addFriend.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/addGroup-gray.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/resource/icon/addGroup.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/resource/config/config.properties" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/util/Command.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/chat/util/PropertiesUtil.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/transfer/AddFriendCommand.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/transfer/FileMessage.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/com/jack/transfer/LoginRequest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/chat.iml" beforeDir="false" afterPath="$PROJECT_DIR$/chat.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/css/mainWindowCss.css" beforeDir="false" afterPath="$PROJECT_DIR$/resource/css/mainWindowCss.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/resource/fxml/chatWindow2.0.fxml" beforeDir="false" afterPath="$PROJECT_DIR$/resource/fxml/chatWindow2.0.fxml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/common/FriendPaneHolder.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/common/FriendPaneHolder.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/common/Session.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/common/Session.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/AddFriendDialog.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/AddFriendDialog.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/FriendMenu.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendMenu.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/FriendPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/FriendPane.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/component/SearchPane.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/component/SearchPane.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/Login.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/Login.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/controller/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/controller/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/dao/MessageDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/dao/MessageDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/dao/imp/MessageDaoImp.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/dao/imp/MessageDaoImp.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/lunch/Main.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/lunch/Main.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/pojo/Message.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/transfer/Message.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/service/MessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/service/MessageService.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/service/imp/MessageServiceImpl.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/service/imp/MessageServiceImpl.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/com/jack/chat/thread/ReceiveMessageService.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/thread/ReceiveMessageService.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/util/CommandHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/util/CommandHandle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/util/CommandHandle.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/util/MessageHandle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/com/jack/chat/util/MessageHandle.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/com/jack/chat/util/MessageUtil.java" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -145,12 +153,19 @@
     <property name="project.structure.side.proportion" value="0.2908046" />
     <property name="recentsLimit" value="5" />
     <property name="restartRequiresConfirmation" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.Java" />
+    <property name="settings.editor.selected.configurable" value="Errors" />
     <property name="two.files.diff.last.used.folder" value="$PROJECT_DIR$/src/lib/jmetro-11.6.8.jar" />
   </component>
   <component name="RecentsManager">
-    <key name="OPEN_URL_DIALOG">
-      <recent name="https://github.com/macrozheng/mall.git" />
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\Users\jack\Desktop\chat\resource\css" />
+      <recent name="C:\Users\jack\Desktop\chat\resource\fxml" />
+      <recent name="C:\Users\jack\Desktop\OES\chat\resource\sound" />
+      <recent name="C:\Users\jack\Desktop\OES\chat\resource" />
+      <recent name="C:\Users\jack\Desktop\OES\chat\lib" />
+    </key>
+    <key name="MoveClassesOrPackagesDialog.RECENTS_KEY">
+      <recent name="com.jack" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\jack\Desktop\chat\lib" />
@@ -160,18 +175,20 @@
       <recent name="C:\Users\jack\Desktop\chat\resource\fxml" />
     </key>
     <key name="CopyClassDialog.RECENTS_KEY">
+      <recent name="com.jack.chat.util" />
+      <recent name="com.jack.transfer" />
+      <recent name="com.jack.chat.pojo" />
+      <recent name="com.jack.serializable" />
       <recent name="com.jack.chat.component" />
-      <recent name="sample" />
     </key>
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\Users\jack\Desktop\chat\resource\css" />
-      <recent name="C:\Users\jack\Desktop\chat\resource\fxml" />
-      <recent name="C:\Users\jack\Desktop\OES\chat\resource\sound" />
-      <recent name="C:\Users\jack\Desktop\OES\chat\resource" />
-      <recent name="C:\Users\jack\Desktop\OES\chat\lib" />
+    <key name="OPEN_URL_DIALOG">
+      <recent name="https://github.com/macrozheng/mall.git" />
+    </key>
+    <key name="CreateClassDialog.RecentsKey">
+      <recent name="com.jack.serializable" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.Main">
+  <component name="RunManager">
     <configuration default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -197,48 +214,6 @@
       <Host>localhost</Host>
       <Port>5050</Port>
     </configuration>
-    <configuration name="FontAwesomeIconsDemoApp" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="de.jensd.fx.glyphs.fontawesome.demo.FontAwesomeIconsDemoApp" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="de.jensd.fx.glyphs.fontawesome.demo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FontTestFX" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="ALTERNATIVE_JRE_PATH" value="11" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="true" />
-      <option name="MAIN_CLASS_NAME" value="de.jensd.fx.glyphs.fontawesome.demo.FontTestFX" />
-      <module name="chat" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="de.jensd.fx.glyphs.fontawesome.demo.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="FriendPane" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jack.chat.component.FriendPane" />
-      <module name="chat" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jack.chat.component.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration name="Main" type="Application" factoryName="Application" singleton="false">
       <option name="MAIN_CLASS_NAME" value="com.jack.chat.lunch.Main" />
       <module name="chat" />
@@ -251,35 +226,7 @@
       <RunnerSettings RunnerId="Run" />
       <ConfigurationWrapper RunnerId="Run" />
       <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="StageStyleTest" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jack.chat.lunch.StageStyleTest" />
-      <module name="chat" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jack.chat.lunch.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="Test (1)" type="Application" factoryName="Application" temporary="true" nameIsGenerated="true">
-      <option name="MAIN_CLASS_NAME" value="com.jack.chat.lunch.Test" />
-      <module name="chat" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="com.jack.chat.lunch.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <method v="2">
-        <option name="Make" enabled="true" />
+        <option name="MakeNoErrorCheck" enabled="true" />
       </method>
     </configuration>
     <configuration default="true" type="Application" factoryName="Application">
@@ -319,23 +266,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <list>
-      <item itemvalue="Application.Main" />
-      <item itemvalue="Application.FriendPane" />
-      <item itemvalue="Application.Test (1)" />
-      <item itemvalue="Application.FontAwesomeIconsDemoApp" />
-      <item itemvalue="Application.FontTestFX" />
-      <item itemvalue="Application.StageStyleTest" />
-    </list>
-    <recent_temporary>
-      <list>
-        <item itemvalue="Application.StageStyleTest" />
-        <item itemvalue="Application.FontTestFX" />
-        <item itemvalue="Application.FontAwesomeIconsDemoApp" />
-        <item itemvalue="Application.Test (1)" />
-        <item itemvalue="Application.FriendPane" />
-      </list>
-    </recent_temporary>
   </component>
   <component name="ServiceViewManager">
     <option name="viewStates">
@@ -385,7 +315,12 @@
       <workItem from="1584072337375" duration="17582000" />
       <workItem from="1584440998052" duration="20444000" />
       <workItem from="1584761214111" duration="2001000" />
-      <workItem from="1584764425423" duration="32175000" />
+      <workItem from="1584764425423" duration="34751000" />
+      <workItem from="1585150190714" duration="2071000" />
+      <workItem from="1585154724669" duration="1137000" />
+      <workItem from="1585155882113" duration="1024000" />
+      <workItem from="1585198664792" duration="6116000" />
+      <workItem from="1585208643386" duration="9753000" />
     </task>
     <servers />
   </component>
@@ -450,18 +385,22 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="418" y="54" key="#SQL_Dialects/0.0.1536.824@0.0.1536.824" timestamp="1583410967337" />
-    <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582705659283">
+    <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1585149470683">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1582705659283" />
+    <state x="223" y="68" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1536.824@0.0.1536.824" timestamp="1585149470683" />
     <state x="399" y="100" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog" timestamp="1581265036134">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="399" y="100" key="#com.intellij.ide.fileTemplates.ui.ConfigureTemplatesDialog/0.0.1536.824@0.0.1536.824" timestamp="1581265036134" />
-    <state x="574" y="129" key="#com.intellij.ide.util.MemberChooser" timestamp="1583513117254">
+    <state x="574" y="129" key="#com.intellij.ide.util.MemberChooser" timestamp="1585220783151">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="574" y="129" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1583513117254" />
+    <state x="574" y="129" key="#com.intellij.ide.util.MemberChooser/0.0.1536.824@0.0.1536.824" timestamp="1585220783151" />
+    <state x="499" y="194" key="#com.intellij.ide.util.PackageChooserDialog" timestamp="1585155662199">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="194" key="#com.intellij.ide.util.PackageChooserDialog/0.0.1536.824@0.0.1536.824" timestamp="1585155662199" />
     <state x="519" y="196" key="#com.intellij.ide.util.TreeClassChooserDialog" timestamp="1582729031769">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -470,10 +409,14 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="620" y="124" key="#com.intellij.openapi.roots.ui.configuration.libraryEditor.LibraryEditorDialog/0.0.1536.824@0.0.1536.824" timestamp="1581774392168" />
-    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1583511941663">
+    <state x="553" y="324" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages" timestamp="1585155356017">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1583511941663" />
+    <state x="553" y="324" key="#com.intellij.refactoring.move.moveClassesOrPackages.MoveClassesOrPackagesDialog.packages/0.0.1536.824@0.0.1536.824" timestamp="1585155356017" />
+    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1585206379434">
+      <screen x="0" y="0" width="1536" height="824" />
+    </state>
+    <state x="499" y="162" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/0.0.1536.824@0.0.1536.824" timestamp="1585206379434" />
     <state x="520" y="171" key="#com.intellij.util.ui.classpath.ChooseLibrariesDialog" timestamp="1582732025680">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -486,46 +429,46 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="93" y="93" width="1350" height="638" key="DiffContextDialog/0.0.1536.824@0.0.1536.824" timestamp="1581773976535" />
-    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1584763489551">
+    <state x="549" y="168" key="FileChooserDialogImpl" timestamp="1585200042890">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1584763489551" />
-    <state width="1493" height="142" key="GridCell.Tab.0.bottom" timestamp="1585147179279">
+    <state x="549" y="168" key="FileChooserDialogImpl/0.0.1536.824@0.0.1536.824" timestamp="1585200042890" />
+    <state width="1493" height="211" key="GridCell.Tab.0.bottom" timestamp="1585228279312">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="142" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585147179279" />
-    <state width="1493" height="142" key="GridCell.Tab.0.center" timestamp="1585147179278">
+    <state width="1493" height="211" key="GridCell.Tab.0.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585228279312" />
+    <state width="1493" height="211" key="GridCell.Tab.0.center" timestamp="1585228279311">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="142" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585147179278" />
-    <state width="1493" height="142" key="GridCell.Tab.0.left" timestamp="1585147179277">
+    <state width="1493" height="211" key="GridCell.Tab.0.center/0.0.1536.824@0.0.1536.824" timestamp="1585228279311" />
+    <state width="1493" height="211" key="GridCell.Tab.0.left" timestamp="1585228279311">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="142" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585147179277" />
-    <state width="1493" height="142" key="GridCell.Tab.0.right" timestamp="1585147179279">
+    <state width="1493" height="211" key="GridCell.Tab.0.left/0.0.1536.824@0.0.1536.824" timestamp="1585228279311" />
+    <state width="1493" height="211" key="GridCell.Tab.0.right" timestamp="1585228279311">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="142" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585147179279" />
-    <state width="1493" height="151" key="GridCell.Tab.1.bottom" timestamp="1582912240105">
+    <state width="1493" height="211" key="GridCell.Tab.0.right/0.0.1536.824@0.0.1536.824" timestamp="1585228279311" />
+    <state width="1493" height="151" key="GridCell.Tab.1.bottom" timestamp="1585152291532">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="151" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1582912240105" />
-    <state width="1493" height="151" key="GridCell.Tab.1.center" timestamp="1582912240105">
+    <state width="1493" height="151" key="GridCell.Tab.1.bottom/0.0.1536.824@0.0.1536.824" timestamp="1585152291532" />
+    <state width="1493" height="151" key="GridCell.Tab.1.center" timestamp="1585152291532">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="151" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1582912240105" />
-    <state width="1493" height="151" key="GridCell.Tab.1.left" timestamp="1582912240105">
+    <state width="1493" height="151" key="GridCell.Tab.1.center/0.0.1536.824@0.0.1536.824" timestamp="1585152291532" />
+    <state width="1493" height="151" key="GridCell.Tab.1.left" timestamp="1585152291531">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="151" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1582912240105" />
-    <state width="1493" height="151" key="GridCell.Tab.1.right" timestamp="1582912240105">
+    <state width="1493" height="151" key="GridCell.Tab.1.left/0.0.1536.824@0.0.1536.824" timestamp="1585152291531" />
+    <state width="1493" height="151" key="GridCell.Tab.1.right" timestamp="1585152291532">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state width="1493" height="151" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1582912240105" />
-    <state x="325" y="0" key="SettingsEditor" timestamp="1584015775185">
+    <state width="1493" height="151" key="GridCell.Tab.1.right/0.0.1536.824@0.0.1536.824" timestamp="1585152291532" />
+    <state x="325" y="0" key="SettingsEditor" timestamp="1585150821989">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="325" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1584015775185" />
+    <state x="325" y="0" key="SettingsEditor/0.0.1536.824@0.0.1536.824" timestamp="1585150821989" />
     <state x="490" y="154" width="543" height="524" key="StructurePopup" timestamp="1582721998063">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
@@ -550,9 +493,9 @@
       <screen x="0" y="0" width="1536" height="824" />
     </state>
     <state x="425" y="187" key="run.anything.popup/0.0.1536.824@0.0.1536.824" timestamp="1584605546372" />
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1584970787855">
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup" timestamp="1585149444452">
       <screen x="0" y="0" width="1536" height="824" />
     </state>
-    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1584970787855" />
+    <state x="431" y="145" width="672" height="678" key="search.everywhere.popup/0.0.1536.824@0.0.1536.824" timestamp="1585149444452" />
   </component>
 </project>

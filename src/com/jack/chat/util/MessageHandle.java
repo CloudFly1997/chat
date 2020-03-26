@@ -1,7 +1,5 @@
 package com.jack.chat.util;
 
-import com.jack.chat.pojo.Message;
-
 /**
  * @author jack
  */
@@ -18,7 +16,7 @@ public class MessageHandle {
     }
 
 
-    public static Message getMessageObject(String message) {
+/*    public static Message getMessageObject(String message) {
         String type = message.split(SPLIT_CODE)[0];
         String from = message.split(SPLIT_CODE)[1];
         String to = message.split(SPLIT_CODE)[2];
@@ -26,7 +24,7 @@ public class MessageHandle {
         String content = message.split(SPLIT_CODE)[4];
         Message messageObj = new Message(type, from, to, content, date);
         return messageObj;
-    }
+    }*/
 
     public static String getFrom(String originMessage) {
         return originMessage.split(SPLIT_CODE)[1];

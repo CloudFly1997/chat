@@ -2,9 +2,9 @@ package com.jack.chat.service.imp;
 
 import com.jack.chat.dao.MessageDao;
 import com.jack.chat.dao.imp.MessageDaoImp;
-import com.jack.chat.pojo.Message;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.MessageService;
+import com.jack.transfer.Message;
 
 import java.util.List;
 

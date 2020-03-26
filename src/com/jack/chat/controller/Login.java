@@ -4,6 +4,8 @@ import com.jack.chat.common.Session;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImpl;
+import com.jack.chat.util.PropertiesUtil;
+import com.jack.transfer.LoginRequest;
 import javafx.application.Platform;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -22,11 +24,12 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
-import java.io.DataInputStream;
-import java.io.DataOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
+import java.io.ObjectOutputStream;
 import java.net.Socket;
 import java.net.URL;
+import java.net.UnknownHostException;
 import java.util.ResourceBundle;
 
 /**
@@ -75,52 +78,55 @@ public class Login implements Initializable {
             @Override
             public void handle(KeyEvent event) {
                 if (event.getCode() == KeyCode.ENTER) {
-                    login();
+                    try {
+                        login();
+                    } catch (IOException e) {
+                        e.printStackTrace();
+                    }
                 }
             }
         });
     }
 
-    public void login() {
-        try {
-            String accountText = account.getText();
-            String passwordText = password.getText();
-            User user = userService.loginByAccountAndPassword(accountText, passwordText);
-            if (user != null) {
-                session.setUser(user);
-                if(connectToServer()) {
-                    Stage loginStage = (Stage) loginPane.getScene().getWindow();
-                    Stage chatStage = new Stage();
-                    Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));
-                    Scene scene = new Scene(chatWindow);
-                    scene.setFill(null);
-                    chatStage.setScene(scene);
-                    chatStage.initStyle(StageStyle.TRANSPARENT);
-                    chatStage.getIcons().add(new Image("img/logo.png"));
-                    chatStage.show();
-                    loginStage.close();
-                }
-            } else {
-
-                System.out.println(1);
+    public void login() throws IOException {
+        String accountText = account.getText();
+        String passwordText = password.getText();
+        User user = userService.loginByAccountAndPassword(accountText, passwordText);
+        if (user != null) {
+            session.setUser(user);
+            if (connectToServer()) {
+                Stage loginStage = (Stage) loginPane.getScene().getWindow();
+                Stage chatStage = new Stage();
+                Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));
+                Scene scene = new Scene(chatWindow);
+                scene.setFill(null);
+                chatStage.setScene(scene);
+                chatStage.initStyle(StageStyle.TRANSPARENT);
+                chatStage.getIcons().add(new Image("img/logo.png"));
+                chatStage.show();
+                loginStage.close();
             }
-        } catch (IOException e) {
-            e.printStackTrace();
+        } else {
+            System.out.println(1);
         }
     }
 
-    public boolean connectToServer() { //
+    public boolean connectToServer() {
         boolean success = false;
         try {
-            Socket createSocket = new Socket("127.0.0.1", 8888);
-            DataInputStream dis = new DataInputStream(createSocket.getInputStream());
-            DataOutputStream dos = new DataOutputStream(createSocket.getOutputStream());
-            session.setDis(dis);
-            session.setDos(dos);
-            session.setSocket(createSocket);
-            dos.writeUTF(session.getUser().getAccount());
+            Socket socket = new Socket(PropertiesUtil.getValue("server.ip"), Integer.parseInt(PropertiesUtil.getValue(
+                    "client.login.port")));
+            ObjectOutputStream oos = new ObjectOutputStream(socket.getOutputStream());
+            ObjectInputStream ois = new ObjectInputStream(socket.getInputStream());
+            session.setOis(ois);
+            session.setOos(oos);
+            session.setSocket(socket);
+            LoginRequest loginRequest = new LoginRequest(account.getText());
+            oos.writeObject(loginRequest);
             success = true;
-        } catch (Exception e) {
+        } catch (UnknownHostException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
             e.printStackTrace();
         }
         return success;

@@ -30,12 +30,5 @@ public class Main extends Application {
 
     public static void main(String[] args) throws IOException, SQLException {
         launch(args);
-       /* FileInputStream fileInputStream = new FileInputStream(new File(System.getProperty("user.home") + "\\chat" +
-                "\\avatar\\10010.png"));
-        Connection connection = DbUtil.getConnection();
-        PreparedStatement preparedStatement = connection.prepareStatement("update user set avatar = ? where user_id " +
-                "= 10010");
-        preparedStatement.setBinaryStream(1,fileInputStream,fileInputStream.available());
-        preparedStatement.execute();*/
     }
 }
