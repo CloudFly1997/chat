@@ -1,24 +1,25 @@
 package com.jack.chat.controller;
 
 import com.jack.chat.common.FriendPaneHolder;
+import com.jack.chat.common.GroupPaneHolder;
 import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
-import com.jack.chat.component.FriendPane;
-import com.jack.chat.component.MessageCarrier;
-import com.jack.chat.component.ProfilePane;
-import com.jack.chat.component.SearchPane;
+import com.jack.chat.component.*;
+import com.jack.chat.pojo.Group;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.FriendService;
+import com.jack.chat.service.GroupService;
 import com.jack.chat.service.imp.FriendServiceImpl;
+import com.jack.chat.service.imp.GroupServiceImpl;
 import com.jack.chat.thread.ReceiveMessageService;
 import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.Command;
-import com.jack.transfer.FileMessage;
 import com.jack.transfer.Message;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
@@ -29,6 +30,7 @@ import javafx.stage.Stage;
 import javafx.stage.Window;
 
 import java.io.*;
+import java.net.Socket;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -84,7 +86,7 @@ public class MainWindow implements Initializable {
      * 关闭
      */
     public Label close;
-    public VBox friendList;
+    public VBox friendListBox;
     public ImageView userAvatar;
     public Session session;
     public User user;
@@ -97,7 +99,10 @@ public class MainWindow implements Initializable {
     public Label addGroup;
     public Label sendFile;
     public Label sendImg;
+    public Label createGroup;
+    public VBox groupListBox;
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
+    private GroupPaneHolder groupPaneHolder = GroupPaneHolder.getInstance();
     private Double offsetX;
     private Double offsetY;
 
@@ -133,10 +138,20 @@ public class MainWindow implements Initializable {
         });
 
         addFriend.setOnMouseClicked(event -> {
-            new SearchPane();
+            if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
+                new SearchPane().show();
+            }
         });
         addGroup.setOnMouseClicked(event -> {
-            new SearchPane();
+            if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
+                new SearchPane().show();
+            }
+        });
+
+        createGroup.setOnMouseClicked(event -> {
+            if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
+                new CreateGroupPane().show();
+            }
         });
 
         friendListPane.prefHeightProperty().bind(main.heightProperty());
@@ -151,22 +166,34 @@ public class MainWindow implements Initializable {
         userName.setText(user.getNickName());
         ois = session.getOis();
         oos = session.getOos();
-        FriendService friendService = FriendServiceImpl.getInstance();
         MainWindowHolder.getInstance().setMainWindow(this);
+        initFriendPane();
+        initGroupPane();
 
-        List<User> friendsList = friendService.getFriendsList(session.getUser().getAccount());
-        initFriendPane(friendsList);
+
 
         ReceiveMessageService receiveMessageService = new ReceiveMessageService();
         receiveMessageService.start();
 
     }
 
-    public void initFriendPane(List<User> friendsList) {
-        for (User user : friendsList) {
+    public void initFriendPane() {
+        FriendService friendService = FriendServiceImpl.getInstance();
+        List<User> friendList = friendService.getFriendsList(user.getAccount());
+        for (User user : friendList) {
             FriendPane friendPane = new FriendPane(user);
             friendPaneHolder.addFriendPane(user.getAccount(), friendPane);
-            friendList.getChildren().add(friendPane);
+            friendListBox.getChildren().add(friendPane);
+        }
+    }
+
+    public void initGroupPane() {
+        GroupService groupService = GroupServiceImpl.getInstance();
+        List<Group> groupList = groupService.query(user.getAccount());
+        for (Group group : groupList) {
+            GroupPane groupPane = new GroupPane(group);
+            groupPaneHolder.addGroupPane(group.getGroupAccount(), groupPane);
+            groupListBox.getChildren().add(groupPane);
         }
     }
 
@@ -176,7 +203,7 @@ public class MainWindow implements Initializable {
                 currentChatWith.getAccount(), originMessage, Command.TXT);
         oos.writeObject(message);
         messageEditArea.clear();
-        friendPaneHolder.getFriendPane(currentChatWith.getAccount()).getChatRecordBox().getChildren().add(new MessageCarrier(true, originMessage));
+        friendPaneHolder.getFriendPane(currentChatWith.getAccount()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
     }
 
 
@@ -184,20 +211,24 @@ public class MainWindow implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择图片");
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
-        System.out.println(file.getName());
-        FileMessage fileMessage = new FileMessage(file, user.getAccount(),
+/*        FileMessage fileMessage = new FileMessage(file, user.getAccount(),
                 currentChatWith.getAccount(), Command.IMAGE,file.getName());
-        oos.writeObject(fileMessage);
-        DataInputStream dis = new DataInputStream(new FileInputStream(file));
-        DataOutputStream dos = new DataOutputStream(session.getSocket().getOutputStream());
-        byte[] bytes = new byte[dis.available()];
-        while (dis.read(bytes) != -1) {
-            dos.write(bytes,0,dis.available());
-        }
-        dos.flush();
-        dis.close();
-        dos.close();
+        oos.writeObject(fileMessage);*/
+        Socket socket = new Socket("127.0.0.1", 9999);
+/*        DataInputStream dis = new DataInputStream(new FileInputStream(file));
+        DataOutputStream dos = new DataOutputStream(socket.getOutputStream());*/
 
+        FileInputStream fis = new FileInputStream(file);
+
+        OutputStream outputStream = socket.getOutputStream();
+        byte[] bytes = new byte[1024];
+        int len = 0;
+        while ((len = fis.read(bytes)) != -1) {
+            outputStream.write(bytes, 0, len);
+        }
+        socket.shutdownOutput();
+        fis.close();
+        outputStream.close();
     }
 
     public void sendImg(MouseEvent mouseEvent) {

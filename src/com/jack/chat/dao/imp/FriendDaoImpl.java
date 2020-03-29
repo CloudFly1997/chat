@@ -23,15 +23,17 @@ public class FriendDaoImpl implements FriendDao {
 
     private static FriendDao friendDao = null;
 
-    private FriendDaoImpl(){
+    private FriendDaoImpl() {
 
     }
-    public static FriendDao getInstance(){
+
+    public static FriendDao getInstance() {
         if (friendDao == null) {
             friendDao = new FriendDaoImpl();
         }
         return friendDao;
     }
+
     Connection conn;
     PreparedStatement ps;
     ResultSet rs;
@@ -60,8 +62,7 @@ public class FriendDaoImpl implements FriendDao {
             }
             return friendsList;
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DbException();
+            throw new DbException(e);
         } finally {
             DbUtil.close(conn, rs, ps);
         }
@@ -72,8 +73,8 @@ public class FriendDaoImpl implements FriendDao {
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(deleteSql);
-            ps.setString(1,userAccount);
-            ps.setString(2,friendAccount);
+            ps.setString(1, userAccount);
+            ps.setString(2, friendAccount);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -85,9 +86,9 @@ public class FriendDaoImpl implements FriendDao {
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(changeRemarkSql);
-            ps.setString(1,newRemark);
-            ps.setString(2,userAccount);
-            ps.setString(3,friendAccount);
+            ps.setString(1, newRemark);
+            ps.setString(2, userAccount);
+            ps.setString(3, friendAccount);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();
@@ -101,14 +102,14 @@ public class FriendDaoImpl implements FriendDao {
     }
 
     @Override
-    public void addFriend(String account1,String account2) {
+    public void addFriend(String account1, String account2) {
         try {
             conn = DbUtil.getConnection();
             ps = conn.prepareStatement(addFriendSql);
-            ps.setString(1,account1);
-            ps.setString(2,account2);
-            ps.setString(3,account2);
-            ps.setString(4,account1);
+            ps.setString(1, account1);
+            ps.setString(2, account2);
+            ps.setString(3, account2);
+            ps.setString(4, account1);
             ps.execute();
         } catch (SQLException e) {
             e.printStackTrace();

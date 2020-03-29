@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.layout.VBox?>
+
+
+<fx:root fx:id="root" prefHeight="348.0" prefWidth="681.0" styleClass="root" stylesheets="@../css/createGroupPane.css" type="javafx.scene.layout.Pane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="236.0" layoutY="26.0" spacing="10.0">
+         <children>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="设置群账号" />
+                  <TextField fx:id="groupAccount" />
+                  <Label fx:id="occupiedTip" prefHeight="20.0" prefWidth="139.0" text="此账号已经被占用！" textFill="#ee0c0c" />
+               </children>
+            </HBox>
+            <HBox alignment="CENTER_LEFT" spacing="5.0">
+               <children>
+                  <Label text="设置群名称" />
+                  <TextField fx:id="groupName" />
+               </children>
+            </HBox>
+            <HBox spacing="5.0">
+               <children>
+                  <Label text="群介绍" />
+               </children>
+            </HBox>
+            <TextArea fx:id="groupIntroduce" prefHeight="138.0" prefWidth="431.0" />
+         </children>
+      </VBox>
+      <ImageView fx:id="groupAvatar" fitHeight="177.0" fitWidth="200.0" layoutX="14.0" layoutY="26.0" pickOnBounds="true" preserveRatio="true" />
+      <Button fx:id="create" layoutX="524.0" layoutY="297.0" mnemonicParsing="false" onAction="#create" prefHeight="30.0" prefWidth="87.0" styleClass="create-button" text="创建" />
+      <Button fx:id="uploadAvatar" layoutX="54.0" layoutY="221.0" mnemonicParsing="false" onAction="#uploadAvatar" styleClass="upload-avatar" text="上传群头像" textFill="#1a2ee1" underline="true" />
+   </children>
+</fx:root>

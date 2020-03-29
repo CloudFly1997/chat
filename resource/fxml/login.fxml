@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
-<Pane fx:id="loginPane" prefHeight="439.0" prefWidth="342.0" styleClass="main" stylesheets="@../css/login.css" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171" fx:controller="com.jack.chat.controller.Login">
+<Pane fx:id="loginPane" prefHeight="439.0" prefWidth="342.0" styleClass="main" stylesheets="@../css/login.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jack.chat.controller.Login">
     <children>
         <VBox alignment="CENTER" fillWidth="false" layoutX="41.0" layoutY="29.0" spacing="10.0">
             <children>
@@ -22,7 +22,7 @@
                 <Button id="loginButton" mnemonicParsing="false" onAction="#login" prefHeight="30.0" prefWidth="201.0" styleClass="login-button" text="登         录" />
                 <HBox prefHeight="29.0" prefWidth="250.0">
                     <children>
-                        <Hyperlink text="注册">
+                        <Hyperlink onAction="#toRegister" text="注册">
                             <HBox.margin>
                                 <Insets left="5.0" top="5.0" />
                             </HBox.margin>

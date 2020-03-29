@@ -6,6 +6,7 @@ import com.jack.chat.pojo.User;
 import com.jack.chat.service.MessageService;
 import com.jack.transfer.Message;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -25,5 +26,10 @@ public class MessageServiceImpl implements MessageService {
     @Override
     public List<Message> QueryHistoryMessage(User from, User to) {
         return messageDao.QueryHistoryMessage(from, to);
+    }
+
+    @Override
+    public void makeRead(User from, User to) throws SQLException {
+        messageDao.makeRead(from, to);
     }
 }

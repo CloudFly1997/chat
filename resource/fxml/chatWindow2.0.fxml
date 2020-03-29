@@ -2,7 +2,6 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
@@ -19,7 +18,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1162.0" style="-fx-background-radius: 30px;" stylesheets="@../css/mainWindowCss.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jack.chat.controller.MainWindow">
+<GridPane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="825.0" prefWidth="1162.0" style="-fx-background-radius: 30px;" stylesheets="@../css/mainWindow.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.jack.chat.controller.MainWindow">
     <columnConstraints>
         <ColumnConstraints hgrow="ALWAYS" />
     </columnConstraints>
@@ -47,7 +46,6 @@
                 </ImageView>
                 <Separator layoutX="-3.0" layoutY="88.0" prefHeight="3.0" prefWidth="1162.0" />
                 <Label fx:id="userName" layoutX="100.0" layoutY="14.0" prefHeight="20.0" prefWidth="92.0" styleClass="user-name" />
-                <ComboBox layoutX="1011.0" layoutY="13.0" prefHeight="30.0" prefWidth="32.0" />
             </children>
             <GridPane.margin>
                 <Insets />
@@ -61,6 +59,7 @@
                      <children>
                         <Label fx:id="addFriend" prefHeight="68.0" prefWidth="83.0" styleClass="add-friend" />
                         <Label fx:id="addGroup" prefHeight="64.0" prefWidth="74.0" styleClass="add-group" />
+                        <Label fx:id="createGroup" prefHeight="68.0" prefWidth="83.0" styleClass="create-group" />
                      </children>
                   </HBox>
                         <VBox fx:id="friendPaneBackGround" alignment="CENTER" layoutY="66.0" minHeight="550.0" minWidth="300.0" prefHeight="665.0" prefWidth="300.0" spacing="20.0" style="-fx-background-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="66.0">
@@ -71,7 +70,8 @@
                                             <content>
                                                 <ScrollPane fitToWidth="true" styleClass="friendListScrollPane">
                                                     <content>
-                                                        <VBox fx:id="friendList" spacing="3" style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
+                                                        <VBox fx:id="friendListBox" spacing="3"
+                                                              style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
                                                     </content>
                                                 </ScrollPane>
                                             </content>
@@ -80,7 +80,8 @@
                                             <content>
                                                 <ScrollPane fitToWidth="true" styleClass="friendListScrollPane">
                                                     <content>
-                                                        <VBox fx:id="groupList" spacing="3" style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
+                                                        <VBox fx:id="groupListBox" spacing="3"
+                                                              style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
                                                     </content>
                                                 </ScrollPane>
                                             </content>
@@ -98,7 +99,7 @@
                 </AnchorPane>
                 <AnchorPane fx:id="right">
                     <children>
-                        <AnchorPane layoutY="7.0" prefHeight="30.0" prefWidth="852.0" styleClass="chatPaneBar" stylesheets="@../css/mainWindowCss.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <AnchorPane layoutY="7.0" prefHeight="30.0" prefWidth="852.0" styleClass="chatPaneBar" stylesheets="@../css/mainWindow.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                             <children>
                                 <Label fx:id="chatWith" layoutX="14.0" layoutY="19.0" prefHeight="43.0" prefWidth="169.0" styleClass="chatWith" text="测试用例" textOverrun="CLIP" AnchorPane.bottomAnchor="16.0" AnchorPane.leftAnchor="20.0" AnchorPane.topAnchor="16.0" />
                                 <Label fx:id="sendFile" layoutX="648.0" layoutY="17.0" onMouseClicked="#sendFile" prefHeight="37.0" prefWidth="30.0" styleClass="send-file" AnchorPane.rightAnchor="172.0" AnchorPane.topAnchor="17.0">

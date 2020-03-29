@@ -1,39 +1,37 @@
 package com.jack.chat.component;
 
+import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.CalculateTextArea;
+import com.jack.transfer.Message;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.geometry.VPos;
 import javafx.scene.control.TextArea;
-import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.HBox;
-import javafx.scene.text.Text;
-import javafx.scene.text.TextAlignment;
-import javafx.scene.text.TextFlow;
+import javafx.scene.layout.FlowPane;
 
 
 /**
  * @author jack
  */
-public class MessageCarrier extends TextFlow {
+public class MessageCarrier extends FlowPane {
     ImageView avatar = new ImageView();
     TextArea stringMessage;
-    HBox hBox = new HBox(5);
-    public MessageCarrier(String message) {
+    public MessageCarrier(Message message) {
         this(false,message);
     }
-    public MessageCarrier(boolean isSend,String message) {
-        Text text = new Text();
-        text.setText(message);
-        hBox.setPrefWidth(600);
+    public MessageCarrier(boolean isSend, Message message) {
+        this.setPadding(new Insets(5,5,0,5));
+
+        this.setHgap(5);
+        this.setRowValignment(VPos.TOP);
         avatar.setFitHeight(60);
         avatar.setFitWidth(60);
-        avatar.setImage(new Image("img/avatar.jpg"));
-        stringMessage = CalculateTextArea.getTextArea(message);
-        stringMessage.getStyleClass().add("string-message");
-        stringMessage.setEditable(false);
-        stringMessage.setWrapText(true);
-        stringMessage.setText(message);
+        AvatarLoad.loadChatAvatar(avatar, message.getFromUser());
+        stringMessage = CalculateTextArea.getTextArea(message.getMessageContent());
+
         if(isSend) {
-            this.setTextAlignment(TextAlignment.RIGHT);
+            this.setAlignment(Pos.TOP_RIGHT);
             this.getChildren().addAll(stringMessage,avatar);
         }else {
             this.getChildren().addAll(avatar,stringMessage);

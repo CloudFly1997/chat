@@ -1,0 +1,22 @@
+.root {
+    -fx-background-color: white;
+}
+Button {
+    -fx-cursor: hand;
+}
+.upload-avatar {
+    -fx-background-insets: 0;
+    -fx-background-color: white;
+    -fx-text-fill: #4258c9;
+}
+.upload-avatar:pressed {
+    -fx-text-fill: #1E90FF;
+}
+
+.create-button {
+    -fx-background-color: #1E90FF;
+    -fx-text-fill: white;
+}
+TextArea {
+    -fx-wrap-text: true;
+}

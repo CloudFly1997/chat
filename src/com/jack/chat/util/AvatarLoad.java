@@ -1,10 +1,13 @@
 package com.jack.chat.util;
 
 import com.jack.chat.common.MainWindowHolder;
+import com.jack.chat.pojo.CommonIndividual;
+import com.jack.chat.pojo.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.sql.Connection;
@@ -35,10 +38,17 @@ public class AvatarLoad {
         load(imageView, name, 260.0, 260.0);
     }
 
+    public static void loadChatAvatar(ImageView imageView, String name) {
+        load(imageView, name, 60.0, 60.0);
+    }
 
     public static void loadSelfProfileAvatar(ImageView imageView, String name) {
         load(imageView, name, 240.0, 240.0);
-        loadUserAvatar(MainWindowHolder.getInstance().getMainWindow().userAvatar,name);
+        loadUserAvatar(MainWindowHolder.getInstance().getMainWindow().userAvatar, name);
+    }
+
+    public static void loadGroupPaneAvatar(ImageView imageView, Group group) {
+        loadAvatar(imageView,group,100.0,100.0);
     }
 
     private static void load(ImageView imageView, String name, Double requestedWidth, Double requestedHeight) {
@@ -66,6 +76,28 @@ public class AvatarLoad {
             image = new Image("file:" + imgPath, requestedWidth, requestedHeight, false, false);
 
         } catch (Exception e) {
+            image = new Image("file:" + defaultPath, requestedWidth, requestedHeight, false, false);
+        }
+        imageView.setImage(image);
+    }
+
+    public static void loadAvatar(ImageView imageView, CommonIndividual individual, Double requestedWidth,
+                                  Double requestedHeight) {
+        Image image = null;
+        String imgPath = System.getProperty("user.home") + "\\chat\\avatar\\" + individual.getAvatarId() + ".png";
+        String defaultPath = System.getProperty("user.home") + "\\chat\\avatar\\default.png";
+        try {
+            InputStream in = individual.getAvatarInputStream();
+            byte[] bytes = new byte[in.available()];
+            OutputStream fileOutputStream = new FileOutputStream(imgPath);
+            while (in.read(bytes) != -1) {
+                fileOutputStream.write(bytes);
+                fileOutputStream.flush();
+            }
+            in.close();
+            fileOutputStream.close();
+            image = new Image("file:" + imgPath, requestedWidth, requestedHeight, false, false);
+        } catch (IOException e) {
             image = new Image("file:" + defaultPath, requestedWidth, requestedHeight, false, false);
         }
         imageView.setImage(image);

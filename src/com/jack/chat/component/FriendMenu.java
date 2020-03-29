@@ -47,7 +47,7 @@ public class FriendMenu extends ContextMenu {
         deleteFriend.setOnAction(event -> {
             friendService.deleteFriend(Session.getInstance().getUser().getAccount(), user.getAccount());
             friendService.deleteFriend(user.getAccount(), Session.getInstance().getUser().getAccount());
-            MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(friendPane);
+            MainWindowHolder.getInstance().getMainWindow().friendListBox.getChildren().remove(friendPane);
             FriendPaneHolder.getInstance().remove(user.getAccount());
             try {
                 Session.getInstance().getOos().writeObject(new Message(Session.getInstance().getUser().getAccount(),

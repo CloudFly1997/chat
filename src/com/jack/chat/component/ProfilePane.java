@@ -1,6 +1,5 @@
 package com.jack.chat.component;
 
-import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.pojo.User;
 import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.DbUtil;
@@ -12,7 +11,10 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.*;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStream;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
@@ -25,6 +27,7 @@ import java.time.LocalDate;
  */
 
 public class ProfilePane extends Pane {
+    public Pane root;
     public TextField account, nickName, phone, email, address;
     public RadioButton male, female;
     public ToggleGroup genderGroup;
@@ -73,7 +76,7 @@ public class ProfilePane extends Pane {
                 new FileChooser.ExtensionFilter("PNG", "*.png"),
                 new FileChooser.ExtensionFilter("IMG", "*.img*"));
 
-        File file = fileChooser.showOpenDialog(MainWindowHolder.getInstance().getMainWindow().root.getScene().getWindow());
+        File file = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (file != null) {
             InputStream in = new FileInputStream(file);
             Connection conn = DbUtil.getConnection();

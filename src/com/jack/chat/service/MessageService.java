@@ -3,6 +3,7 @@ package com.jack.chat.service;
 import com.jack.chat.pojo.User;
 import com.jack.transfer.Message;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -18,7 +19,7 @@ public interface MessageService {
      * @param to   消息接收者
      * @return
      */
-    public List<Message> QueryUnReadMessage(User from, User to);
+     List<Message> QueryUnReadMessage(User from, User to);
 
     /**
      * 查询历史消息，默认为100条
@@ -26,5 +27,13 @@ public interface MessageService {
      * @param to   消息接收者
      * @return
      */
-    public List<Message> QueryHistoryMessage(User from, User to);
+     List<Message> QueryHistoryMessage(User from, User to);
+
+    /**
+     * 将未读消息变为以读
+     * @param from
+     * @param to
+     * @throws SQLException
+     */
+     void makeRead(User from, User to) throws SQLException;
 }

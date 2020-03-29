@@ -1,7 +1,9 @@
 package com.jack.chat.dao.packaging;
 
+import com.jack.chat.pojo.Group;
 import com.jack.chat.pojo.User;
 
+import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
@@ -22,5 +24,15 @@ public class ResultSetToObject {
         String signature = resultSet.getString("signature");
         User user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb, phoneNumberFromDb, emailFromDb, signature);
         return user;
+    }
+
+    public static Group rsToGroupObject(ResultSet resultSet) throws SQLException {
+        String groupAccount = resultSet.getString("group_id");
+        String groupName = resultSet.getString("group_name");
+        String groupIntroduce = resultSet.getString("group_introduce");
+        String groupHolder = resultSet.getString("group_holder");
+        InputStream groupAvatar = resultSet.getBinaryStream("group_avatar");
+        Group group = new Group(groupAccount,groupName,groupIntroduce,groupAvatar,groupHolder);
+        return group;
     }
 }

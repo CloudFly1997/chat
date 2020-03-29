@@ -8,7 +8,6 @@ import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.Command;
 import com.jack.transfer.Message;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -38,16 +37,18 @@ public class SearchPane extends GridPane {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/searchPane.fxml"));
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
-            Parent parent = fxmlLoader.load();
-            Stage stage = new Stage();
-            Scene scene = new Scene(parent);
-            stage.setScene(scene);
-            stage.show();
+            fxmlLoader.load();
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
 
+    public void show() {
+        Stage stage = new Stage();
+        Scene scene = new Scene(this);
+        stage.setScene(scene);
+        stage.show();
+    }
 
     public void search() {
         String chat = "发起会话";

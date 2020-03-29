@@ -46,7 +46,7 @@ public class AddFriendDialog extends AnchorPane {
         friendService.addFriend(user, account);
         FriendPane newFriendPane = new FriendPane(UserServiceImpl.getInstance().queryUserByAccount(account));
         FriendPaneHolder.getInstance().addFriendPane(account,newFriendPane);
-        MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().add(1, newFriendPane);
+        MainWindowHolder.getInstance().getMainWindow().friendListBox.getChildren().add(1, newFriendPane);
         Session.getInstance().getOos().writeObject(new Message(user, account, Command.AGREE_ADD_FRIEND));
         agreeButton.setText("已同意");
         agreeButton.setDisable(true);

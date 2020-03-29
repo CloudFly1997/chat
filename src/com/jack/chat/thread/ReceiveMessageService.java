@@ -51,7 +51,7 @@ public class ReceiveMessageService extends ScheduledService<Object> {
                     switch (message.getType()) {
                         case "[TXT]":
                             String from = message.getFromUser();
-                            friendPaneHolder.getFriendPane(from).receiveMessage(new MessageCarrier(message.getMessageContent()));
+                            friendPaneHolder.getFriendPane(from).receiveMessage(new MessageCarrier(message));
                             break;
                         case "[ADD_FRIEND]":
                             SystemNotifier.receiveMessage(new AddFriendDialog(message.getFromUser()));
@@ -61,10 +61,11 @@ public class ReceiveMessageService extends ScheduledService<Object> {
                             FriendPane newFriendPane =
                                     new FriendPane(UserServiceImpl.getInstance().queryUserByAccount(account));
                             friendPaneHolder.addFriendPane(account, newFriendPane);
-                            MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().add(1, newFriendPane);
+                            MainWindowHolder.getInstance().getMainWindow().friendListBox.getChildren().add(1,
+                                    newFriendPane);
                             break;
                         case "[DELETE_FRIEND]":
-                            MainWindowHolder.getInstance().getMainWindow().friendList.getChildren().remove(
+                            MainWindowHolder.getInstance().getMainWindow().friendListBox.getChildren().remove(
                                     FriendPaneHolder.getInstance().getFriendPane(message.getFromUser()));
                             FriendPaneHolder.getInstance().remove(message.getFromUser());
                             break;

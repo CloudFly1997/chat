@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.HBox?>
+
+<fx:root fx:id="root" prefHeight="116.0" prefWidth="292.0" styleClass="hBox" stylesheets="@../css/groupPane.css" type="javafx.scene.layout.HBox" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.171">
+   <children>
+      <ImageView fx:id="groupAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true"
+                 styleClass="avatar">
+         <HBox.margin>
+            <Insets bottom="5.0" left="5.0" top="5.0" />
+         </HBox.margin>
+      </ImageView>
+      <Label fx:id="groupName" prefHeight="137.0" prefWidth="138.0" styleClass="group-name" text="群名称" />
+      <Label fx:id="unReadMessageCountLabel" alignment="CENTER" prefHeight="110.0" prefWidth="77.0" styleClass="unReadMessageCount" text="1" />
+   </children>
+</fx:root>

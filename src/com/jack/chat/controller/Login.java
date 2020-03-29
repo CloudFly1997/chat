@@ -7,6 +7,7 @@ import com.jack.chat.service.imp.UserServiceImpl;
 import com.jack.chat.util.PropertiesUtil;
 import com.jack.transfer.LoginRequest;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -24,12 +25,11 @@ import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 import javafx.stage.Window;
 
+import java.awt.*;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.net.Socket;
-import java.net.URL;
-import java.net.UnknownHostException;
+import java.net.*;
 import java.util.ResourceBundle;
 
 /**
@@ -130,5 +130,9 @@ public class Login implements Initializable {
             e.printStackTrace();
         }
         return success;
+    }
+
+    public void toRegister(ActionEvent actionEvent) throws URISyntaxException, IOException {
+        Desktop.getDesktop().browse(new URI("http://www.baidu.com"));
     }
 }

@@ -48,8 +48,7 @@ public class UserDaoImp implements UserDao {
             }
             return user;
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DbException();
+            throw new DbException(e);
         } finally {
             DbUtil.close(conn, rs, ps);
         }
@@ -68,8 +67,7 @@ public class UserDaoImp implements UserDao {
             }
             return user;
         } catch (SQLException e) {
-            e.printStackTrace();
-            throw new DbException();
+            throw new DbException(e);
         } finally {
             DbUtil.close(conn, rs, ps);
         }

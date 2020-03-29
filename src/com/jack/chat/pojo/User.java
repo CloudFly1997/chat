@@ -1,6 +1,11 @@
 package com.jack.chat.pojo;
 
-public class User {
+import java.io.InputStream;
+
+/**
+ * @author jack
+ */
+public class User implements CommonIndividual {
     private String account;
     private String password;
     private String nickName;
@@ -11,8 +16,10 @@ public class User {
     private String email;
     private String signature;
     private String friend_remark;
+    private InputStream inputStream;
 
-    public User(String account,  String nickName, String gender, String birthday, String address, String phoneNumber,
+
+    public User(String account, String nickName, String gender, String birthday, String address, String phoneNumber,
                 String email, String signature) {
         this.account = account;
         this.nickName = nickName;
@@ -108,6 +115,14 @@ public class User {
         this.gender = gender;
     }
 
+    public InputStream getInputStream() {
+        return inputStream;
+    }
+
+    public void setInputStream(InputStream inputStream) {
+        this.inputStream = inputStream;
+    }
+
     @Override
     public String toString() {
         return "User{" +
@@ -122,5 +137,15 @@ public class User {
                 ", signature='" + signature + '\'' +
                 ", friend_remark='" + friend_remark + '\'' +
                 '}';
+    }
+
+    @Override
+    public InputStream getAvatarInputStream() {
+        return getInputStream();
+    }
+
+    @Override
+    public String getAvatarId() {
+        return getAccount();
     }
 }

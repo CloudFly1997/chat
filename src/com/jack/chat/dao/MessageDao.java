@@ -4,6 +4,7 @@ package com.jack.chat.dao;
 import com.jack.chat.pojo.User;
 import com.jack.transfer.Message;
 
+import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -33,5 +34,5 @@ public interface MessageDao {
      * @param from
      * @param to
      */
-    public void makeRead(User from, User to);
+    public void makeRead(User from, User to) throws SQLException;
 }

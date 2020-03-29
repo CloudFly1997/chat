@@ -6,8 +6,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<fx:root fx:id="root" styleClass="hBox" stylesheets="@../css/friendPaneCss.css" type="javafx.scene.layout.HBox"
-          xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="root" styleClass="hBox" stylesheets="@../css/friendPane.css" type="javafx.scene.layout.HBox"
+         xmlns:fx="http://javafx.com/fxml/1">
    <children>
       <ImageView fx:id="friendAvatar" fitHeight="100.0" fitWidth="100.0" pickOnBounds="true" preserveRatio="true" styleClass="avatar">
          <HBox.margin>

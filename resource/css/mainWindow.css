@@ -7,7 +7,7 @@
 .close, .close:hover, .max, .max:hover, .min, .min:hover,
 .send-img, .send-img:hover, .send-file,
 .send-file:hover, .send-button, user-name ,.add-friend
-,.add-group{
+,.add-group,.user-avatar,.create-group{
     -fx-cursor: hand;
 }
 
@@ -99,6 +99,19 @@
     -fx-background-image: url("../icon/addGroup-gray.png");
 }
 
+.create-group{
+    -fx-background-image: url("../icon/createGroup.png");
+    -fx-background-size: 48px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+}
+
+.create-group:hover {
+    -fx-background-image: url("../icon/createGroup-gray.png");
+}
+
+
+
 TextArea {
     -fx-indent: 5s;
 }
@@ -187,21 +200,21 @@ TextArea {
 .friend-tab{
     -fx-background-image: url("../icon/friend.png");
     -fx-background-size: 20;
-    -fx-pref-width: 70;
+    -fx-pref-width: 90;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 .group-tab{
     -fx-background-image: url("../icon/group.png");
     -fx-background-size: 20;
-    -fx-pref-width: 70;
+    -fx-pref-width: 90;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }
 .history-tab{
     -fx-background-image: url("../icon/history.png");
     -fx-background-size: 20;
-    -fx-pref-width: 70;
+    -fx-pref-width: 90;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
 }

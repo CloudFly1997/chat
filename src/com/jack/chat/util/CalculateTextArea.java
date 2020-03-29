@@ -25,12 +25,16 @@ public class CalculateTextArea {
             }
         }
         double columnCount = Math.ceil(fullAngleCount + halfAngleCount * 0.5);
-        int rowCount = (int) Math.ceil((columnCount / 15) + 1);
+        int rowCount = (int) Math.ceil((columnCount / 15));
         if (columnCount > 15) {
             columnCount = 15;
         }
         textArea.setPrefColumnCount((int) columnCount);
         textArea.setPrefRowCount(rowCount);
+        textArea.getStyleClass().add("string-message");
+        textArea.setEditable(false);
+        textArea.setWrapText(true);
+        textArea.setText(message);
         return textArea;
     }
 }
