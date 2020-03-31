@@ -2,6 +2,7 @@ package com.jack.chat.dao.packaging;
 
 import com.jack.chat.pojo.Group;
 import com.jack.chat.pojo.User;
+import com.jack.transfer.Message;
 
 import java.io.InputStream;
 import java.sql.ResultSet;
@@ -32,7 +33,19 @@ public class ResultSetToObject {
         String groupIntroduce = resultSet.getString("group_introduce");
         String groupHolder = resultSet.getString("group_holder");
         InputStream groupAvatar = resultSet.getBinaryStream("group_avatar");
-        Group group = new Group(groupAccount,groupName,groupIntroduce,groupAvatar,groupHolder);
+        Group group = new Group(groupAccount, groupName, groupIntroduce, groupAvatar, groupHolder);
         return group;
     }
+
+    public static Message rsToMessageObject(ResultSet resultSet) throws SQLException {
+        String messageDate = resultSet.getString("message_date");
+        String type = resultSet.getString("message_type");
+        String fromUser = resultSet.getString("from_user");
+        String toUser = resultSet.getString("to_user");
+        String content = resultSet.getString("content");
+        boolean isRead = resultSet.getBoolean("is_read");
+        Message message = new Message(fromUser, toUser, content, messageDate, type, isRead);
+        return message;
+    }
+
 }

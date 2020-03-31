@@ -84,7 +84,7 @@ public class Group implements CommonIndividual {
     }
 
     @Override
-    public String getAvatarId() {
+    public String getId() {
         return getGroupAccount();
     }
 }

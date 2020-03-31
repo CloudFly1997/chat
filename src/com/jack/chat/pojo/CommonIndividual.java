@@ -16,8 +16,8 @@ public  interface CommonIndividual {
     InputStream getAvatarInputStream();
 
     /**
-     * 获取头像标识符
+     * 获取标识符
      * @return
      */
-    String getAvatarId();
+    String getId();
 }

@@ -1,12 +1,15 @@
 package com.jack.chat.component;
 
 import com.jack.chat.common.MainWindowHolder;
+import com.jack.chat.common.Session;
 import com.jack.chat.controller.MainWindow;
 import com.jack.chat.pojo.Group;
 import com.jack.chat.service.MessageService;
 import com.jack.chat.service.imp.MessageServiceImpl;
 import com.jack.chat.util.AvatarLoad;
-import javafx.application.Platform;
+import com.jack.chat.util.Command;
+import com.jack.transfer.Message;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -16,7 +19,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.sql.SQLException;
+import java.util.List;
 
 /**
  * @author Jinkang He
@@ -32,6 +35,7 @@ public class GroupPane extends HBox {
     private int unReadMessageCount;
     MessageService messageService = new MessageServiceImpl();
     MainWindow mainWindow = MainWindowHolder.getInstance().getMainWindow();
+    Session session = Session.getInstance();
 
     public GroupPane(Group group) {
         try {
@@ -44,18 +48,14 @@ public class GroupPane extends HBox {
         }
         this.group = group;
         this.groupName.setText(group.getGroupName());
-        AvatarLoad.loadGroupPaneAvatar(groupAvatar,group);
+        AvatarLoad.loadGroupPaneAvatar(groupAvatar, group);
         chatRecordBox = new VBox(5);
         this.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && event.getButton().name().equals(MouseButton.PRIMARY.name())) {
                 //双击事件
             }
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
-                try {
-                    setChatWith(group);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
+                    chat(group);
             } else if (event.getButton().name().equals(MouseButton.SECONDARY.name())) {
                 //new FriendMenu(this).show(this, Side.RIGHT, 0, 0);
             }
@@ -70,12 +70,6 @@ public class GroupPane extends HBox {
             }
         });
 
-        new Thread(() -> {
-            Platform.runLater(() -> {
-                pullHistoryMessage();
-                pullUnReadMessage();
-            });
-        }).start();
     }
 
     public VBox getChatRecordBox() {
@@ -85,10 +79,10 @@ public class GroupPane extends HBox {
     }
 
     public void receiveMessage(Node node) {
-//        if (FriendPaneHolder.getInstance().getCurrentChatUser() != user) {
-//            unReadMessageCountAdd();
-//        }
-//        chatRecordBox.getChildren().add(node);
+        if (!group.getGroupAccount().equals(session.getCurrentChatWith())) {
+            unReadMessageCountAdd();
+        }
+        chatRecordBox.getChildren().add(node);
     }
 
     public Group getGroup() {
@@ -107,22 +101,37 @@ public class GroupPane extends HBox {
      * 登录之后拉取历史消息
      */
     public void pullHistoryMessage() {
-/*        List<Message> historyMessageList = messageService.QueryHistoryMessage(user, Session.getInstance().getUser());
-        for (Message message :
-                historyMessageList) {
-            if (message.getFromUser().equals(Session.getInstance().getUser().getAccount())) {
-                chatRecordBox.getChildren().add(new MessageCarrier(true, message));
-            } else {
-                chatRecordBox.getChildren().add(new MessageCarrier(message));
+        Task<List<Message>> pullHistoryMessage = new Task<List<Message>>() {
+
+            @Override
+            protected void updateValue(List<Message> value) {
+                super.updateValue(value);
+                for (Message message :
+                        value) {
+                    if (message.getFromUser().equals(Session.getInstance().getUser().getAccount())) {
+                        chatRecordBox.getChildren().add(new MessageCarrier(true, message));
+                    } else {
+                        chatRecordBox.getChildren().add(new MessageCarrier(message));
+                        if (!message.isRead()) {
+                            unReadMessageCountAdd();
+                        }
+                    }
+                }
             }
-        }*/
+
+            @Override
+            protected List<Message> call() throws Exception {
+                return messageService.queryGroupHistoryMessage(group);
+            }
+        };
+        new Thread(pullHistoryMessage).start();
     }
 
     /**
      * 登录之后拉取未读消息
      */
     public void pullUnReadMessage() {
-/*        List<Message> historyMessageList = messageService.QueryUnReadMessage(user, Session.getInstance().getUser());
+/*      List<Message> historyMessageList = messageService.QueryUnReadMessage(user, Session.getInstance().getUser());
         for (Message message :
                 historyMessageList) {
             chatRecordBox.getChildren().add(new MessageCarrier(message));
@@ -136,16 +145,15 @@ public class GroupPane extends HBox {
     }
 
 
-    public void setChatWith(Group group) throws SQLException {
-        /*if (user != MainWindowHolder.getInstance().getMainWindow().currentChatWith) {
-            mainWindow.currentChatWith = user;
-            mainWindow.chatWith.setText(user.getNickName());
-            FriendPaneHolder.getInstance().setCurrentChatUser(user);
-            mainWindow.chatWith.setText(user.getNickName());
+    public void chat(Group group) {
+        if (!group.getGroupAccount().equals(session.getCurrentChatWith())) {
+            session.setCurrentChatWith(group.getGroupAccount());
+            session.setCurrentChatWithType(Command.GROUP);
+            mainWindow.chatWith.setText(group.getGroupName());
             this.getChatRecordBox().heightProperty().addListener((observable, oldValue, newValue) -> mainWindow.messageAreaScrollPane.setVvalue(1));
             mainWindow.messageAreaScrollPane.setContent(this.getChatRecordBox());
         }
-        new MessageServiceImpl().makeRead(Session.getInstance().getUser(), user);
-        this.setUnReadMessageCountLabel(0);*/
+        new MessageServiceImpl().makeRead(Session.getInstance().getUser(), group);
+        this.setUnReadMessageCountLabel(0);
     }
 }

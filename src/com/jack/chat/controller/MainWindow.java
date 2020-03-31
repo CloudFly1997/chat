@@ -92,7 +92,6 @@ public class MainWindow implements Initializable {
     public User user;
     public ObjectInputStream ois;
     public ObjectOutputStream oos;
-    public User currentChatWith;
     public Label userName;
     public TextArea messageEditArea;
     public Label addFriend;
@@ -194,16 +193,22 @@ public class MainWindow implements Initializable {
             GroupPane groupPane = new GroupPane(group);
             groupPaneHolder.addGroupPane(group.getGroupAccount(), groupPane);
             groupListBox.getChildren().add(groupPane);
+            groupPane.pullHistoryMessage();
         }
     }
 
     public void sendMessage() throws IOException {
         String originMessage = messageEditArea.getText();
+        String type = session.getCurrentChatWithType();
         Message message = new Message(user.getAccount(),
-                currentChatWith.getAccount(), originMessage, Command.TXT);
+                session.getCurrentChatWith(), originMessage, type);
         oos.writeObject(message);
         messageEditArea.clear();
-        friendPaneHolder.getFriendPane(currentChatWith.getAccount()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+        if (type.equals(Command.FRIEND)) {
+            friendPaneHolder.getFriendPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+        }else if (type.equals(Command.GROUP)) {
+            groupPaneHolder.getGroupPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+        }
     }
 
 

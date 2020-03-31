@@ -1,7 +1,9 @@
 package com.jack.chat.dao.imp;
 
 import com.jack.chat.dao.MessageDao;
-import com.jack.chat.pojo.User;
+import com.jack.chat.dao.packaging.ResultSetToObject;
+import com.jack.chat.exception.DbException;
+import com.jack.chat.pojo.CommonIndividual;
 import com.jack.chat.util.DbUtil;
 import com.jack.transfer.Message;
 
@@ -20,30 +22,25 @@ import java.util.List;
 
 public class MessageDaoImp implements MessageDao {
 
-    String getHistoryMessageSql = "SELECT * FROM message WHERE (to_user = ? AND from_user = ?) OR (to_user = " +
-            "? AND from_user = ?) AND is_read = 1 ORDER BY message_date  LIMIT 0, 50";
+    String getFriendHistoryMessageSql = "SELECT * FROM message WHERE (to_user = ? AND from_user = ?) OR (to_user = " +
+            "? AND from_user = ?) ORDER BY message_date  LIMIT 0, 50";
+    String getGroupHistoryMessageSql = "SELECT * FROM message WHERE to_user = ? ORDER BY message_date  LIMIT 0, 50";
     String getUnReadMessageSql = "SELECT * FROM message WHERE to_user = ? AND from_user = ? AND is_read = 0";
-    String makeReadSql = "UPDATE message SET is_read = 1 WHERE (to_user = ? AND from_user = ?) OR (to_user = ? AND " +
-            "from_user = ?)";
+    String makeReadSql = "UPDATE message SET is_read = 1 WHERE to_user = ? AND from_user = ?";
 
     @Override
-    public List<Message> QueryUnReadMessage(User from, User to) {
+    public List<Message> queryUnReadMessage(CommonIndividual from, CommonIndividual to) {
         Connection conn = DbUtil.getConnection();
         PreparedStatement psForMessage = null;
         ResultSet rsForMessage = null;
         List<Message> list = new ArrayList<Message>();
         try {
             psForMessage = conn.prepareStatement(getUnReadMessageSql);
-            psForMessage.setString(1, to.getAccount());
-            psForMessage.setString(2, from.getAccount());
+            psForMessage.setString(1, to.getId());
+            psForMessage.setString(2, from.getId());
             rsForMessage = psForMessage.executeQuery();
             while (rsForMessage.next()) {
-                String messageDate = rsForMessage.getString("message_date");
-                String type = rsForMessage.getString("message_type");
-                String fromUser = rsForMessage.getString("from_user");
-                String toUser = rsForMessage.getString("to_user");
-                String content = rsForMessage.getString("content");
-                Message message = new Message(fromUser, toUser, content, messageDate, type);
+                Message message = ResultSetToObject.rsToMessageObject(rsForMessage);
                 list.add(message);
             }
         } catch (SQLException e) {
@@ -55,25 +52,20 @@ public class MessageDaoImp implements MessageDao {
     }
 
     @Override
-    public List<Message> QueryHistoryMessage(User from, User to) {
+    public List<Message> queryFriendHistoryMessage(CommonIndividual from, CommonIndividual to) {
         Connection conn = DbUtil.getConnection();
         PreparedStatement psForMessage = null;
         ResultSet rsForMessage = null;
         List<Message> list = new ArrayList<Message>();
         try {
-            psForMessage = conn.prepareStatement(getHistoryMessageSql);
-            psForMessage.setString(1, to.getAccount());
-            psForMessage.setString(2, from.getAccount());
-            psForMessage.setString(3, from.getAccount());
-            psForMessage.setString(4, to.getAccount());
+            psForMessage = conn.prepareStatement(getFriendHistoryMessageSql);
+            psForMessage.setString(1, to.getId());
+            psForMessage.setString(2, from.getId());
+            psForMessage.setString(3, from.getId());
+            psForMessage.setString(4, to.getId());
             rsForMessage = psForMessage.executeQuery();
             while (rsForMessage.next()) {
-                String messageDate = rsForMessage.getString("message_date");
-                String type = rsForMessage.getString("message_type");
-                String fromUser = rsForMessage.getString("from_user");
-                String toUser = rsForMessage.getString("to_user");
-                String content = rsForMessage.getString("content");
-                Message message = new Message(fromUser, toUser, content, messageDate, type);
+                Message message = ResultSetToObject.rsToMessageObject(rsForMessage);
                 list.add(message);
             }
         } catch (SQLException e) {
@@ -85,15 +77,42 @@ public class MessageDaoImp implements MessageDao {
     }
 
     @Override
-    public void makeRead(User from, User to) throws SQLException {
+    public List<Message> queryGroupHistoryMessage(CommonIndividual group) {
         Connection conn = DbUtil.getConnection();
-        PreparedStatement preparedStatement = conn.prepareStatement(makeReadSql);
-        preparedStatement.setString(1, from.getAccount());
-        preparedStatement.setString(2, to.getAccount());
-        preparedStatement.setString(3, to.getAccount());
-        preparedStatement.setString(4, from.getAccount());
-        preparedStatement.executeUpdate();
-        DbUtil.close(conn, null, null);
+        PreparedStatement psForMessage = null;
+        ResultSet rsForMessage = null;
+        List<Message> list = new ArrayList<Message>();
+        try {
+            psForMessage = conn.prepareStatement(getGroupHistoryMessageSql);
+            psForMessage.setString(1, group.getId());
+            rsForMessage = psForMessage.executeQuery();
+            while (rsForMessage.next()) {
+                Message message = ResultSetToObject.rsToMessageObject(rsForMessage);
+                list.add(message);
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            DbUtil.close(conn, rsForMessage, psForMessage);
+        }
+        return list;
+    }
+
+    @Override
+    public void makeRead(CommonIndividual from, CommonIndividual to)  {
+        Connection conn = DbUtil.getConnection();
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = conn.prepareStatement(makeReadSql);
+            preparedStatement.setString(1, from.getId());
+            preparedStatement.setString(2, to.getId());
+            preparedStatement.executeUpdate();
+
+        } catch (SQLException e) {
+            throw new DbException(e);
+        } finally {
+            DbUtil.close(conn, null, preparedStatement);
+        }
     }
 
 

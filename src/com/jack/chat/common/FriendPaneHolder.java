@@ -1,6 +1,7 @@
 package com.jack.chat.common;
 
 import com.jack.chat.component.FriendPane;
+
 import com.jack.chat.pojo.User;
 
 import java.util.HashMap;
@@ -13,7 +14,7 @@ public class FriendPaneHolder {
     private static FriendPaneHolder friendPaneHolder = new FriendPaneHolder();
     private static Map<String, FriendPane> friendPaneMap = new HashMap<>();
 
-    private  User currentChatUser;
+    private User currentChatUser;
 
     private FriendPaneHolder() {
 
@@ -34,7 +35,6 @@ public class FriendPaneHolder {
     public void setCurrentChatUser(User currentChatUser) {
         this.currentChatUser = currentChatUser;
     }
-
     public User getCurrentChatUser() {
         return currentChatUser;
     }

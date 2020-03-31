@@ -81,7 +81,7 @@ public class ProfilePane extends Pane {
             InputStream in = new FileInputStream(file);
             Connection conn = DbUtil.getConnection();
             String sql = "UPDATE user SET avatar = ? WHERE user_id = ?";
-            PreparedStatement ps = conn.prepareStatement(sql);
+            PreparedStatement ps = null;
             ps = conn.prepareStatement(sql);
 
             ps.setBinaryStream(1, in, in.available());

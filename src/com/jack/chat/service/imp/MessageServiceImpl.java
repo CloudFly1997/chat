@@ -2,11 +2,10 @@ package com.jack.chat.service.imp;
 
 import com.jack.chat.dao.MessageDao;
 import com.jack.chat.dao.imp.MessageDaoImp;
-import com.jack.chat.pojo.User;
+import com.jack.chat.pojo.CommonIndividual;
 import com.jack.chat.service.MessageService;
 import com.jack.transfer.Message;
 
-import java.sql.SQLException;
 import java.util.List;
 
 /**
@@ -19,17 +18,22 @@ public class MessageServiceImpl implements MessageService {
     MessageDao messageDao = new MessageDaoImp();
 
     @Override
-    public List<Message> QueryUnReadMessage(User from, User to) {
-        return messageDao.QueryUnReadMessage(from, to);
+    public List<Message> queryUnReadMessage(CommonIndividual from, CommonIndividual to) {
+        return messageDao.queryUnReadMessage(from, to);
     }
 
     @Override
-    public List<Message> QueryHistoryMessage(User from, User to) {
-        return messageDao.QueryHistoryMessage(from, to);
+    public List<Message> queryHistoryMessage(CommonIndividual from, CommonIndividual to) {
+        return messageDao.queryFriendHistoryMessage(from, to);
     }
 
     @Override
-    public void makeRead(User from, User to) throws SQLException {
+    public List<Message> queryGroupHistoryMessage(CommonIndividual group) {
+        return messageDao.queryGroupHistoryMessage(group);
+    }
+
+    @Override
+    public void makeRead(CommonIndividual from, CommonIndividual to) {
         messageDao.makeRead(from, to);
     }
 }

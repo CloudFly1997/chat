@@ -1,26 +1,26 @@
 package com.jack.chat.util;
 
-import sun.audio.*;
+import sun.audio.AudioPlayer;
+import sun.audio.AudioStream;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
-import java.net.URI;
-import java.net.URL;
 
 
+/**
+ * @author jack
+ */
 public class PlaySound {
-	public void playSoundWhenReceiveMessage(){
-		try {
+	public static void playSoundWhenReceiveMessage(){
 
-			AudioStream as = new AudioStream(new FileInputStream(new File("/sound/泡泡音.wav")));
+		try {
+			FileInputStream fileInputStream = new FileInputStream(new File(System.getProperty("user.home") + "\\chat" +
+					"\\sound\\泡泡音.wav"));
+			AudioStream as = new AudioStream(fileInputStream);
 			AudioPlayer.player.start(as);
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-	}
-
-	public static void main(String[] args) {
-		new PlaySound().playSoundWhenReceiveMessage();
 	}
 }

@@ -55,13 +55,16 @@ public class AvatarLoad {
         Image image = null;
         String imgPath = System.getProperty("user.home") + "\\chat\\avatar\\" + name + ".png";
         String defaultPath = System.getProperty("user.home") + "\\chat\\avatar\\default.png";
+        Connection connection = DbUtil.getConnection();
+        PreparedStatement preparedStatement = null;
+        ResultSet rs = null;
         try {
             InputStream in = null;
-            Connection connection = DbUtil.getConnection();
-            PreparedStatement preparedStatement = connection.prepareStatement("SELECT avatar FROM user WHERE user_id " +
+
+            preparedStatement = connection.prepareStatement("SELECT avatar FROM user WHERE user_id " +
                     "= ?");
             preparedStatement.setString(1, name);
-            ResultSet rs = preparedStatement.executeQuery();
+            rs = preparedStatement.executeQuery();
             while (rs.next()) {
                 in = rs.getBinaryStream("avatar");
             }
@@ -77,6 +80,8 @@ public class AvatarLoad {
 
         } catch (Exception e) {
             image = new Image("file:" + defaultPath, requestedWidth, requestedHeight, false, false);
+        } finally {
+            DbUtil.close(connection,rs,preparedStatement);
         }
         imageView.setImage(image);
     }
@@ -84,7 +89,7 @@ public class AvatarLoad {
     public static void loadAvatar(ImageView imageView, CommonIndividual individual, Double requestedWidth,
                                   Double requestedHeight) {
         Image image = null;
-        String imgPath = System.getProperty("user.home") + "\\chat\\avatar\\" + individual.getAvatarId() + ".png";
+        String imgPath = System.getProperty("user.home") + "\\chat\\avatar\\" + individual.getId() + ".png";
         String defaultPath = System.getProperty("user.home") + "\\chat\\avatar\\default.png";
         try {
             InputStream in = individual.getAvatarInputStream();

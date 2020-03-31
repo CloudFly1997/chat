@@ -1,6 +1,7 @@
 package com.jack.chat.thread;
 
 import com.jack.chat.common.FriendPaneHolder;
+import com.jack.chat.common.GroupPaneHolder;
 import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
 import com.jack.chat.component.AddFriendDialog;
@@ -23,6 +24,7 @@ import java.io.File;
 public class ReceiveMessageService extends ScheduledService<Object> {
 
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
+    private GroupPaneHolder groupPaneHolder = GroupPaneHolder.getInstance();
     private FriendPane SystemNotifier = friendPaneHolder.getFriendPane("1");
 
     public ReceiveMessageService() {
@@ -49,9 +51,13 @@ public class ReceiveMessageService extends ScheduledService<Object> {
                 if (obj instanceof Message) {
                     Message message = (Message) obj;
                     switch (message.getType()) {
-                        case "[TXT]":
+                        case "[FRIEND]":
                             String from = message.getFromUser();
                             friendPaneHolder.getFriendPane(from).receiveMessage(new MessageCarrier(message));
+                            break;
+                        case "[GROUP]":
+                            String to = message.getToUser();
+                            groupPaneHolder.getGroupPane(to).receiveMessage(new MessageCarrier(message));
                             break;
                         case "[ADD_FRIEND]":
                             SystemNotifier.receiveMessage(new AddFriendDialog(message.getFromUser()));

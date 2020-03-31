@@ -20,7 +20,7 @@ public class User implements CommonIndividual {
 
 
     public User(String account, String nickName, String gender, String birthday, String address, String phoneNumber,
-                String email, String signature) {
+                   String email, String signature) {
         this.account = account;
         this.nickName = nickName;
         this.gender = gender;
@@ -145,7 +145,7 @@ public class User implements CommonIndividual {
     }
 
     @Override
-    public String getAvatarId() {
+    public String getId() {
         return getAccount();
     }
 }

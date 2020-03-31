@@ -1,7 +1,6 @@
 package com.jack.chat.component;
 
 
-import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
 import com.jack.chat.controller.MainWindow;
@@ -9,8 +8,10 @@ import com.jack.chat.pojo.User;
 import com.jack.chat.service.MessageService;
 import com.jack.chat.service.imp.MessageServiceImpl;
 import com.jack.chat.util.AvatarLoad;
+import com.jack.chat.util.Command;
+import com.jack.chat.util.PlaySound;
 import com.jack.transfer.Message;
-import javafx.application.Platform;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.geometry.Side;
 import javafx.scene.Node;
@@ -36,6 +37,7 @@ public class FriendPane extends HBox {
     private int unReadMessageCount;
     MessageService messageService = new MessageServiceImpl();
     MainWindow mainWindow = MainWindowHolder.getInstance().getMainWindow();
+    Session session = Session.getInstance();
 
     public FriendPane(User user) {
         try {
@@ -61,7 +63,7 @@ public class FriendPane extends HBox {
             }
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
                 try {
-                    setChatWith(user);
+                    chat(user);
                 } catch (SQLException e) {
                     e.printStackTrace();
                 }
@@ -78,12 +80,8 @@ public class FriendPane extends HBox {
                 unReadMessageCountLabel.setVisible(true);
             }
         });
-        new Thread(() -> {
-            Platform.runLater(() -> {
-                pullHistoryMessage();
-                pullUnReadMessage();
-            });
-        }).start();
+
+        pullHistoryMessage();
     }
 
     public VBox getChatRecordBox() {
@@ -93,10 +91,11 @@ public class FriendPane extends HBox {
     }
 
     public void receiveMessage(Node node) {
-        if (FriendPaneHolder.getInstance().getCurrentChatUser() != user) {
+        if (!user.equals(session.getCurrentChatWith())) {
             unReadMessageCountAdd();
         }
         chatRecordBox.getChildren().add(node);
+        PlaySound.playSoundWhenReceiveMessage();
     }
 
     public User getUser() {
@@ -108,25 +107,40 @@ public class FriendPane extends HBox {
     }
 
     /**
-     * 登录之后拉取历史消息
+     * 登录之后拉取消息
      */
     public void pullHistoryMessage() {
-        List<Message> historyMessageList = messageService.QueryHistoryMessage(user, Session.getInstance().getUser());
-        for (Message message :
-                historyMessageList) {
-            if (message.getFromUser().equals(Session.getInstance().getUser().getAccount())) {
-                chatRecordBox.getChildren().add(new MessageCarrier(true, message));
-            } else {
-                chatRecordBox.getChildren().add(new MessageCarrier(message));
+        Task<List<Message>> pullHistoryMessage = new Task<List<Message>>() {
+
+            @Override
+            protected void updateValue(List<Message> value) {
+                super.updateValue(value);
+                for (Message message :
+                        value) {
+                    if (message.getFromUser().equals(Session.getInstance().getUser().getAccount())) {
+                        chatRecordBox.getChildren().add(new MessageCarrier(true, message));
+                    } else {
+                        chatRecordBox.getChildren().add(new MessageCarrier(message));
+                        if (!message.isRead()) {
+                            unReadMessageCountAdd();
+                        }
+                    }
+                }
             }
-        }
+
+            @Override
+            protected List<Message> call() throws Exception {
+                return messageService.queryHistoryMessage(user, Session.getInstance().getUser());
+            }
+        };
+        new Thread(pullHistoryMessage).start();
     }
 
     /**
      * 登录之后拉取未读消息
      */
     public void pullUnReadMessage() {
-        List<Message> historyMessageList = messageService.QueryUnReadMessage(user, Session.getInstance().getUser());
+        List<Message> historyMessageList = messageService.queryUnReadMessage(user, Session.getInstance().getUser());
         for (Message message :
                 historyMessageList) {
             chatRecordBox.getChildren().add(new MessageCarrier(message));
@@ -140,16 +154,16 @@ public class FriendPane extends HBox {
     }
 
 
-    public void setChatWith(User user) throws SQLException {
-        if (user != MainWindowHolder.getInstance().getMainWindow().currentChatWith) {
-            mainWindow.currentChatWith = user;
+    public void chat(User user) throws SQLException {
+        if (!user.getAccount().equals(session.getCurrentChatWith())) {
             mainWindow.chatWith.setText(user.getNickName());
-            FriendPaneHolder.getInstance().setCurrentChatUser(user);
+            session.setCurrentChatWith(user.getAccount());
+            session.setCurrentChatWithType(Command.FRIEND);
             mainWindow.chatWith.setText(user.getNickName());
             this.getChatRecordBox().heightProperty().addListener((observable, oldValue, newValue) -> mainWindow.messageAreaScrollPane.setVvalue(1));
             mainWindow.messageAreaScrollPane.setContent(this.getChatRecordBox());
         }
         new MessageServiceImpl().makeRead(Session.getInstance().getUser(), user);
-        this.setUnReadMessageCountLabel(0);
+        setUnReadMessageCountLabel(0);
     }
 }

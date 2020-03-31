@@ -16,8 +16,11 @@ public class Session {
     private ObjectInputStream ois;
     private ObjectOutputStream oos;
     private MainWindow mainWindow;
-    private static Session session = new Session();
     private Socket socket;
+    private String currentChatWith;
+    private String currentChatWithType;
+    private static Session session = new Session();
+
 
     private Session() {
 
@@ -65,6 +68,26 @@ public class Session {
 
     public void setOos(ObjectOutputStream oos) {
         this.oos = oos;
+    }
+
+    public boolean isState() {
+        return state;
+    }
+
+    public String getCurrentChatWith() {
+        return currentChatWith;
+    }
+
+    public void setCurrentChatWith(String currentChatWith) {
+        this.currentChatWith = currentChatWith;
+    }
+
+    public String getCurrentChatWithType() {
+        return currentChatWithType;
+    }
+
+    public void setCurrentChatWithType(String currentChatWithType) {
+        this.currentChatWithType = currentChatWithType;
     }
 
     public MainWindow getMainWindow() {
