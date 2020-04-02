@@ -34,6 +34,7 @@ public class ProfilePane extends Pane {
     public ImageView avatar;
     public DatePicker birthday;
     public TextArea signature;
+    public User user;
 
     public ProfilePane(User user) {
         try {
@@ -41,6 +42,7 @@ public class ProfilePane extends Pane {
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             fxmlLoader.load();
+            this.user = user;
             account.setText(user.getAccount());
             nickName.setText(user.getNickName());
             phone.setText(user.getPhoneNumber());

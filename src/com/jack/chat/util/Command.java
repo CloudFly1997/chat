@@ -11,6 +11,7 @@ public class Command {
     public static final String ADD_FRIEND = "[ADD_FRIEND]";
     public static final String AGREE_ADD_FRIEND = "[AGREE_ADD_FRIEND]";
     public static final String DELETE_FRIEND = "[DELETE_FRIEND]";
-    public static final String IMAGE = "[IMG]";
+    public static final String IMG_NAME = "[IMG_NAME]";
     public static final String GROUP = "[GROUP]";
+
 }

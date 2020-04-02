@@ -18,6 +18,7 @@ public class PlaySound {
 			FileInputStream fileInputStream = new FileInputStream(new File(System.getProperty("user.home") + "\\chat" +
 					"\\sound\\泡泡音.wav"));
 			AudioStream as = new AudioStream(fileInputStream);
+
 			AudioPlayer.player.start(as);
 		} catch (IOException e) {
 			e.printStackTrace();

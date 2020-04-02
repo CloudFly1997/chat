@@ -8,6 +8,7 @@ import com.jack.chat.service.MessageService;
 import com.jack.chat.service.imp.MessageServiceImpl;
 import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.Command;
+import com.jack.chat.util.PlaySound;
 import com.jack.transfer.Message;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
@@ -83,6 +84,7 @@ public class GroupPane extends HBox {
             unReadMessageCountAdd();
         }
         chatRecordBox.getChildren().add(node);
+        PlaySound.playSoundWhenReceiveMessage();
     }
 
     public Group getGroup() {
@@ -112,9 +114,6 @@ public class GroupPane extends HBox {
                         chatRecordBox.getChildren().add(new MessageCarrier(true, message));
                     } else {
                         chatRecordBox.getChildren().add(new MessageCarrier(message));
-                        if (!message.isRead()) {
-                            unReadMessageCountAdd();
-                        }
                     }
                 }
             }

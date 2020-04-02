@@ -2,11 +2,13 @@ package com.jack.chat.component;
 
 import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.CalculateTextArea;
+import com.jack.chat.util.Command;
+import com.jack.chat.util.ImageLoad;
 import com.jack.transfer.Message;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.geometry.VPos;
-import javafx.scene.control.TextArea;
+import javafx.scene.Node;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.FlowPane;
 
@@ -16,25 +18,26 @@ import javafx.scene.layout.FlowPane;
  */
 public class MessageCarrier extends FlowPane {
     ImageView avatar = new ImageView();
-    TextArea stringMessage;
+    Node messageBody = null;
     public MessageCarrier(Message message) {
         this(false,message);
     }
     public MessageCarrier(boolean isSend, Message message) {
         this.setPadding(new Insets(5,5,0,5));
-
         this.setHgap(5);
         this.setRowValignment(VPos.TOP);
         avatar.setFitHeight(60);
         avatar.setFitWidth(60);
         AvatarLoad.loadChatAvatar(avatar, message.getFromUser());
-        stringMessage = CalculateTextArea.getTextArea(message.getMessageContent());
-
+        messageBody = CalculateTextArea.getTextArea(message.getMessageContent());
+        if (message.getMessageContent().startsWith(Command.IMG_NAME)) {
+            messageBody = ImageLoad.loadImg(message.getMessageContent().replace(Command.IMG_NAME,""));
+        }
         if(isSend) {
             this.setAlignment(Pos.TOP_RIGHT);
-            this.getChildren().addAll(stringMessage,avatar);
+            this.getChildren().addAll(messageBody,avatar);
         }else {
-            this.getChildren().addAll(avatar,stringMessage);
+            this.getChildren().addAll(avatar,messageBody);
         }
     }
 }

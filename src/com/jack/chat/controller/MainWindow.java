@@ -14,6 +14,7 @@ import com.jack.chat.service.imp.GroupServiceImpl;
 import com.jack.chat.thread.ReceiveMessageService;
 import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.Command;
+import com.jack.chat.util.PropertiesUtil;
 import com.jack.transfer.Message;
 import javafx.application.Platform;
 import javafx.fxml.Initializable;
@@ -170,7 +171,6 @@ public class MainWindow implements Initializable {
         initGroupPane();
 
 
-
         ReceiveMessageService receiveMessageService = new ReceiveMessageService();
         receiveMessageService.start();
 
@@ -206,7 +206,7 @@ public class MainWindow implements Initializable {
         messageEditArea.clear();
         if (type.equals(Command.FRIEND)) {
             friendPaneHolder.getFriendPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
-        }else if (type.equals(Command.GROUP)) {
+        } else if (type.equals(Command.GROUP)) {
             groupPaneHolder.getGroupPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
         }
     }
@@ -216,24 +216,32 @@ public class MainWindow implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择图片");
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
-/*        FileMessage fileMessage = new FileMessage(file, user.getAccount(),
-                currentChatWith.getAccount(), Command.IMAGE,file.getName());
-        oos.writeObject(fileMessage);*/
-        Socket socket = new Socket("127.0.0.1", 9999);
-/*        DataInputStream dis = new DataInputStream(new FileInputStream(file));
-        DataOutputStream dos = new DataOutputStream(socket.getOutputStream());*/
-
+        Socket socket = new Socket("127.0.0.1", Integer.parseInt(PropertiesUtil.getValue("client.file.upload.port")));
         FileInputStream fis = new FileInputStream(file);
-
-        OutputStream outputStream = socket.getOutputStream();
+        DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+        dos.writeUTF(file.getName());
+        FileOutputStream localSave = new FileOutputStream(new File(System.getProperty("user.home") + "\\chat\\img\\"
+                +file.getName()));
         byte[] bytes = new byte[1024];
         int len = 0;
         while ((len = fis.read(bytes)) != -1) {
-            outputStream.write(bytes, 0, len);
+            dos.write(bytes, 0, len);
+            localSave.write(bytes, 0, len);
         }
         socket.shutdownOutput();
         fis.close();
-        outputStream.close();
+        dos.close();
+        localSave.close();
+        String type = session.getCurrentChatWithType();
+        Message message = new Message(user.getAccount(),
+                session.getCurrentChatWith(), Command.IMG_NAME + file.getName(), type);
+        oos.writeObject(message);
+        if (type.equals(Command.FRIEND)) {
+            friendPaneHolder.getFriendPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+        } else if (type.equals(Command.GROUP)) {
+            groupPaneHolder.getGroupPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+        }
+        socket.close();
     }
 
     public void sendImg(MouseEvent mouseEvent) {
