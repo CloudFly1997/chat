@@ -16,11 +16,11 @@ public class User implements CommonIndividual {
     private String email;
     private String signature;
     private String friend_remark;
-    private InputStream inputStream;
+    private InputStream avatar;
 
 
     public User(String account, String nickName, String gender, String birthday, String address, String phoneNumber,
-                   String email, String signature) {
+                   String email, String signature,InputStream avatar) {
         this.account = account;
         this.nickName = nickName;
         this.gender = gender;
@@ -29,6 +29,7 @@ public class User implements CommonIndividual {
         this.phoneNumber = phoneNumber;
         this.email = email;
         this.signature = signature;
+        this.avatar = avatar;
     }
 
     public User() {
@@ -115,12 +116,12 @@ public class User implements CommonIndividual {
         this.gender = gender;
     }
 
-    public InputStream getInputStream() {
-        return inputStream;
+    public InputStream getAvatar() {
+        return avatar;
     }
 
-    public void setInputStream(InputStream inputStream) {
-        this.inputStream = inputStream;
+    public void setAvatar(InputStream avatar) {
+        this.avatar = avatar;
     }
 
     @Override
@@ -132,16 +133,17 @@ public class User implements CommonIndividual {
                 ", gender='" + gender + '\'' +
                 ", birthday='" + birthday + '\'' +
                 ", address='" + address + '\'' +
-                ", phoneNumber=" + phoneNumber +
+                ", phoneNumber='" + phoneNumber + '\'' +
                 ", email='" + email + '\'' +
                 ", signature='" + signature + '\'' +
                 ", friend_remark='" + friend_remark + '\'' +
+                ", avatar=" + avatar +
                 '}';
     }
 
     @Override
     public InputStream getAvatarInputStream() {
-        return getInputStream();
+        return getAvatar();
     }
 
     @Override

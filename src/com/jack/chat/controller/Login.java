@@ -4,6 +4,7 @@ import com.jack.chat.common.Session;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImpl;
+import com.jack.chat.util.FileUtil;
 import com.jack.chat.util.PropertiesUtil;
 import com.jack.transfer.LoginRequest;
 import javafx.application.Platform;
@@ -95,6 +96,7 @@ public class Login implements Initializable {
         if (user != null) {
             session.setUser(user);
             if (connectToServer()) {
+                FileUtil.createDefaultFile();
                 Stage loginStage = (Stage) loginPane.getScene().getWindow();
                 Stage chatStage = new Stage();
                 Parent chatWindow = FXMLLoader.load(getClass().getResource("/fxml/chatWindow2.0.fxml"));

@@ -29,7 +29,7 @@ public class FriendProfilePane extends Pane {
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             fxmlLoader.load();
-            AvatarLoad.loadProfileAvatar(avatar,user.getAccount());
+            AvatarLoad.loadProfileAvatar(avatar,user);
             id.setText(user.getAccount());
             nickName.setText(user.getNickName());
             remark.setText(user.getFriend_remark());

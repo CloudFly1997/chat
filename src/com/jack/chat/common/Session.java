@@ -57,7 +57,6 @@ public class Session {
     public ObjectInputStream getOis() {
         return ois;
     }
-
     public ObjectOutputStream getOos() {
         return oos;
     }

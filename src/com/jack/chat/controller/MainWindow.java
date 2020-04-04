@@ -14,6 +14,7 @@ import com.jack.chat.service.imp.GroupServiceImpl;
 import com.jack.chat.thread.ReceiveMessageService;
 import com.jack.chat.util.AvatarLoad;
 import com.jack.chat.util.Command;
+import com.jack.chat.util.FileUtil;
 import com.jack.chat.util.PropertiesUtil;
 import com.jack.transfer.Message;
 import javafx.application.Platform;
@@ -159,7 +160,7 @@ public class MainWindow implements Initializable {
         messageAreaScrollPane.prefWidthProperty().bind(right.widthProperty());
         session = Session.getInstance();
         user = session.getUser();
-        AvatarLoad.loadUserAvatar(userAvatar, user.getAccount());
+        AvatarLoad.loadUserAvatar(userAvatar, user);
         userAvatar.setOnMouseClicked(e -> {
             new ProfilePane(user).show();
         });
@@ -216,32 +217,38 @@ public class MainWindow implements Initializable {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择图片");
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
-        Socket socket = new Socket("127.0.0.1", Integer.parseInt(PropertiesUtil.getValue("client.file.upload.port")));
-        FileInputStream fis = new FileInputStream(file);
-        DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-        dos.writeUTF(file.getName());
-        FileOutputStream localSave = new FileOutputStream(new File(System.getProperty("user.home") + "\\chat\\img\\"
-                +file.getName()));
-        byte[] bytes = new byte[1024];
-        int len = 0;
-        while ((len = fis.read(bytes)) != -1) {
-            dos.write(bytes, 0, len);
-            localSave.write(bytes, 0, len);
+        if (file != null) {
+            Socket socket = new Socket(PropertiesUtil.getValue("server.ip"), Integer.parseInt(PropertiesUtil.getValue("client" +
+                    ".file.upload" +
+                    ".port")));
+            FileInputStream fis = new FileInputStream(file);
+            DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
+            String fileName = System.currentTimeMillis() + file.getName();
+            dos.writeUTF(fileName);
+            String imgPath = FileUtil.getImgPath() + fileName;
+            File localFile = new File(imgPath);
+            FileOutputStream localSave = new FileOutputStream(localFile);
+            byte[] bytes = new byte[1024];
+            int len = 0;
+            while ((len = fis.read(bytes)) != -1) {
+                dos.write(bytes, 0, len);
+                localSave.write(bytes, 0, len);
+            }
+            socket.shutdownOutput();
+            fis.close();
+            dos.close();
+            localSave.close();
+            String type = session.getCurrentChatWithType();
+            Message message = new Message(user.getAccount(),
+                    session.getCurrentChatWith(), Command.IMG_NAME + fileName, type);
+            oos.writeObject(message);
+            if (type.equals(Command.FRIEND)) {
+                friendPaneHolder.getFriendPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+            } else if (type.equals(Command.GROUP)) {
+                groupPaneHolder.getGroupPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+            }
+            socket.close();
         }
-        socket.shutdownOutput();
-        fis.close();
-        dos.close();
-        localSave.close();
-        String type = session.getCurrentChatWithType();
-        Message message = new Message(user.getAccount(),
-                session.getCurrentChatWith(), Command.IMG_NAME + file.getName(), type);
-        oos.writeObject(message);
-        if (type.equals(Command.FRIEND)) {
-            friendPaneHolder.getFriendPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
-        } else if (type.equals(Command.GROUP)) {
-            groupPaneHolder.getGroupPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
-        }
-        socket.close();
     }
 
     public void sendImg(MouseEvent mouseEvent) {

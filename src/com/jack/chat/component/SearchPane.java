@@ -57,7 +57,7 @@ public class SearchPane extends GridPane {
         User user = UserServiceImpl.getInstance().queryUserByAccount(searchString);
         if (user != null) {
             FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
-            AvatarLoad.loadAddFriendAvatar(avatar, user.getAccount());
+            AvatarLoad.loadAddFriendAvatar(avatar, user);
             nickName.setText(user.getNickName());
             account.setText(user.getAccount());
             address.setText(user.getAddress());

@@ -14,7 +14,7 @@
     </properties>
     <root id="root">
       <element id="archive" name="chat.jar">
-        <element id="module-output" name="chat" />
+        <element id="module-output" name="client" />
       </element>
       <element id="library" level="project" name="jfoenix-8.0.8" />
       <element id="library" level="project" name="jmetro-8.6.8" />

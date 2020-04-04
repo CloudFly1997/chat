@@ -48,7 +48,7 @@ public class FriendPane extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        AvatarLoad.loadFriendAvatar(friendAvatar, user.getAccount());
+        AvatarLoad.loadFriendAvatar(friendAvatar, user);
         this.user = user;
         if (user.getFriend_remark() == null) {
             this.nickName.setText(user.getNickName());

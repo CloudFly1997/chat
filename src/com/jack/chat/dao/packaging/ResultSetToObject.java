@@ -23,7 +23,9 @@ public class ResultSetToObject {
         String phoneNumberFromDb = resultSet.getString("phone_number");
         String emailFromDb = resultSet.getString("email");
         String signature = resultSet.getString("signature");
-        User user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb, phoneNumberFromDb, emailFromDb, signature);
+        InputStream avatar = resultSet.getBinaryStream("avatar");
+        User user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb,
+                phoneNumberFromDb, emailFromDb, signature,avatar);
         return user;
     }
 

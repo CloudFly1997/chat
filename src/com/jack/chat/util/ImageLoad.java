@@ -17,8 +17,8 @@ public class ImageLoad {
     public static ImageView loadImg(String imgName) {
         ImageView imageView = new ImageView();
         Image image = null;
-        String imgPath = System.getProperty("user.home") + "\\chat\\img\\" + imgName;
-        String defaultPath = System.getProperty("user.home") + "\\chat\\img\\error.png";
+        String imgPath = FileUtil.getImgPath() + imgName;
+        String defaultPath = FileUtil.getImgPath()+ "error.png";
         File file = new File(imgPath);
         if (file.exists()) {
             image = new Image("file:" + imgPath);

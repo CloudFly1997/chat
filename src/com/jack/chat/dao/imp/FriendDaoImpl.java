@@ -56,6 +56,7 @@ public class FriendDaoImpl implements FriendDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 User user = ResultSetToObject.rsToUserObject(rs);
+                System.out.println(user);
                 String friendRemark = rs.getString("friend_remark");
                 user.setFriend_remark(friendRemark);
                 friendsList.add(user);

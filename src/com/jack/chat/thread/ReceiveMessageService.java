@@ -9,14 +9,10 @@ import com.jack.chat.component.FriendPane;
 import com.jack.chat.component.MessageCarrier;
 import com.jack.chat.service.imp.UserServiceImpl;
 import com.jack.chat.util.Command;
-import com.jack.chat.util.PropertiesUtil;
 import com.jack.transfer.Message;
 import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Task;
 import javafx.util.Duration;
-
-import java.io.*;
-import java.net.Socket;
 
 
 /**
@@ -58,25 +54,10 @@ public class ReceiveMessageService extends ScheduledService<Object> {
 
                     switch (message.getType()) {
                         case Command.FRIEND:
-
-                            if (message.getMessageContent().startsWith(Command.IMG_NAME)) {
-                                downloadThread = new Thread(() -> {
-                                    downloadImg(message.getMessageContent().replace(Command.IMG_NAME, ""));
-                                });
-                                downloadThread.start();
-                            }
                             String from = message.getFromUser();
                             friendPaneHolder.getFriendPane(from).receiveMessage(new MessageCarrier(message));
-
-
                             break;
                         case Command.GROUP:
-                            if (message.getMessageContent().startsWith(Command.IMG_NAME)) {
-                                downloadThread = new Thread(() -> {
-                                    downloadImg(message.getMessageContent().replace(Command.IMG_NAME, ""));
-                                });
-                                downloadThread.start();
-                            }
                             String to = message.getToUser();
                             groupPaneHolder.getGroupPane(to).receiveMessage(new MessageCarrier(message));
 
@@ -102,37 +83,8 @@ public class ReceiveMessageService extends ScheduledService<Object> {
                             break;
                         default:
                     }
-                } else if (obj instanceof File) {
-                    File file = (File) obj;
-                    String name = file.getName();
-                    System.out.println(name);
                 }
 
-            }
-
-            public void downloadImg(String imgName) {
-                try {
-                    Socket socket = new Socket(PropertiesUtil.getValue("server.ip"),
-                            Integer.parseInt(PropertiesUtil.getValue("client.file.download.port")));
-                    DataInputStream dis = new DataInputStream(socket.getInputStream());
-                    DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
-                    String imgPath = System.getProperty("user.home") + "\\chat\\reimg\\" + imgName;
-                    File file = new File(imgPath);
-                    dos.writeUTF(imgName);
-                    FileOutputStream fos = new FileOutputStream(file);
-                    byte[] buf = new byte[1024];
-                    int len = 0;
-                    //往字节流里写图片数据
-                    while ((len = dis.read(buf)) != -1) {
-                        fos.write(buf, 0, len);
-                    }
-                    fos.close();
-                    dis.close();
-                    dos.close();
-                    socket.close();
-                } catch (IOException e) {
-                    e.printStackTrace();
-                }
             }
 
             @Override

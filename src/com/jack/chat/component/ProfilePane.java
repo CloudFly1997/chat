@@ -58,7 +58,7 @@ public class ProfilePane extends Pane {
                 birthday.setValue(LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]),
                         Integer.parseInt(date[2])));
             }
-            AvatarLoad.loadSelfProfileAvatar(avatar, user.getAccount());
+            AvatarLoad.loadSelfProfileAvatar(avatar, user);
             signature.setText(user.getSignature());
         } catch (IOException e) {
             e.printStackTrace();
@@ -89,7 +89,6 @@ public class ProfilePane extends Pane {
             ps.setBinaryStream(1, in, in.available());
             ps.setString(2, account.getText());
             ps.executeUpdate();
-            AvatarLoad.loadSelfProfileAvatar(avatar, account.getText());
         }
 
     }
