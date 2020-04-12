@@ -1,6 +1,5 @@
 package com.jack.chat.component;
 
-import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.util.*;
 import com.jack.transfer.Message;
 import javafx.geometry.Insets;
@@ -26,7 +25,7 @@ public class MessageCarrier extends FlowPane {
         this.setRowValignment(VPos.TOP);
         avatar.setFitHeight(60);
         avatar.setFitWidth(60);
-        AvatarLoad.loadChatAvatar(avatar, FriendPaneHolder.getInstance().getFriendPane(message.getFromUser()).getUser());
+        AvatarLoad.loadAvatarById(avatar, message.getFromUser());
         messageBody = CalculateTextArea.getTextArea(message.getMessageContent());
         if (message.getMessageContent().startsWith(Command.IMG_NAME)) {
             FileUtil.downloadImg(message.getMessageContent().replace(Command.IMG_NAME, ""));

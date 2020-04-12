@@ -6,6 +6,7 @@ import com.jack.chat.exception.DbException;
 import com.jack.chat.pojo.User;
 import com.jack.chat.util.DbUtil;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,6 +34,9 @@ public class UserDaoImp implements UserDao {
     String loginSql = "SELECT * FROM user WHERE user_id = ? AND password =?";
 
     String querySql = "SELECT * FROM user WHERE user_id = ?";
+
+    String updateSql = "UPDATE chat.`user` SET nick_name = ?,birthday = ?,gender = ?,email = ?,phone_number = ?," +
+            "address = ?,signature = ?,avatar = ? WHERE user_id = ?";
 
     @Override
     public User queryUserByAccountAndPassword(String account, String password) {
@@ -70,6 +74,28 @@ public class UserDaoImp implements UserDao {
             throw new DbException(e);
         } finally {
             DbUtil.close(conn, rs, ps);
+        }
+    }
+
+    @Override
+    public void updateUser(User user) {
+        try {
+            conn = DbUtil.getConnection();
+            ps = conn.prepareStatement(updateSql);
+            ps.setString(1,user.getNickName());
+            ps.setString(2,user.getBirthday());
+            ps.setString(3,user.getGender());
+            ps.setString(4,user.getEmail());
+            ps.setString(5,user.getPhoneNumber());
+            ps.setString(6,user.getAddress());
+            ps.setString(7,user.getSignature());
+            ps.setBinaryStream(8,user.getAvatar(),user.getAvatar().available());
+            ps.setString(9,user.getAccount());
+            ps.executeUpdate();
+        } catch (SQLException | IOException e) {
+            throw new DbException(e);
+        } finally {
+            DbUtil.close(conn, null, ps);
         }
     }
 

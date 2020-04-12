@@ -4,6 +4,7 @@ import com.jack.chat.common.Session;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImpl;
+import com.jack.chat.util.EncryptUtil;
 import com.jack.chat.util.FileUtil;
 import com.jack.chat.util.PropertiesUtil;
 import com.jack.transfer.LoginRequest;
@@ -14,6 +15,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -92,6 +94,7 @@ public class Login implements Initializable {
     public void login() throws IOException {
         String accountText = account.getText();
         String passwordText = password.getText();
+        passwordText = EncryptUtil.encrypt(passwordText);
         User user = userService.loginByAccountAndPassword(accountText, passwordText);
         if (user != null) {
             session.setUser(user);
@@ -109,7 +112,7 @@ public class Login implements Initializable {
                 loginStage.close();
             }
         } else {
-            System.out.println(1);
+            new DialogPane();
         }
     }
 
@@ -135,6 +138,6 @@ public class Login implements Initializable {
     }
 
     public void toRegister(ActionEvent actionEvent) throws URISyntaxException, IOException {
-        Desktop.getDesktop().browse(new URI("http://www.baidu.com"));
+        Desktop.getDesktop().browse(new URI(PropertiesUtil.getValue("register.url")));
     }
 }

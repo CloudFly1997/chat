@@ -116,11 +116,12 @@ public class User implements CommonIndividual {
         this.gender = gender;
     }
 
-    public InputStream getAvatar() {
+    public InputStream getAvatar()  {
+
         return avatar;
     }
 
-    public void setAvatar(InputStream avatar) {
+    public void setAvatar(InputStream avatar)  {
         this.avatar = avatar;
     }
 

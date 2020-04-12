@@ -5,13 +5,7 @@ import com.jack.chat.pojo.Group;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
+import java.io.*;
 
 
 /**
@@ -49,63 +43,63 @@ public class AvatarLoad {
         loadAvatar(imageView, group, 100.0, 100.0);
     }
 
-    private static void load(ImageView imageView, String name, Double requestedWidth, Double requestedHeight) {
-        Image image = null;
-        String imgPath = System.getProperty("user.home") + "\\chat\\avatar\\" + name + ".png";
-        String defaultPath = System.getProperty("user.home") + "\\chat\\avatar\\default.png";
-        Connection connection = DbUtil.getConnection();
-        PreparedStatement preparedStatement = null;
-        ResultSet rs = null;
-        try {
-            InputStream in = null;
 
-            preparedStatement = connection.prepareStatement("SELECT avatar FROM user WHERE user_id " +
-                    "= ?");
-            preparedStatement.setString(1, name);
-            rs = preparedStatement.executeQuery();
-            while (rs.next()) {
-                in = rs.getBinaryStream("avatar");
-            }
-            byte[] bytes = new byte[in.available()];
-            OutputStream fileOutputStream = new FileOutputStream(imgPath);
-            while (in.read(bytes) != -1) {
-                fileOutputStream.write(bytes);
-                fileOutputStream.flush();
-            }
-            in.close();
-            fileOutputStream.close();
-            image = new Image("file:" + imgPath, requestedWidth, requestedHeight, false, false);
-
-        } catch (Exception e) {
-            image = new Image("file:" + defaultPath, requestedWidth, requestedHeight, false, false);
-        } finally {
-            DbUtil.close(connection, rs, preparedStatement);
-        }
+    public static void loadAvatarById(ImageView imageView, String id) {
+        String imgPath = FileUtil.getAvatarPath() + id + ".png";
+        Image image = new Image("file:" + imgPath);
         imageView.setImage(image);
     }
 
-    public static void loadAvatar(ImageView imageView, CommonIndividual individual, Double requestedWidth,
-                                  Double requestedHeight) {
+    private static void loadAvatar(ImageView imageView, CommonIndividual individual, Double requestedWidth,
+                                   Double requestedHeight) {
         Image image = null;
         String imgPath = FileUtil.getAvatarPath() + individual.getId() + ".png";
         String defaultPath = FileUtil.getAvatarPath() + "default.png ";
+        File imgFile = new File(imgPath);
+        InputStream in = individual.getAvatarInputStream();
         try {
-            InputStream in = individual.getAvatarInputStream();
-            if (in != null) {
+            if (in == null) {
+                in = AvatarLoad.class.getClassLoader().getResourceAsStream("img/logo.png");
+            }
+            //图片不存在则用流创建图片
+            if (!imgFile.exists()) {
                 byte[] bytes = new byte[in.available()];
                 OutputStream fileOutputStream = new FileOutputStream(imgPath);
                 while (in.read(bytes) != -1) {
                     fileOutputStream.write(bytes);
                     fileOutputStream.flush();
                 }
-                in.close();
+
                 fileOutputStream.close();
-                image = new Image("file:" + imgPath, requestedWidth, requestedHeight, false, false);
             }
+            image = new Image("file:" + imgPath, requestedWidth, requestedHeight, false, false);
         } catch (IOException e) {
             image = new Image("file:" + defaultPath, requestedWidth, requestedHeight, false, false);
         }
         imageView.setImage(image);
     }
+
+    public static void changeAvatar(CommonIndividual individual) {
+        String imgPath = FileUtil.getAvatarPath() + individual.getId() + ".png";
+        FileInputStream in = (FileInputStream)individual.getAvatarInputStream();
+        File file = new File(imgPath);
+
+        if (file.exists()) {
+            file.delete();
+        }
+        try {
+            byte[] bytes = new byte[in.available()];
+            OutputStream outputStream = new FileOutputStream(imgPath);
+            int len = 0;
+            while ((len = in.read(bytes) )!= -1) {
+                outputStream.write(bytes,0,len);
+                outputStream.flush();
+            }
+            outputStream.close();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+    }
+
 }
 

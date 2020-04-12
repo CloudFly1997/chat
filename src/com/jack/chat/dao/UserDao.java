@@ -24,4 +24,10 @@ public interface UserDao {
      * @return
      */
     User queryUserByAccount(String account);
+
+    /**
+     * 更新用户
+     * @param user
+     */
+    void updateUser(User user);
 }

@@ -1,11 +1,14 @@
 package com.jack.chat.component;
 
+import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.pojo.User;
+import com.jack.chat.service.UserService;
+import com.jack.chat.service.imp.UserServiceImpl;
 import com.jack.chat.util.AvatarLoad;
-import com.jack.chat.util.DbUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
@@ -15,8 +18,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -35,6 +36,8 @@ public class ProfilePane extends Pane {
     public DatePicker birthday;
     public TextArea signature;
     public User user;
+    private InputStream inputStream;
+
 
     public ProfilePane(User user) {
         try {
@@ -48,6 +51,8 @@ public class ProfilePane extends Pane {
             phone.setText(user.getPhoneNumber());
             email.setText(user.getEmail());
             address.setText(user.getAddress());
+            male.setUserData("男");
+            female.setUserData("女");
             if ("男".equals(user.getGender())) {
                 male.setSelected(true);
             } else {
@@ -65,30 +70,31 @@ public class ProfilePane extends Pane {
         }
     }
 
-    public void save() {
-
+    public void save() throws IOException {
+        user.setNickName(nickName.getText());
+        user.setBirthday(birthday.getValue().toString());
+        user.setGender(genderGroup.getSelectedToggle().getUserData().toString());
+        user.setEmail(email.getText());
+        user.setPhoneNumber(phone.getText());
+        user.setAddress(address.getText());
+        user.setSignature(signature.getText());
+        UserService userService = UserServiceImpl.getInstance();
+        userService.updateUser(user);
+        AvatarLoad.loadUserAvatar(MainWindowHolder.getInstance().getMainWindow().userAvatar,user);
     }
 
     public void chooseAvatar() throws IOException, SQLException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.getExtensionFilters().addAll(
-                new FileChooser.ExtensionFilter("All Images", "*.*"),
-
-                new FileChooser.ExtensionFilter("JPG", "*.jpg"),
-                new FileChooser.ExtensionFilter("PNG", "*.png"),
-                new FileChooser.ExtensionFilter("IMG", "*.img*"));
-
+                new FileChooser.ExtensionFilter("All Images", "*.jpg*", "*.png", "*.img*", "*.bmp", "*.jpeg"));
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (file != null) {
-            InputStream in = new FileInputStream(file);
-            Connection conn = DbUtil.getConnection();
-            String sql = "UPDATE user SET avatar = ? WHERE user_id = ?";
-            PreparedStatement ps = null;
-            ps = conn.prepareStatement(sql);
+            inputStream = new FileInputStream(file);
+            user.setAvatar(inputStream);
+            Image image = new Image("file:" + file.getAbsolutePath());
+            avatar.setImage(image);
+            AvatarLoad.changeAvatar(user);
 
-            ps.setBinaryStream(1, in, in.available());
-            ps.setString(2, account.getText());
-            ps.executeUpdate();
         }
 
     }

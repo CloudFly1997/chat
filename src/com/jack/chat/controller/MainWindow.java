@@ -200,6 +200,9 @@ public class MainWindow implements Initializable {
 
     public void sendMessage() throws IOException {
         String originMessage = messageEditArea.getText();
+        if (("").equals(originMessage)) {
+            return;
+        }
         String type = session.getCurrentChatWithType();
         Message message = new Message(user.getAccount(),
                 session.getCurrentChatWith(), originMessage, type);

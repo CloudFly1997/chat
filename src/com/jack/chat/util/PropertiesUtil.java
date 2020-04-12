@@ -30,7 +30,6 @@ public class PropertiesUtil {
             if(props.containsKey(key)){
                 value = props.getProperty(key);
             }
-
         return value;
     }
 }
