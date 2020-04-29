@@ -1,10 +1,10 @@
 package com.jack.chat.component;
 
-import com.jack.chat.common.FriendPaneHolder;
+import com.jack.chat.common.GroupPaneHolder;
 import com.jack.chat.common.Session;
-import com.jack.chat.pojo.User;
-import com.jack.chat.service.imp.UserServiceImpl;
-import com.jack.chat.util.AvatarLoad;
+import com.jack.chat.dao.imp.GroupDaoImpl;
+import com.jack.chat.pojo.Group;
+import com.jack.chat.util.AvatarUtil;
 import com.jack.chat.util.Command;
 import com.jack.transfer.Message;
 import javafx.fxml.FXMLLoader;
@@ -23,12 +23,12 @@ import java.io.IOException;
  * @date 2020/3/14 23:45
  */
 
-public class SearchPane extends GridPane {
+public class SearchGroupPane extends GridPane {
     public TextField searchField, nickName, account, address;
     public Button addFriend;
     public ImageView avatar;
 
-    public SearchPane() {
+    public SearchGroupPane() {
         init();
     }
 
@@ -38,6 +38,7 @@ public class SearchPane extends GridPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             fxmlLoader.load();
+            addFriend.setText("申请加群");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -51,27 +52,28 @@ public class SearchPane extends GridPane {
     }
 
     public void search() {
-        String chat = "发起会话";
-        String add = "添加好友";
+        String chat = "发送消息";
+        String add = "申请加群";
         String searchString = searchField.getText();
-        User user = UserServiceImpl.getInstance().queryUserByAccount(searchString);
-        if (user != null) {
-            FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
-            AvatarLoad.loadAddFriendAvatar(avatar, user);
-            nickName.setText(user.getNickName());
-            account.setText(user.getAccount());
-            address.setText(user.getAddress());
+        Group group = GroupDaoImpl.getInstance().queryById(searchString);
+        if (group != null) {
+
+            GroupPaneHolder groupPaneHolder = GroupPaneHolder.getInstance();
+            AvatarUtil.loadAvatar(avatar, group);
+            nickName.setText(group.getGroupName());
+            account.setText(group.getGroupAccount());
+            address.setText(group.getGroupIntroduce());
             addFriend.setStyle("visibility: visible");
-            if (friendPaneHolder.contains(user.getAccount())) {
-                addFriend.setText("发起会话");
+            if (groupPaneHolder.contains(group.getGroupAccount())) {
+                addFriend.setText(chat);
             }
             addFriend.setOnMouseClicked(event -> {
                 if (chat.equals(addFriend.getText())) {
-                    System.out.println("发起会话");
+
                 } else if (add.equals(addFriend.getText())) {
                     try {
                         Message message = new Message(Session.getInstance().getUser().getAccount(),
-                                user.getAccount(), Command.ADD_FRIEND);
+                                group.getGroupHolder(), group.getGroupAccount(), Command.APPLY_JOIN_GROUP);
                         Session.getInstance().getOos().writeObject(message);
                     } catch (IOException e) {
                         e.printStackTrace();

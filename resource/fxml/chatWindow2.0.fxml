@@ -45,7 +45,7 @@
                     </image>
                 </ImageView>
                 <Separator layoutX="-3.0" layoutY="88.0" prefHeight="3.0" prefWidth="1162.0" />
-                <Label fx:id="userName" layoutX="100.0" layoutY="14.0" prefHeight="20.0" prefWidth="92.0" styleClass="user-name" />
+                <Label fx:id="userName" layoutX="100.0" layoutY="14.0" prefHeight="27.0" prefWidth="246.0" styleClass="user-name" />
             </children>
             <GridPane.margin>
                 <Insets />
@@ -70,8 +70,7 @@
                                             <content>
                                                 <ScrollPane fitToWidth="true" styleClass="friendListScrollPane">
                                                     <content>
-                                                        <VBox fx:id="friendListBox" spacing="3"
-                                                              style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
+                                                        <VBox fx:id="friendListBox" spacing="3" style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
                                                     </content>
                                                 </ScrollPane>
                                             </content>
@@ -80,15 +79,18 @@
                                             <content>
                                                 <ScrollPane fitToWidth="true" styleClass="friendListScrollPane">
                                                     <content>
-                                                        <VBox fx:id="groupListBox" spacing="3"
-                                                              style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
+                                                        <VBox fx:id="groupListBox" spacing="3" style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
                                                     </content>
                                                 </ScrollPane>
                                             </content>
                                         </Tab>
-                                        <Tab styleClass="history-tab">
+                                        <Tab styleClass="notify-tab">
                                             <content>
-                                                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+                                                <ScrollPane fitToWidth="true" styleClass="friendListScrollPane">
+                                                    <content>
+                                                        <VBox fx:id="notifyBox" spacing="3" style="-fx-background-color: white;" VBox.vgrow="ALWAYS" />
+                                                    </content>
+                                                </ScrollPane>
                                             </content>
                                         </Tab>
                                     </tabs>

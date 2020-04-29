@@ -12,7 +12,7 @@ import com.jack.chat.service.GroupService;
 import com.jack.chat.service.imp.FriendServiceImpl;
 import com.jack.chat.service.imp.GroupServiceImpl;
 import com.jack.chat.thread.ReceiveMessageService;
-import com.jack.chat.util.AvatarLoad;
+import com.jack.chat.util.AvatarUtil;
 import com.jack.chat.util.Command;
 import com.jack.chat.util.FileUtil;
 import com.jack.chat.util.PropertiesUtil;
@@ -25,7 +25,6 @@ import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -44,49 +43,15 @@ import java.util.ResourceBundle;
  */
 
 public class MainWindow implements Initializable {
-    /**
-     * 总窗体
-     */
+
     public GridPane root;
-    /**
-     * 第一行
-     */
-    public RowConstraints row1;
-    /**
-     * 第二行
-     */
-    public RowConstraints row2;
-    /**
-     * 主要窗口
-     */
     public SplitPane main;
-    /**
-     * 好友列表区域板
-     */
     public TabPane friendListPane;
-    /**
-     * 聊天消息呈现区
-     */
     public ScrollPane messageAreaScrollPane;
-    /**
-     * 右边区域
-     */
     public AnchorPane right;
-    /**
-     * 聊天对象
-     */
     public Label chatWith;
-    /**
-     * 最小化
-     */
     public Label minimize;
-    /**
-     * 最大化
-     */
     public Label maximize;
-    /**
-     * 关闭
-     */
     public Label close;
     public VBox friendListBox;
     public ImageView userAvatar;
@@ -102,6 +67,7 @@ public class MainWindow implements Initializable {
     public Label sendImg;
     public Label createGroup;
     public VBox groupListBox;
+    public VBox notifyBox;
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
     private GroupPaneHolder groupPaneHolder = GroupPaneHolder.getInstance();
     private Double offsetX;
@@ -111,6 +77,7 @@ public class MainWindow implements Initializable {
     public void initialize(URL location, ResourceBundle resources) {
         //关闭
         close.setOnMouseClicked(event -> {
+            FileUtil.deleteAvatarFile();
             Platform.exit();
         });
         // 最小化
@@ -140,12 +107,12 @@ public class MainWindow implements Initializable {
 
         addFriend.setOnMouseClicked(event -> {
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
-                new SearchPane().show();
+                new SearchFriendPane().show();
             }
         });
         addGroup.setOnMouseClicked(event -> {
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
-                new SearchPane().show();
+                new SearchGroupPane().show();
             }
         });
 
@@ -160,18 +127,18 @@ public class MainWindow implements Initializable {
         messageAreaScrollPane.prefWidthProperty().bind(right.widthProperty());
         session = Session.getInstance();
         user = session.getUser();
-        AvatarLoad.loadUserAvatar(userAvatar, user);
+        AvatarUtil.loadAvatar(userAvatar, user);
         userAvatar.setOnMouseClicked(e -> {
             new ProfilePane(user).show();
         });
-        userName.setText(user.getNickName());
+        userName.setText(user.getNickName()==null?user.getAccount():user.getNickName());
         ois = session.getOis();
         oos = session.getOos();
         MainWindowHolder.getInstance().setMainWindow(this);
         initFriendPane();
         initGroupPane();
-
-
+        NotifyPane notifyPane = new NotifyPane();
+        notifyBox.getChildren().add(notifyPane);
         ReceiveMessageService receiveMessageService = new ReceiveMessageService();
         receiveMessageService.start();
 
@@ -182,6 +149,7 @@ public class MainWindow implements Initializable {
         List<User> friendList = friendService.getFriendsList(user.getAccount());
         for (User user : friendList) {
             FriendPane friendPane = new FriendPane(user);
+            session.getUserMap().put(user.getAccount(),user);
             friendPaneHolder.addFriendPane(user.getAccount(), friendPane);
             friendListBox.getChildren().add(friendPane);
         }
@@ -194,7 +162,6 @@ public class MainWindow implements Initializable {
             GroupPane groupPane = new GroupPane(group);
             groupPaneHolder.addGroupPane(group.getGroupAccount(), groupPane);
             groupListBox.getChildren().add(groupPane);
-            groupPane.pullHistoryMessage();
         }
     }
 

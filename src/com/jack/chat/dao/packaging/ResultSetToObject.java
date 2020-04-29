@@ -4,6 +4,7 @@ import com.jack.chat.pojo.Group;
 import com.jack.chat.pojo.User;
 import com.jack.transfer.Message;
 
+import java.io.BufferedInputStream;
 import java.io.InputStream;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -23,7 +24,8 @@ public class ResultSetToObject {
         String phoneNumberFromDb = resultSet.getString("phone_number");
         String emailFromDb = resultSet.getString("email");
         String signature = resultSet.getString("signature");
-        InputStream avatar = resultSet.getBinaryStream("avatar");
+        InputStream inputStream = resultSet.getBinaryStream("avatar");
+        BufferedInputStream avatar = new BufferedInputStream(inputStream);
         User user = new User(accountFromDb, nickNameFromDb, genderFromDb, birthdayFromDb, addressFromDb,
                 phoneNumberFromDb, emailFromDb, signature,avatar);
         return user;
@@ -34,7 +36,8 @@ public class ResultSetToObject {
         String groupName = resultSet.getString("group_name");
         String groupIntroduce = resultSet.getString("group_introduce");
         String groupHolder = resultSet.getString("group_holder");
-        InputStream groupAvatar = resultSet.getBinaryStream("group_avatar");
+        InputStream inputStream = resultSet.getBinaryStream("group_avatar");
+        BufferedInputStream groupAvatar = new BufferedInputStream(inputStream);
         Group group = new Group(groupAccount, groupName, groupIntroduce, groupAvatar, groupHolder);
         return group;
     }

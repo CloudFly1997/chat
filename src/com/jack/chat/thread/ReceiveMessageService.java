@@ -4,9 +4,8 @@ import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.common.GroupPaneHolder;
 import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
-import com.jack.chat.component.AddFriendDialog;
-import com.jack.chat.component.FriendPane;
-import com.jack.chat.component.MessageCarrier;
+import com.jack.chat.component.*;
+import com.jack.chat.service.imp.GroupServiceImpl;
 import com.jack.chat.service.imp.UserServiceImpl;
 import com.jack.chat.util.Command;
 import com.jack.transfer.Message;
@@ -24,7 +23,8 @@ public class ReceiveMessageService extends ScheduledService<Object> {
 
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
     private GroupPaneHolder groupPaneHolder = GroupPaneHolder.getInstance();
-    private FriendPane SystemNotifier = friendPaneHolder.getFriendPane("1");
+    private NotifyPane SystemNotifier =
+            (NotifyPane) MainWindowHolder.getInstance().getMainWindow().notifyBox.getChildren().get(0);
     //private ExecutorService exe = Executors.newFixedThreadPool(50);
 
     public ReceiveMessageService() {
@@ -60,23 +60,30 @@ public class ReceiveMessageService extends ScheduledService<Object> {
                         case Command.GROUP:
                             String to = message.getToUser();
                             groupPaneHolder.getGroupPane(to).receiveMessage(new MessageCarrier(message));
-
                             break;
                         case Command.ADD_FRIEND:
-                            SystemNotifier.receiveMessage(new AddFriendDialog(message.getFromUser()));
+                        case Command.APPLY_JOIN_GROUP:
+                            SystemNotifier.receiveMessage(new NotifyDialog(message));
                             break;
                         case Command.AGREE_ADD_FRIEND:
                             String account = message.getFromUser();
                             FriendPane newFriendPane =
                                     new FriendPane(UserServiceImpl.getInstance().queryUserByAccount(account));
                             friendPaneHolder.addFriendPane(account, newFriendPane);
-                            MainWindowHolder.getInstance().getMainWindow().friendListBox.getChildren().add(1,
+                            MainWindowHolder.getInstance().getMainWindow().friendListBox.getChildren().add(0,
                                     newFriendPane);
                             break;
                         case Command.DELETE_FRIEND:
                             MainWindowHolder.getInstance().getMainWindow().friendListBox.getChildren().remove(
                                     FriendPaneHolder.getInstance().getFriendPane(message.getFromUser()));
                             FriendPaneHolder.getInstance().remove(message.getFromUser());
+                            break;
+                        case Command.AGREE_JOIN_GROUP:
+                            GroupPane newGroupPane =
+                                    new GroupPane(GroupServiceImpl.getInstance().queryById(message.getFromUser()));
+                            GroupPaneHolder.getInstance().addGroupPane(message.getFromUser(),newGroupPane);
+                            MainWindowHolder.getInstance().getMainWindow().groupListBox.getChildren().add(0,
+                                    newGroupPane);
                             break;
                         case Command.IMG_NAME:
 

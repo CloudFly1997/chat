@@ -3,7 +3,7 @@ package com.jack.chat.component;
 import com.jack.chat.common.Session;
 import com.jack.chat.pojo.Group;
 import com.jack.chat.service.imp.MessageServiceImpl;
-import com.jack.chat.util.AvatarLoad;
+import com.jack.chat.util.AvatarUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -27,7 +27,7 @@ public class GroupPaneNew extends IndividualPane {
         init();
         this.group = group;
         this.groupName.setText(group.getGroupName());
-        AvatarLoad.loadGroupPaneAvatar(groupAvatar, group);
+        AvatarUtil.loadAvatar(groupAvatar, group);
     }
 
     @Override

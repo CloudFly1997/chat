@@ -6,6 +6,8 @@ import com.jack.chat.pojo.User;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.net.Socket;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author jackIn
@@ -20,7 +22,7 @@ public class Session {
     private String currentChatWith;
     private String currentChatWithType;
     private static Session session = new Session();
-
+    private Map<String,User> userMap = new HashMap<>();
 
     private Session() {
 
@@ -87,6 +89,14 @@ public class Session {
 
     public void setCurrentChatWithType(String currentChatWithType) {
         this.currentChatWithType = currentChatWithType;
+    }
+
+    public Map<String, User> getUserMap() {
+        return userMap;
+    }
+
+    public void setUserMap(Map<String, User> userMap) {
+        this.userMap = userMap;
     }
 
     public MainWindow getMainWindow() {

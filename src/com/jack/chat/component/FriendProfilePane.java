@@ -1,7 +1,7 @@
 package com.jack.chat.component;
 
 import com.jack.chat.pojo.User;
-import com.jack.chat.util.AvatarLoad;
+import com.jack.chat.util.AvatarUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
@@ -29,7 +29,7 @@ public class FriendProfilePane extends Pane {
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             fxmlLoader.load();
-            AvatarLoad.loadProfileAvatar(avatar,user);
+            AvatarUtil.loadAvatar(avatar,user,350.0,235.0);
             id.setText(user.getAccount());
             nickName.setText(user.getNickName());
             remark.setText(user.getFriend_remark());

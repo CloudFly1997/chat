@@ -15,7 +15,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
@@ -46,6 +45,7 @@ public class Login implements Initializable {
     public PasswordField password;
     public Label minimize;
     public Label close;
+    public Label loginFailedTip;
 
     UserService userService = UserServiceImpl.getInstance();
     Session session = Session.getInstance();
@@ -112,7 +112,8 @@ public class Login implements Initializable {
                 loginStage.close();
             }
         } else {
-            new DialogPane();
+            loginFailedTip.setVisible(true);
+            loginFailedTip.setManaged(true);
         }
     }
 

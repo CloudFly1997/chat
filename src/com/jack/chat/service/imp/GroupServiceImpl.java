@@ -46,4 +46,9 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> query(String account) {
         return groupDao.query(account);
     }
+
+    @Override
+    public Group queryById(String id) {
+        return groupDao.queryById(id);
+    }
 }

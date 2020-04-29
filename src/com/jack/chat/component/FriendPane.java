@@ -7,7 +7,7 @@ import com.jack.chat.controller.MainWindow;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.MessageService;
 import com.jack.chat.service.imp.MessageServiceImpl;
-import com.jack.chat.util.AvatarLoad;
+import com.jack.chat.util.AvatarUtil;
 import com.jack.chat.util.Command;
 import com.jack.chat.util.PlaySound;
 import com.jack.transfer.Message;
@@ -40,7 +40,9 @@ public class FriendPane extends HBox {
     Session session = Session.getInstance();
 
     public FriendPane(User user) {
+
         try {
+
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/friendPane.fxml"));
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
@@ -48,10 +50,10 @@ public class FriendPane extends HBox {
         } catch (IOException e) {
             e.printStackTrace();
         }
-        AvatarLoad.loadFriendAvatar(friendAvatar, user);
+        AvatarUtil.loadAvatar(friendAvatar, user);
         this.user = user;
         if (user.getFriend_remark() == null) {
-            this.nickName.setText(user.getNickName());
+            this.nickName.setText(user.getNickName()==null?user.getAccount():user.getNickName());
         } else {
             this.nickName.setText(user.getFriend_remark());
         }
@@ -117,6 +119,7 @@ public class FriendPane extends HBox {
                 super.updateValue(value);
                 for (Message message :
                         value) {
+
                     if (message.getFromUser().equals(Session.getInstance().getUser().getAccount())) {
                         chatRecordBox.getChildren().add(new MessageCarrier(true, message));
                     } else {
@@ -133,7 +136,7 @@ public class FriendPane extends HBox {
                 return messageService.queryHistoryMessage(user, Session.getInstance().getUser());
             }
         };
-        new Thread(pullHistoryMessage).start();
+        //new Thread(pullHistoryMessage).start();
     }
 
     /**

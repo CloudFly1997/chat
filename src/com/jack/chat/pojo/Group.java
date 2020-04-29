@@ -1,6 +1,8 @@
 package com.jack.chat.pojo;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
+import java.util.HashMap;
+import java.util.Map;
 
 /**
  * @author Jinkang He
@@ -12,19 +14,27 @@ public class Group implements CommonIndividual {
     private String groupAccount;
     private String groupName;
     private String groupIntroduce;
-    private InputStream inputStream;
+    private BufferedInputStream inputStream;
     private String groupHolder;
+    private Map<String, User> members = new HashMap<>();
 
     public Group() {
     }
 
-    public Group(String groupAccount, String groupName, String groupIntroduce, InputStream inputStream,
-                 String groupHolder) {
+    public Group(String groupAccount, String groupName, String groupIntroduce, BufferedInputStream inputStream, String groupHolder) {
         this.groupAccount = groupAccount;
         this.groupName = groupName;
         this.groupIntroduce = groupIntroduce;
         this.inputStream = inputStream;
         this.groupHolder = groupHolder;
+    }
+
+    public Map<String, User> getMembers() {
+        return members;
+    }
+
+    public void setMembers(Map<String, User> members) {
+        this.members = members;
     }
 
     public String getGroupAccount() {
@@ -51,11 +61,11 @@ public class Group implements CommonIndividual {
         this.groupIntroduce = groupIntroduce;
     }
 
-    public InputStream getInputStream() {
+    public BufferedInputStream getInputStream() {
         return inputStream;
     }
 
-    public void setInputStream(InputStream inputStream) {
+    public void setInputStream(BufferedInputStream inputStream) {
         this.inputStream = inputStream;
     }
 
@@ -79,7 +89,7 @@ public class Group implements CommonIndividual {
     }
 
     @Override
-    public InputStream getAvatarInputStream() {
+    public BufferedInputStream getAvatarInputStream() {
         return getInputStream();
     }
 

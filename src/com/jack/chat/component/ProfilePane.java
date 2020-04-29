@@ -1,10 +1,11 @@
 package com.jack.chat.component;
 
 import com.jack.chat.common.MainWindowHolder;
+import com.jack.chat.controller.MainWindow;
 import com.jack.chat.pojo.User;
 import com.jack.chat.service.UserService;
 import com.jack.chat.service.imp.UserServiceImpl;
-import com.jack.chat.util.AvatarLoad;
+import com.jack.chat.util.AvatarUtil;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -14,10 +15,7 @@ import javafx.scene.layout.Pane;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.InputStream;
+import java.io.*;
 import java.sql.SQLException;
 import java.time.LocalDate;
 
@@ -37,6 +35,7 @@ public class ProfilePane extends Pane {
     public TextArea signature;
     public User user;
     private InputStream inputStream;
+    MainWindow mainWindow;
 
 
     public ProfilePane(User user) {
@@ -63,8 +62,9 @@ public class ProfilePane extends Pane {
                 birthday.setValue(LocalDate.of(Integer.parseInt(date[0]), Integer.parseInt(date[1]),
                         Integer.parseInt(date[2])));
             }
-            AvatarLoad.loadSelfProfileAvatar(avatar, user);
+            AvatarUtil.loadAvatar(avatar, user);
             signature.setText(user.getSignature());
+            mainWindow = MainWindowHolder.getInstance().getMainWindow();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -80,7 +80,7 @@ public class ProfilePane extends Pane {
         user.setSignature(signature.getText());
         UserService userService = UserServiceImpl.getInstance();
         userService.updateUser(user);
-        AvatarLoad.loadUserAvatar(MainWindowHolder.getInstance().getMainWindow().userAvatar,user);
+        mainWindow.userName.setText(user.getNickName()==null?user.getAccount():user.getNickName());
     }
 
     public void chooseAvatar() throws IOException, SQLException {
@@ -90,13 +90,13 @@ public class ProfilePane extends Pane {
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (file != null) {
             inputStream = new FileInputStream(file);
-            user.setAvatar(inputStream);
+            BufferedInputStream bufferedInputStream = new BufferedInputStream(inputStream);
+            user.setAvatar(bufferedInputStream);
             Image image = new Image("file:" + file.getAbsolutePath());
             avatar.setImage(image);
-            AvatarLoad.changeAvatar(user);
-
+            AvatarUtil.changeAvatar(user,inputStream);//删除缓存头像
+            AvatarUtil.loadAvatar(mainWindow.userAvatar, user);//刷新头像
         }
-
     }
 
 

@@ -27,7 +27,7 @@ public class CreateGroupPane extends Pane {
     public TextField groupAccount, groupName;
     public TextArea groupIntroduce;
     public ImageView groupAvatar;
-    public InputStream inputStream;
+    public BufferedInputStream inputStream;
     public Label occupiedTip;
 
     public CreateGroupPane() {
@@ -61,7 +61,7 @@ public class CreateGroupPane extends Pane {
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (file != null) {
             groupAvatar.setImage(new Image("file:" + file.getPath()));
-            this.inputStream = new FileInputStream(file);
+            this.inputStream = new BufferedInputStream(new FileInputStream(file)) ;
         }
     }
 

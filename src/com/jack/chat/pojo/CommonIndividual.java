@@ -1,6 +1,6 @@
 package com.jack.chat.pojo;
 
-import java.io.InputStream;
+import java.io.BufferedInputStream;
 
 /**
  * @author Jinkang He
@@ -13,7 +13,7 @@ public  interface CommonIndividual {
      * 获取头像流
      * @return
      */
-    InputStream getAvatarInputStream();
+    BufferedInputStream getAvatarInputStream();
 
     /**
      * 获取标识符

@@ -40,4 +40,11 @@ public interface GroupService {
      * @return List
      */
     List<Group> query(String account);
+
+    /**
+     * 查找群
+     * @param id
+     * @return
+     */
+    Group queryById(String id);
 }

@@ -82,4 +82,15 @@ public class FileUtil {
             e.printStackTrace();
         }
     }
+
+    public static void deleteAvatarFile() {
+        File avatarParent = new File(avatarPath);
+        File[] files = avatarParent.listFiles();
+        for (File f :
+                files) {
+            if (f.isFile()) {
+                f.delete();
+            }
+        }
+    }
 }

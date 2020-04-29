@@ -15,7 +15,8 @@
         <VBox alignment="CENTER" fillWidth="false" layoutX="41.0" layoutY="29.0" spacing="10.0">
             <children>
                 <Label prefWidth="250.0" styleClass="logo" />
-            <Label alignment="CENTER" prefHeight="30.0" prefWidth="195.0" styleClass="login-fail-tip" text="登录信息有误！" />
+            <Label fx:id="loginFailedTip" alignment="CENTER" prefHeight="30.0" prefWidth="195.0"
+                   styleClass="login-fail-tip" text="账户或密码错误！" />
                 <TextField id="number" fx:id="account" prefHeight="0.0" prefWidth="200.0" styleClass="account-field" stylesheets="@../css/login.css">
                 </TextField>
                   <PasswordField id="password" fx:id="password" prefHeight="0.0" prefWidth="257.0" />

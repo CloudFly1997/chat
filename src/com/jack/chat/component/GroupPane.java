@@ -6,7 +6,7 @@ import com.jack.chat.controller.MainWindow;
 import com.jack.chat.pojo.Group;
 import com.jack.chat.service.MessageService;
 import com.jack.chat.service.imp.MessageServiceImpl;
-import com.jack.chat.util.AvatarLoad;
+import com.jack.chat.util.AvatarUtil;
 import com.jack.chat.util.Command;
 import com.jack.chat.util.PlaySound;
 import com.jack.transfer.Message;
@@ -49,7 +49,7 @@ public class GroupPane extends HBox {
         }
         this.group = group;
         this.groupName.setText(group.getGroupName());
-        AvatarLoad.loadGroupPaneAvatar(groupAvatar, group);
+        AvatarUtil.loadAvatar(groupAvatar, group);
         chatRecordBox = new VBox(5);
         this.setOnMouseClicked(event -> {
             if (event.getClickCount() == 2 && event.getButton().name().equals(MouseButton.PRIMARY.name())) {

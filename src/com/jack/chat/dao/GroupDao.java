@@ -31,9 +31,16 @@ public interface GroupDao {
     void update(Group group);
 
     /**
-     * 查找群
+     * 查找用户加入的群
      * @param account
      * @return 群集合
      */
     List<Group> query(String account);
+
+    /**
+     * 查找群
+     * @param id
+     * @return
+     */
+    Group queryById(String id);
 }
