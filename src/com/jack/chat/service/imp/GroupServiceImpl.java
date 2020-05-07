@@ -33,8 +33,8 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void verificationAccount(String account) {
-
+    public Group verificationAccount(String account) {
+        return groupDao.verificationAccount(account);
     }
 
     @Override

@@ -20,3 +20,7 @@ Button {
 TextArea {
     -fx-wrap-text: true;
 }
+
+.occupied-tip {
+    visibility: hidden;
+}

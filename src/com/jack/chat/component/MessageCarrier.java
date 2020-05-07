@@ -1,6 +1,9 @@
 package com.jack.chat.component;
 
 import com.jack.chat.common.GroupPaneHolder;
+import com.jack.chat.pojo.Group;
+import com.jack.chat.pojo.User;
+import com.jack.chat.service.imp.GroupServiceImpl;
 import com.jack.chat.util.*;
 import com.jack.transfer.Message;
 import javafx.geometry.Insets;
@@ -20,11 +23,13 @@ import javafx.scene.text.TextAlignment;
 public class MessageCarrier extends FlowPane {
     ImageView avatar = new ImageView();
     Node messageContent = null;
+
     public MessageCarrier(Message message) {
-        this(false,message);
+        this(false, message);
     }
+
     public MessageCarrier(boolean isSend, Message message) {
-        this.setPadding(new Insets(5,5,0,5));
+        this.setPadding(new Insets(5, 5, 0, 5));
         this.setHgap(5);
         this.setRowValignment(VPos.TOP);
         avatar.setFitHeight(60);
@@ -34,20 +39,31 @@ public class MessageCarrier extends FlowPane {
         VBox messageBody = new VBox(5);
         Text from = new Text();
         if (Command.GROUP.equals(message.getType())) {
-            from.setText(GroupPaneHolder.getInstance().getGroupPane(message.getToUser()).getGroup()
-                    .getMembers().get(message.getFromUser()).getNickName());
+            Group group = GroupPaneHolder.getInstance().getGroupPane(message.getToUser()).getGroup();
+            if (!group.getMembers().containsKey(message.getFromUser())) {
+                group = GroupServiceImpl.getInstance().queryById(group.getId());
+            }
+            User user = group.getMembers().get(message.getFromUser());
+            from.setText(user.getNickName() == null?user.getAccount():user.getNickName());
+            AvatarUtil.loadAvatar(avatar, user);
         }
         from.wrappingWidthProperty().bind(messageBody.widthProperty());
         if (message.getMessageContent().startsWith(Command.IMG_NAME)) {
             FileUtil.downloadImg(message.getMessageContent().replace(Command.IMG_NAME, ""));
-            messageContent = ImageLoad.loadImg(message.getMessageContent().replace(Command.IMG_NAME,""));
+            messageContent = ImageLoad.loadImg(message.getMessageContent().replace(Command.IMG_NAME, ""));
+        }
+        if (message.getMessageContent().startsWith(Command.FILE_NAME)) {
+            //FileUtil.downloadImg(message.getMessageContent().replace(Command.IMG_NAME, ""));
+            FileMessagePane fileMessagePane = new FileMessagePane(message.getMessageContent().replace(Command.FILE_NAME, ""));
+            messageContent = fileMessagePane;
+
         }
         messageBody.getChildren().addAll(from, messageContent);
-        if(isSend) {
+        if (isSend) {
             from.setTextAlignment(TextAlignment.RIGHT);
             this.setAlignment(Pos.TOP_RIGHT);
-            this.getChildren().addAll(messageBody,avatar);
-        }else {
+            this.getChildren().addAll(messageBody, avatar);
+        } else {
             this.getChildren().addAll(avatar, messageBody);
         }
     }

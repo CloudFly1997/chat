@@ -1,7 +1,9 @@
 package com.jack.chat.component;
 
 import com.jack.chat.common.MainWindowHolder;
+import com.jack.chat.common.Session;
 import com.jack.chat.controller.MainWindow;
+import com.jack.chat.util.Command;
 import com.jack.chat.util.PlaySound;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
@@ -25,6 +27,7 @@ public class NotifyPane extends HBox {
     public Label unReadMessageCountLabel, name;
     public int unReadMessageCount;
     MainWindow mainWindow = MainWindowHolder.getInstance().getMainWindow();
+    Session session = Session.getInstance();
 
     public NotifyPane() {
         try {
@@ -47,6 +50,7 @@ public class NotifyPane extends HBox {
             }
         });
         unReadMessageCountLabel.textProperty().addListener((observable, oldValue, newValue) -> {
+
             if (Integer.valueOf(newValue) == 0) {
                 unReadMessageCountLabel.setManaged(false);
                 unReadMessageCountLabel.setVisible(false);
@@ -64,6 +68,9 @@ public class NotifyPane extends HBox {
     }
 
     public void receiveMessage(Node node) {
+        if (!Command.NOTIFY.equals(session.getCurrentChatWith())) {
+            unReadMessageCountAdd();
+        }
         chatRecordBox.getChildren().add(node);
         PlaySound.playSoundWhenReceiveMessage();
     }
@@ -74,8 +81,12 @@ public class NotifyPane extends HBox {
     }
 
     public void chat() {
-        mainWindow.chatWith.setText(name.getText());
-        this.getChatRecordBox().heightProperty().addListener((observable, oldValue, newValue) -> mainWindow.messageAreaScrollPane.setVvalue(1));
-        mainWindow.messageAreaScrollPane.setContent(this.getChatRecordBox());
+        if (!Command.NOTIFY.equals(session.getCurrentChatWith())) {
+            session.setCurrentChatWith(Command.NOTIFY);
+            session.setCurrentChatWithType(Command.NOTIFY);
+            mainWindow.chatWith.setText(name.getText());
+            this.getChatRecordBox().heightProperty().addListener((observable, oldValue, newValue) -> mainWindow.messageAreaScrollPane.setVvalue(1));
+            mainWindow.messageAreaScrollPane.setContent(this.getChatRecordBox());
+        }
     }
 }

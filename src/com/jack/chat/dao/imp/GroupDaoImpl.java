@@ -57,6 +57,7 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement.setString(4, group.getGroupHolder());
             preparedStatement.setBinaryStream(5, group.getInputStream());
             preparedStatement.execute();
+            GroupMemberDaoImpl.getInstance().add(group.getGroupHolder(),group.getGroupAccount());
         } catch (SQLException e) {
             throw new DbException(e);
         } finally {
@@ -65,8 +66,8 @@ public class GroupDaoImpl implements GroupDao {
     }
 
     @Override
-    public void verificationAccount(String account) {
-
+    public Group verificationAccount(String account) {
+        return null;
     }
 
     @Override

@@ -20,6 +20,6 @@
          <padding>
             <Insets left="5.0" />
          </padding></Label>
-      <Label fx:id="unReadMessageCountLabel" alignment="CENTER" prefHeight="110.0" prefWidth="77.0" styleClass="unReadMessageCount" text="1" />
+      <Label fx:id="unReadMessageCountLabel" alignment="CENTER" prefHeight="110.0" prefWidth="77.0" styleClass="unReadMessageCount" text="0" visible="false" managed="false" />
    </children>
 </fx:root>

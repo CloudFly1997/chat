@@ -2,6 +2,7 @@ package com.jack.chat.common;
 
 import com.jack.chat.controller.MainWindow;
 import com.jack.chat.pojo.User;
+import com.jack.chat.util.Command;
 
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
@@ -89,6 +90,17 @@ public class Session {
 
     public void setCurrentChatWithType(String currentChatWithType) {
         this.currentChatWithType = currentChatWithType;
+        MainWindow mainWindow = MainWindowHolder.getInstance().getMainWindow();
+        if (currentChatWithType.equals(Command.NOTIFY)) {
+
+            mainWindow.sendImg.setDisable(true);
+            mainWindow.sendFile.setDisable(true);
+            mainWindow.sendButton.setDisable(true);
+        } else {
+            mainWindow.sendImg.setDisable(false);
+            mainWindow.sendFile.setDisable(false);
+            mainWindow.sendButton.setDisable(false);
+        }
     }
 
     public Map<String, User> getUserMap() {

@@ -10,8 +10,8 @@
         <TextArea fx:id="notification" editable="false" layoutX="25.0" layoutY="14.0" prefHeight="66.0" prefWidth="436.0" styleClass="notifyArea" AnchorPane.leftAnchor="30.0" />
         <ButtonBar layoutX="332.0" layoutY="89.0" AnchorPane.rightAnchor="20.0">
             <buttons>
-                <Button fx:id="agreeButton" mnemonicParsing="false" onAction="#agree" prefHeight="30.0" prefWidth="67.0" styleClass="agree" text="同意" />
-                <Button fx:id="refuseButton" mnemonicParsing="false" onAction="#refuse" prefHeight="30.0" prefWidth="67.0" styleClass="refuse" text="拒绝" />
+                <Button fx:id="agreeButton" mnemonicParsing="false" onAction="#agree" prefHeight="30.0" prefWidth="67.0" styleClass="agree"/>
+                <Button fx:id="refuseButton" mnemonicParsing="false" onAction="#refuse" prefHeight="30.0" prefWidth="67.0" styleClass="refuse"  />
             </buttons>
         </ButtonBar>
     </children>

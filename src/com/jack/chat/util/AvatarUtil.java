@@ -51,7 +51,6 @@ public class AvatarUtil {
                 InputStream in = null;
                 while (resultSet.next()) {
                     in = resultSet.getBinaryStream(1);
-                    System.out.println(in.available());
                 }
                 if (in == null) {
                     in = AvatarUtil.class.getClassLoader().getResourceAsStream("img/logo.png");
@@ -69,6 +68,7 @@ public class AvatarUtil {
             //如果文件存在直接使用
             image = new Image("file:" + imgPath);
         } catch (IOException | SQLException e) {
+            e.printStackTrace();
             image = new Image("file:" + defaultPath);
         } finally {
             DbUtil.close(connection, resultSet, preparedStatement);

@@ -159,7 +159,6 @@ public class FriendPane extends HBox {
 
     public void chat(User user) throws SQLException {
         if (!user.getAccount().equals(session.getCurrentChatWith())) {
-            mainWindow.chatWith.setText(user.getNickName());
             session.setCurrentChatWith(user.getAccount());
             session.setCurrentChatWithType(Command.FRIEND);
             mainWindow.chatWith.setText(user.getNickName());

@@ -11,7 +11,7 @@ import com.jack.chat.service.FriendService;
 import com.jack.chat.service.GroupService;
 import com.jack.chat.service.imp.FriendServiceImpl;
 import com.jack.chat.service.imp.GroupServiceImpl;
-import com.jack.chat.thread.ReceiveMessageService;
+import com.jack.chat.task.ReceiveMessageService;
 import com.jack.chat.util.AvatarUtil;
 import com.jack.chat.util.Command;
 import com.jack.chat.util.FileUtil;
@@ -68,6 +68,7 @@ public class MainWindow implements Initializable {
     public Label createGroup;
     public VBox groupListBox;
     public VBox notifyBox;
+    public Button sendButton;
     private FriendPaneHolder friendPaneHolder = FriendPaneHolder.getInstance();
     private GroupPaneHolder groupPaneHolder = GroupPaneHolder.getInstance();
     private Double offsetX;
@@ -131,7 +132,7 @@ public class MainWindow implements Initializable {
         userAvatar.setOnMouseClicked(e -> {
             new ProfilePane(user).show();
         });
-        userName.setText(user.getNickName()==null?user.getAccount():user.getNickName());
+        userName.setText(user.getNickName() == null ? user.getAccount() : user.getNickName());
         ois = session.getOis();
         oos = session.getOos();
         MainWindowHolder.getInstance().setMainWindow(this);
@@ -149,7 +150,7 @@ public class MainWindow implements Initializable {
         List<User> friendList = friendService.getFriendsList(user.getAccount());
         for (User user : friendList) {
             FriendPane friendPane = new FriendPane(user);
-            session.getUserMap().put(user.getAccount(),user);
+            session.getUserMap().put(user.getAccount(), user);
             friendPaneHolder.addFriendPane(user.getAccount(), friendPane);
             friendListBox.getChildren().add(friendPane);
         }
@@ -188,9 +189,26 @@ public class MainWindow implements Initializable {
         fileChooser.setTitle("选择图片");
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (file != null) {
-            Socket socket = new Socket(PropertiesUtil.getValue("server.ip"), Integer.parseInt(PropertiesUtil.getValue("client" +
-                    ".file.upload" +
-                    ".port")));
+            String type = session.getCurrentChatWithType();
+            String fileName = System.currentTimeMillis() + "/" + file.getName();
+            Message message = new Message(user.getAccount(),
+                    session.getCurrentChatWith(), Command.FILE_NAME + fileName + "/" + file.length(), type);
+            oos.writeObject(message);
+            if (type.equals(Command.FRIEND)) {
+                friendPaneHolder.getFriendPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+            } else if (type.equals(Command.GROUP)) {
+                groupPaneHolder.getGroupPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
+            }
+        }
+    }
+
+    public void sendImg(MouseEvent mouseEvent) throws IOException {
+        FileChooser fileChooser = new FileChooser();
+        fileChooser.setTitle("选择图片");
+        File file = fileChooser.showOpenDialog(root.getScene().getWindow());
+        if (file != null) {
+            Socket socket = new Socket(PropertiesUtil.getValue("server.ip")
+                    , Integer.parseInt(PropertiesUtil.getValue("client.file.upload.port")));
             FileInputStream fis = new FileInputStream(file);
             DataOutputStream dos = new DataOutputStream(socket.getOutputStream());
             String fileName = System.currentTimeMillis() + file.getName();
@@ -219,9 +237,5 @@ public class MainWindow implements Initializable {
             }
             socket.close();
         }
-    }
-
-    public void sendImg(MouseEvent mouseEvent) {
-        new FileChooser().showOpenDialog(root.getScene().getWindow());
     }
 }

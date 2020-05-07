@@ -1,4 +1,4 @@
-package com.jack.chat.thread;
+package com.jack.chat.task;
 
 import com.jack.chat.common.Session;
 import com.jack.chat.component.FriendPane;

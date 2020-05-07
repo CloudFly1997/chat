@@ -1,8 +1,13 @@
 package com.jack.chat.component;
 
+import com.jack.chat.common.GroupPaneHolder;
+import com.jack.chat.common.MainWindowHolder;
 import com.jack.chat.common.Session;
 import com.jack.chat.pojo.Group;
 import com.jack.chat.service.imp.GroupServiceImpl;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
@@ -36,6 +41,32 @@ public class CreateGroupPane extends Pane {
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             fxmlLoader.load();
+            groupAccount.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                @Override
+                public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+                    if (!newValue) {
+                        Task<Group> task = new Task<Group>() {
+                            @Override
+                            protected void updateValue(Group value) {
+                                super.updateValue(value);
+                                if (value != null) {
+                                    occupiedTip.setVisible(true);
+                                    occupiedTip.setManaged(true);
+                                }
+                            }
+
+                            @Override
+                            protected Group call() throws Exception {
+                                return GroupServiceImpl.getInstance().queryById(groupAccount.getText());
+                            }
+                        };
+                        new Thread(task).start();
+                    } else {
+                        occupiedTip.setVisible(false);
+                        occupiedTip.setManaged(false);
+                    }
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -73,5 +104,8 @@ public class CreateGroupPane extends Pane {
                 Session.getInstance().getUser().getAccount());
         GroupServiceImpl.getInstance().create(group);
         System.out.println("创建成功！");
+        GroupPane newGroupPane = new GroupPane(group);
+        GroupPaneHolder.getInstance().addGroupPane(groupAccount,newGroupPane);
+        MainWindowHolder.getInstance().getMainWindow().groupListBox.getChildren().add(newGroupPane);
     }
 }

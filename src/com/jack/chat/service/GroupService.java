@@ -25,7 +25,7 @@ public interface GroupService {
      *
      * @param account
      */
-    void verificationAccount(String account);
+    Group verificationAccount(String account);
 
     /**
      * 更新群

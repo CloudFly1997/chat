@@ -22,7 +22,7 @@ public interface GroupDao {
      * 验证账号是否可用
      * @param account
      */
-    void verificationAccount(String account);
+    Group verificationAccount(String account);
 
     /**
      * 更新群

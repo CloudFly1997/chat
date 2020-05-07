@@ -18,7 +18,8 @@
                <children>
                   <Label text="设置群账号" />
                   <TextField fx:id="groupAccount" />
-                  <Label fx:id="occupiedTip" prefHeight="20.0" prefWidth="139.0" text="此账号已经被占用！" textFill="#ee0c0c" />
+                  <Label fx:id="occupiedTip" prefHeight="20.0" prefWidth="139.0" text="此账号已经被占用！" textFill="#ee0c0c"
+                         styleClass="occupied-tip"/>
                </children>
             </HBox>
             <HBox alignment="CENTER_LEFT" spacing="5.0">

@@ -1,4 +1,4 @@
-package com.jack.chat.thread;
+package com.jack.chat.task;
 
 import com.jack.chat.common.FriendPaneHolder;
 import com.jack.chat.common.GroupPaneHolder;

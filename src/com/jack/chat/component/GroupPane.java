@@ -12,6 +12,7 @@ import com.jack.chat.util.PlaySound;
 import com.jack.transfer.Message;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Side;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.image.ImageView;
@@ -58,7 +59,7 @@ public class GroupPane extends HBox {
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
                     chat(group);
             } else if (event.getButton().name().equals(MouseButton.SECONDARY.name())) {
-                //new FriendMenu(this).show(this, Side.RIGHT, 0, 0);
+                new GroupMenu(this).show(this, Side.RIGHT, 0, 0);
             }
         });
         unReadMessageCountLabel.textProperty().addListener((observable, oldValue, newValue) -> {

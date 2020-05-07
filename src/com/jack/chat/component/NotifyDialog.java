@@ -32,7 +32,7 @@ public class NotifyDialog extends AnchorPane {
     public NotifyDialog(Message message) {
         this.message = message;
         try {
-            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/addFriendDialog.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("/fxml/notifyDialog.fxml"));
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             fxmlLoader.load();
