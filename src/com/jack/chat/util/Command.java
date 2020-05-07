@@ -17,4 +17,5 @@ public class Command {
     public static final String AGREE_JOIN_GROUP = "[AGREE_JOIN_GROUP]";
     public static final String NOTIFY = "[NOTIFY]";
     public static final String FILE_NAME = "[FILE_NAME]";
+    public static final String SPLIT_CODE = "@";
 }

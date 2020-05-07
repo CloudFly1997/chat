@@ -190,10 +190,10 @@ public class MainWindow implements Initializable {
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (file != null) {
             String type = session.getCurrentChatWithType();
-            String fileName = System.currentTimeMillis() + "/" + file.getName();
+           // String fileName = System.currentTimeMillis() + "/" + file.getName();
             Message message = new Message(user.getAccount(),
-                    session.getCurrentChatWith(), Command.FILE_NAME + fileName + "/" + file.length(), type);
-            oos.writeObject(message);
+                    session.getCurrentChatWith(), Command.FILE_NAME + file.getAbsolutePath(), type);
+
             if (type.equals(Command.FRIEND)) {
                 friendPaneHolder.getFriendPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
             } else if (type.equals(Command.GROUP)) {

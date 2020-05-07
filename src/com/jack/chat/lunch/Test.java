@@ -7,25 +7,11 @@ package com.jack.chat.lunch;
  */
 
 public class Test {
-    /*public static void main(String[] args) {
-        Connection connection = null;
-        PreparedStatement preparedStatement = null;
-        ResultSet resultSet = null;
-        try {
-            connection = DbUtil.getConnection();
-            preparedStatement = connection.prepareStatement("select avatar from user where user_id = ?");
-            preparedStatement.setString(1, "1981530505");
-            resultSet = preparedStatement.executeQuery();
-            InputStream in = null;
-            while (resultSet.next()) {
-                in = resultSet.getBinaryStream("avatar");
-                System.out.println(in.available());
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } catch (IOException e) {
-            e.printStackTrace();
-        } finally {
-        }
-    }*/
+    public static void main(String[] args) {
+        String test = "1588839700312@何锦康2020届本科毕业综合训练手册.doc@65534";
+        System.out.println(test.substring(0,test.indexOf("@")));
+        System.out.println(test.substring(test.indexOf("@")+1,test.lastIndexOf("@")));
+        System.out.println(test.substring(test.lastIndexOf("@")+1));
+        System.out.println(test.substring(0,test.lastIndexOf("@")));
+    }
 }

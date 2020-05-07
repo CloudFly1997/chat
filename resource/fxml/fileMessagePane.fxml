@@ -15,6 +15,6 @@
       </ImageView>
       <Label fx:id="fileName" layoutX="149.0" layoutY="28.0" prefHeight="20.0" prefWidth="207.0" text="文件名.doc" />
       <Label fx:id="fileSize" layoutX="149.0" layoutY="62.0" prefHeight="20.0" prefWidth="171.0" text="28.5k" />
-      <ProgressBar fx:id="process" layoutY="95.0" prefHeight="0.0" prefWidth="426.0" progress="0.0" />
+      <ProgressBar fx:id="progressBar" layoutY="95.0" prefHeight="0.0" prefWidth="426.0" progress="0.0" />
    </children>
 </fx:root>

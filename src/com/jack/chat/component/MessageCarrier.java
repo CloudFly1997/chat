@@ -53,9 +53,14 @@ public class MessageCarrier extends FlowPane {
             messageContent = ImageLoad.loadImg(message.getMessageContent().replace(Command.IMG_NAME, ""));
         }
         if (message.getMessageContent().startsWith(Command.FILE_NAME)) {
-            //FileUtil.downloadImg(message.getMessageContent().replace(Command.IMG_NAME, ""));
-            FileMessagePane fileMessagePane = new FileMessagePane(message.getMessageContent().replace(Command.FILE_NAME, ""));
-            messageContent = fileMessagePane;
+            if (isSend) {
+                SendFileMessagePane fileMessagePane = new SendFileMessagePane(message);
+                messageContent = fileMessagePane;
+            } else {
+                ReceiveFileMessagePane receiveFileMessagePane = new ReceiveFileMessagePane(message);
+                messageContent = receiveFileMessagePane;
+            }
+
 
         }
         messageBody.getChildren().addAll(from, messageContent);
