@@ -9,7 +9,9 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<fx:root alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="451.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/searchPane.css" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<fx:root fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+         minWidth="-Infinity"
+         prefHeight="451.0" prefWidth="600.0" styleClass="root" stylesheets="@../css/searchPane.css" type="javafx.scene.layout.GridPane" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
   <columnConstraints>
     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
   </columnConstraints>
@@ -27,9 +29,9 @@
       <AnchorPane prefHeight="270.0" prefWidth="600.0" styleClass="part-two" GridPane.rowIndex="1">
          <children>
             <ImageView fx:id="avatar" fitHeight="240.0" fitWidth="240.0" pickOnBounds="true" preserveRatio="true" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="5.0" />
-            <TextField fx:id="account" layoutX="294.0" layoutY="24.0" />
-            <TextField fx:id="nickName" layoutX="294.0" layoutY="77.0" />
-            <TextField fx:id="address" layoutX="294.0" layoutY="132.0" />
+            <TextField fx:id="account" layoutX="294.0" layoutY="24.0" editable="false" />
+            <TextField fx:id="nickName" layoutX="294.0" layoutY="77.0" editable="false" />
+            <TextField fx:id="address" layoutX="294.0" layoutY="132.0" editable="false" />
             <Button fx:id="addFriend" layoutX="294.0" layoutY="201.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="90.0" styleClass="add-button" text="添加好友" />
          </children></AnchorPane>
    </children>

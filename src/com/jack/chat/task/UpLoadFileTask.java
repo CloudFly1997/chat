@@ -2,7 +2,6 @@ package com.jack.chat.task;
 
 import com.jack.chat.common.Session;
 import com.jack.chat.util.Command;
-import com.jack.chat.util.FileUtil;
 import com.jack.chat.util.PropertiesUtil;
 import com.jack.transfer.Message;
 import javafx.concurrent.Task;
@@ -10,7 +9,6 @@ import javafx.concurrent.Task;
 import java.io.DataOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileOutputStream;
 import java.net.Socket;
 
 /**
@@ -52,11 +50,11 @@ public class UpLoadFileTask extends Task<Number> {
         dos.writeUTF(fileName);
 
         //将文件复制到程序文件夹
-        String imgPath = FileUtil.getFilePath() + fileName;
-        File localFile = new File(imgPath);
-        FileOutputStream localSave = new FileOutputStream(localFile);
+        //String imgPath = FileUtil.getFilePath() + fileName;
+        //File localFile = new File(imgPath);
+        //FileOutputStream localSave = new FileOutputStream(localFile);
 
-        byte[] bytes = new byte[1024];
+        byte[] bytes = new byte[Integer.parseInt(PropertiesUtil.getValue("file.upload.speed"))];
         double totalSize = fis.available();
         double sum = 0;
         int len = 0;
@@ -64,12 +62,12 @@ public class UpLoadFileTask extends Task<Number> {
             dos.write(bytes, 0, len);
             sum += len;
             this.updateProgress(sum, totalSize);
-            localSave.write(bytes, 0, len);
+            //localSave.write(bytes, 0, len);
         }
         socket.shutdownOutput();
         fis.close();
         dos.close();
-        localSave.close();
+        //localSave.close();
         socket.close();
         message.setMessageContent(Command.FILE_NAME + fileName + Command.SPLIT_CODE + totalSize);
         Session.getInstance().getOos().writeObject(message);

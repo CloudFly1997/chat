@@ -22,7 +22,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 
@@ -64,11 +63,7 @@ public class FriendPane extends HBox {
                 //双击事件
             }
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
-                try {
                     chat(user);
-                } catch (SQLException e) {
-                    e.printStackTrace();
-                }
             } else if (event.getButton().name().equals(MouseButton.SECONDARY.name())) {
                 new FriendMenu(this).show(this, Side.RIGHT, 0, 0);
             }
@@ -93,7 +88,7 @@ public class FriendPane extends HBox {
     }
 
     public void receiveMessage(Node node) {
-        if (!user.equals(session.getCurrentChatWith())) {
+        if (!user.getAccount().equals(session.getCurrentChatWith())) {
             unReadMessageCountAdd();
         }
         chatRecordBox.getChildren().add(node);
@@ -157,11 +152,11 @@ public class FriendPane extends HBox {
     }
 
 
-    public void chat(User user) throws SQLException {
+    public void chat(User user) {
         if (!user.getAccount().equals(session.getCurrentChatWith())) {
             session.setCurrentChatWith(user.getAccount());
             session.setCurrentChatWithType(Command.FRIEND);
-            mainWindow.chatWith.setText(user.getNickName());
+            mainWindow.chatWith.setText(user.getNickName() == null?user.getAccount():user.getNickName());
             this.getChatRecordBox().heightProperty().addListener((observable, oldValue, newValue) -> mainWindow.messageAreaScrollPane.setVvalue(1));
             mainWindow.messageAreaScrollPane.setContent(this.getChatRecordBox());
         }

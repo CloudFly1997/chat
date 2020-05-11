@@ -166,6 +166,10 @@ TextArea {
     -fx-background-color: #FFFFFF;
 }
 
+.messageEditArea .scroll-pane {
+    -fx-fit-to-height: true;
+}
+
 .send-button {
     -fx-font-family: "Font Awesome 5 Brands";
     -fx-font-weight: bolder;

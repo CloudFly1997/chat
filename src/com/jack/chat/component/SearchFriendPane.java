@@ -27,6 +27,7 @@ public class SearchFriendPane extends GridPane {
     public TextField searchField, nickName, account, address;
     public Button addFriend;
     public ImageView avatar;
+    public GridPane root;
 
     public SearchFriendPane() {
         init();
@@ -47,6 +48,7 @@ public class SearchFriendPane extends GridPane {
         Stage stage = new Stage();
         Scene scene = new Scene(this);
         stage.setScene(scene);
+        stage.setTitle("搜索好友");
         stage.show();
     }
 

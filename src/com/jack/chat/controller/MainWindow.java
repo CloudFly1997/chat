@@ -21,6 +21,7 @@ import javafx.application.Platform;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -106,17 +107,36 @@ public class MainWindow implements Initializable {
             window.setY(event.getScreenY() - this.offsetY);
         });
 
+        messageEditArea.setOnKeyPressed(e -> {
+
+            if (e.isShiftDown() && e.getCode() == KeyCode.ENTER) {
+                messageEditArea.appendText("\n");
+                return;
+            }
+            if (e.getCode() == KeyCode.ENTER) {
+                sendMessage();
+                e.consume();
+            }
+
+        });
+        Tooltip addFriendTooltip = new Tooltip("搜索好友");
+        Tooltip addGroupTooltip = new Tooltip("搜索群");
+        Tooltip createGroupTooltip = new Tooltip("创建群");
+        addFriend.setTooltip(addFriendTooltip);
         addFriend.setOnMouseClicked(event -> {
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
                 new SearchFriendPane().show();
             }
         });
+
+        addGroup.setTooltip(addGroupTooltip);
         addGroup.setOnMouseClicked(event -> {
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
                 new SearchGroupPane().show();
             }
         });
 
+        createGroup.setTooltip(createGroupTooltip);
         createGroup.setOnMouseClicked(event -> {
             if (event.getButton().name().equals(MouseButton.PRIMARY.name())) {
                 new CreateGroupPane().show();
@@ -166,7 +186,7 @@ public class MainWindow implements Initializable {
         }
     }
 
-    public void sendMessage() throws IOException {
+    public void sendMessage() {
         String originMessage = messageEditArea.getText();
         if (("").equals(originMessage)) {
             return;
@@ -174,7 +194,11 @@ public class MainWindow implements Initializable {
         String type = session.getCurrentChatWithType();
         Message message = new Message(user.getAccount(),
                 session.getCurrentChatWith(), originMessage, type);
-        oos.writeObject(message);
+        try {
+            oos.writeObject(message);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         messageEditArea.clear();
         if (type.equals(Command.FRIEND)) {
             friendPaneHolder.getFriendPane(session.getCurrentChatWith()).getChatRecordBox().getChildren().add(new MessageCarrier(true, message));
@@ -190,7 +214,7 @@ public class MainWindow implements Initializable {
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (file != null) {
             String type = session.getCurrentChatWithType();
-           // String fileName = System.currentTimeMillis() + "/" + file.getName();
+            // String fileName = System.currentTimeMillis() + "/" + file.getName();
             Message message = new Message(user.getAccount(),
                     session.getCurrentChatWith(), Command.FILE_NAME + file.getAbsolutePath(), type);
 

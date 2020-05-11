@@ -2,6 +2,7 @@ package com.jack.chat.component;
 
 import com.jack.chat.task.DownLoadFileTask;
 import com.jack.chat.util.Command;
+import com.jack.chat.util.FileUtil;
 import com.jack.chat.util.MessageHandle;
 import com.jack.transfer.Message;
 import javafx.beans.value.ChangeListener;
@@ -11,6 +12,8 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.layout.Pane;
 
+import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 
 /**
@@ -20,8 +23,9 @@ import java.io.IOException;
  */
 
 public class ReceiveFileMessagePane extends Pane {
-    public Label fileName,fileSize;
+    public Label fileName, fileSize;
     public ProgressBar progressBar;
+    public Pane root;
 
 
     public ReceiveFileMessagePane(Message message) {
@@ -30,12 +34,22 @@ public class ReceiveFileMessagePane extends Pane {
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             fxmlLoader.load();
-            String content = message.getMessageContent().replace(Command.FILE_NAME,"");
+            String content = message.getMessageContent().replace(Command.FILE_NAME, "");
             fileName.setText(MessageHandle.getFileNameFromMessageContent(content));
             double b = Double.parseDouble(MessageHandle.getFileSizeFromMessageContent(content));
-            String size = String.format("%.2f",b/1024/1024);
-            fileSize.setText(size);
+            String size = String.format("%.2f", b / 1024 / 1024);
+            fileSize.setText(size + "M");
             downLoad(message);
+            root.setOnMouseClicked(event ->  {
+                if (event.getClickCount() == 2) {
+                    try {
+                        Desktop.getDesktop().open(new File(FileUtil.getFilePath()+fileName.getText()));
+                    } catch (IOException e) {
+                        //文件损坏移动会出错
+                        e.printStackTrace();
+                    }
+                }
+            });
         } catch (IOException e) {
             e.printStackTrace();
         }

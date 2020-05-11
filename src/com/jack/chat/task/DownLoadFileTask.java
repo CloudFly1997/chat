@@ -58,9 +58,8 @@ public class DownLoadFileTask extends Task<Number> {
 
         //告知服务器需要下载哪个文件
         dos.writeUTF(needDownLoadFileName);
-        System.out.println(needDownLoadFileName);
         FileOutputStream fos = new FileOutputStream(file);
-        byte[] buf = new byte[1024];
+        byte[] buf = new byte[Integer.parseInt(PropertiesUtil.getValue("file.download.speed"))];
         double sum = 0;
         int len = 0;
         //往字节流里写图片数据

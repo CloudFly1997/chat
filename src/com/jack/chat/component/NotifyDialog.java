@@ -36,6 +36,8 @@ public class NotifyDialog extends AnchorPane {
             fxmlLoader.setRoot(this);
             fxmlLoader.setController(this);
             fxmlLoader.load();
+            agreeButton.setText("同意");
+            refuseButton.setText("拒绝");
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -45,7 +47,7 @@ public class NotifyDialog extends AnchorPane {
                     GroupPaneHolder.getInstance().getGroupPane(message.getMessageContent()).getGroup().getGroupName();
             notification.setText(message.getFromUser() + "申请加入" + groupName + "群聊！");
         } else if (Command.ADD_FRIEND.equals(message.getType())) {
-            notification.setText(message + "请求添加您为好友！");
+            notification.setText(message.getFromUser()  + "请求添加您为好友！");
         }
     }
 

@@ -5,11 +5,9 @@ import com.jack.chat.util.Command;
 import com.jack.transfer.Message;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 
 import java.awt.*;
@@ -38,19 +36,16 @@ public class SendFileMessagePane extends Pane {
             String path = message.getMessageContent().replace(Command.FILE_NAME,"");
             file = new File(path);
             fileName.setText(file.getName());
-            String size = String.format("%.1f",file.length()/1024.0/1024.0);
+            String size = String.format("%.2f",file.length()/1024.0/1024.0);
             fileSize.setText(size+"M");
             upLoad(message);
-            root.setOnMouseClicked(new EventHandler<MouseEvent>() {
-                @Override
-                public void handle(MouseEvent event) {
-                    if (event.getClickCount() == 2) {
-                        try {
-                            Desktop.getDesktop().open(file);
-                        } catch (IOException e) {
-                            //文件损坏移动会出错
-                            e.printStackTrace();
-                        }
+            root.setOnMouseClicked(event ->  {
+                if (event.getClickCount() == 2) {
+                    try {
+                        Desktop.getDesktop().open(file);
+                    } catch (IOException e) {
+                        //文件损坏移动会出错
+                        e.printStackTrace();
                     }
                 }
             });

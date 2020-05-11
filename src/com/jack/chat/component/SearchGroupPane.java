@@ -48,6 +48,7 @@ public class SearchGroupPane extends GridPane {
         Stage stage = new Stage();
         Scene scene = new Scene(this);
         stage.setScene(scene);
+        stage.setTitle("搜索群");
         stage.show();
     }
 

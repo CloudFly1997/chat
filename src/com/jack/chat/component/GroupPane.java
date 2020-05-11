@@ -149,7 +149,7 @@ public class GroupPane extends HBox {
         if (!group.getGroupAccount().equals(session.getCurrentChatWith())) {
             session.setCurrentChatWith(group.getGroupAccount());
             session.setCurrentChatWithType(Command.GROUP);
-            mainWindow.chatWith.setText(group.getGroupName());
+            mainWindow.chatWith.setText(group.getGroupName() == null?group.getGroupAccount():group.getGroupName());
             this.getChatRecordBox().heightProperty().addListener((observable, oldValue, newValue) -> mainWindow.messageAreaScrollPane.setVvalue(1));
             mainWindow.messageAreaScrollPane.setContent(this.getChatRecordBox());
         }
