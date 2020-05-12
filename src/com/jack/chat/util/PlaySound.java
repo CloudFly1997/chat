@@ -12,15 +12,15 @@ import java.io.InputStream;
  */
 public class PlaySound {
 
-	private static InputStream inputStream = PlaySound.class.getClassLoader().getResourceAsStream("sound/泡泡音" +
-			".wav");
     public static void playSoundWhenReceiveMessage() {
         try {
+            InputStream inputStream = PlaySound.class.getClassLoader().getResourceAsStream("sound/泡泡音" +
+                    ".wav");
             AudioStream as = new AudioStream(inputStream);
             AudioPlayer.player.start(as);
         } catch (IOException e) {
             e.printStackTrace();
         }
     }
-    
+
 }

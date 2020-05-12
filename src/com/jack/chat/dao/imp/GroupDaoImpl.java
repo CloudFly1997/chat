@@ -53,8 +53,8 @@ public class GroupDaoImpl implements GroupDao {
             preparedStatement = connection.prepareStatement(CREATE_GROUP_SQL);
             preparedStatement.setString(1, group.getGroupAccount());
             preparedStatement.setString(2, group.getGroupName());
-            preparedStatement.setString(3, group.getGroupIntroduce());
-            preparedStatement.setString(4, group.getGroupHolder());
+            preparedStatement.setString(3, group.getGroupHolder());
+            preparedStatement.setString(4, group.getGroupIntroduce());
             preparedStatement.setBinaryStream(5, group.getInputStream());
             preparedStatement.execute();
             GroupMemberDaoImpl.getInstance().add(group.getGroupHolder(),group.getGroupAccount());

@@ -10,6 +10,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.concurrent.Task;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
@@ -34,6 +35,7 @@ public class CreateGroupPane extends Pane {
     public ImageView groupAvatar;
     public BufferedInputStream inputStream;
     public Label occupiedTip;
+    public Button create;
 
     public CreateGroupPane() {
         try {
@@ -103,7 +105,8 @@ public class CreateGroupPane extends Pane {
         Group group = new Group(groupAccount, groupName, groupIntroduce, inputStream,
                 Session.getInstance().getUser().getAccount());
         GroupServiceImpl.getInstance().create(group);
-        System.out.println("创建成功！");
+        //此处仍需要认证
+        create.setText("创建成功");
         GroupPane newGroupPane = new GroupPane(group);
         GroupPaneHolder.getInstance().addGroupPane(groupAccount,newGroupPane);
         MainWindowHolder.getInstance().getMainWindow().groupListBox.getChildren().add(newGroupPane);

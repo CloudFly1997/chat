@@ -23,7 +23,6 @@ import javafx.scene.control.*;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.MouseButton;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -208,9 +207,9 @@ public class MainWindow implements Initializable {
     }
 
 
-    public void sendFile(MouseEvent mouseEvent) throws IOException {
+    public void sendFile() {
         FileChooser fileChooser = new FileChooser();
-        fileChooser.setTitle("选择图片");
+        fileChooser.setTitle("选择文件");
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());
         if (file != null) {
             String type = session.getCurrentChatWithType();
@@ -226,7 +225,7 @@ public class MainWindow implements Initializable {
         }
     }
 
-    public void sendImg(MouseEvent mouseEvent) throws IOException {
+    public void sendImg() throws IOException {
         FileChooser fileChooser = new FileChooser();
         fileChooser.setTitle("选择图片");
         File file = fileChooser.showOpenDialog(root.getScene().getWindow());

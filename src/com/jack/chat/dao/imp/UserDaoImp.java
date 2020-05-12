@@ -67,7 +67,6 @@ public class UserDaoImp implements UserDao {
             rs = ps.executeQuery();
             while (rs.next()) {
                 user = ResultSetToObject.rsToUserObject(rs);
-
             }
             return user;
         } catch (SQLException e) {
